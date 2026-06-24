@@ -257,6 +257,49 @@
     .work .item{padding:34px 0}
     #glow{display:none}
   }
+  /* ---------- téléphone ---------- */
+  @media(max-width:600px){
+    .wrap{padding:0 20px}
+    section{padding:60px 0}
+    nav{height:62px}
+    .nav-r{gap:0}
+    .nav-r .idx{display:none}
+    .nav-cta{padding:8px 15px;font-size:12.5px}
+    .logo img{height:26px}
+    .hero{min-height:auto;padding:96px 0 36px;gap:28px}
+    h1{font-size:clamp(33px,8.6vw,46px);letter-spacing:-1.4px;line-height:1.02}
+    .hero-l .tag{margin-bottom:20px;font-size:10.5px;padding:6px 13px;letter-spacing:1.5px}
+    .hero-l p{font-size:16px;margin-top:22px;line-height:1.6}
+    .hero-actions{margin-top:26px;gap:12px}
+    .btn{padding:15px 24px;font-size:14.5px}
+    .assur{gap:8px 16px;margin-top:20px;font-size:12.5px}
+    .hero-r{height:64vh;min-height:330px}
+    .strip{padding:14px 0}
+    .strip span{font-size:21px;margin:0 15px}
+    .lead-row{gap:14px}
+    .lead-row .idx{padding-top:0}
+    .stats{padding:60px 0}
+    .stats .grid{gap:36px 16px}
+    .stat{padding:0 6px}
+    .stat .num{font-size:clamp(34px,11vw,52px);letter-spacing:-1px}
+    .stat .lab{font-size:13px;margin-top:12px}
+    .work .item{padding:26px 0;gap:10px}
+    .domains h2,.lead-row h2{letter-spacing:-.6px}
+    .db-grid{margin-top:36px;gap:10px}
+    .dom{font-size:14px}
+    .steps{margin-top:40px}
+    .quote{padding:70px 0}
+    .origin p,.cta p,.creed li{font-size:16px}
+    .cta .actions{margin-top:36px;gap:12px}
+    .f-top{padding:48px 0 34px}
+    .f-base{justify-content:center;text-align:center;gap:8px}
+  }
+  @media(max-width:430px){
+    h1{font-size:clamp(30px,8.4vw,40px)}
+    .hero-actions,.cta .actions{flex-direction:column;align-items:stretch}
+    .hero-actions .btn,.cta .actions .btn{width:100%;justify-content:center}
+    .stats .grid{grid-template-columns:1fr 1fr;gap:30px 14px}
+  }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important}
     .r,.words span{opacity:1!important;transform:none!important;filter:none!important;transition:none}
@@ -340,7 +383,7 @@
         <a class="btn btn-o" href="#process">Comment ça marche</a>
       </div>
       <div class="assur r">
-        <span>Sans engagement</span><span>Premier outil en quelques semaines</span><span>Vous gardez la main</span>
+        <span>Sans engagement</span><span>Premier outil en environ 3 jours</span><span>Vous gardez la main</span>
       </div>
     </div>
     <div class="hero-r r">
@@ -371,7 +414,7 @@
   <div class="grid">
     <div class="stat r"><div class="num" data-to="100" data-suffix=" %">0</div><div class="lab">sur-mesure — zéro template, zéro logiciel générique.</div></div>
     <div class="stat r"><div class="num" data-to="3" data-suffix="">0</div><div class="lab">étapes, c'est tout : on regarde, on construit, vous gagnez du temps.</div></div>
-    <div class="stat r"><div class="num" data-to="2" data-prefix="~" data-suffix=" sem.">0</div><div class="lab">pour un premier outil utile entre vos mains.</div></div>
+    <div class="stat r"><div class="num" data-to="3" data-prefix="~" data-suffix=" jours">0</div><div class="lab">pour un premier outil utile entre vos mains.</div></div>
     <div class="stat r"><div class="num" data-to="1" data-suffix="">0</div><div class="lab">interlocuteur qui construit avec vous — pas un service support.</div></div>
   </div>
 </div></section>
@@ -399,11 +442,12 @@
     <h2>Pas des promesses : des briques <b>déjà construites,</b> testées en conditions réelles, <span class="serif it">qu'on recâble pour votre métier.</span></h2>
   </div>
   <div class="work">
-    <div class="item r"><div class="n">i</div><h3>Trouver et trier vos cibles</h3><p>Repérer automatiquement les bonnes entreprises depuis les registres officiels, les enrichir, puis les classer par potentiel. Le système tourne seul et vous remet une short-list prête à traiter.<span class="ex">sur des milliers d'entreprises, 5 à 10 vraiment prioritaires chaque semaine, classées par l'IA.</span></p></div>
-    <div class="item r"><div class="n">ii</div><h3>Réunir l'info éparpillée</h3><p>Croiser registres, données financières, site web et profils publics pour reconstituer, sans recherche manuelle, le dossier complet d'une entreprise ou d'un contact.<span class="ex">dirigeants, certifications et signaux d'investissement détectés tout seuls.</span></p></div>
-    <div class="item r"><div class="n">iii</div><h3>Noter et décider avec l'IA</h3><p>Un moteur de scoring sur-mesure : vos critères pondérés, une note justifiée et un verdict — prioritaire, à creuser, à écarter — preuves citées à l'appui.<span class="ex">chaque dossier noté sur 10, avec un argumentaire écrit pour lui, pas un copier-coller.</span></p></div>
-    <div class="item r"><div class="n">iv</div><h3>Un tableau de bord pour piloter</h3><p>Une interface web claire — indicateurs, cartes, listes filtrables, fiches détaillées, suivi — pour voir l'activité d'un coup d'œil et garder la main.<span class="ex">une console qui montre en temps réel ce que la machine est en train de faire.</span></p></div>
-    <div class="item r"><div class="n">v</div><h3>Connecter vos outils existants</h3><p>Brancher votre CRM, vos fichiers, vos emails, des services externes — pour que tout circule de bout en bout, sans ressaisie.<span class="ex">des prospects qualifiés qui arrivent directement dans le CRM, argumentaire inclus.</span></p></div>
+    <div class="item r"><div class="n">i</div><h3>Vendre sans courir après</h3><p>Repérer les bonnes cibles, les classer par potentiel et relancer au bon moment. Le commercial arrive le matin sur une short-list prête à traiter, pas sur une page blanche.</p></div>
+    <div class="item r"><div class="n">ii</div><h3>Toute l'entreprise en un coup d'œil</h3><p>Un tableau de bord unique qui réunit ventes, production, trésorerie et équipe. L'état réel de la boîte en temps réel, sans jongler entre dix fichiers Excel.</p></div>
+    <div class="item r"><div class="n">iii</div><h3>Du devis à la facture, sans ressaisie</h3><p>Générer, envoyer et relancer devis et factures tout seul, suivre qui a payé et qui traîne. L'administratif tourne en fond pendant que vous faites votre métier.</p></div>
+    <div class="item r"><div class="n">iv</div><h3>Répondre vite, bien, à chaque fois</h3><p>Trier les demandes clients, préparer des réponses justes à partir de vos propres infos, n'oublier aucun message. Le SAV garde la main, la machine fait le brouillon.</p></div>
+    <div class="item r"><div class="n">v</div><h3>Le bon chiffre, au bon moment</h3><p>Des rapports qui se construisent seuls et arrivent quand il faut — chaque lundi, chaque fin de mois — avec une alerte dès qu'un indicateur décroche.</p></div>
+    <div class="item r"><div class="n">vi</div><h3>Vos outils enfin reliés</h3><p>Brancher CRM, fichiers, emails et logiciels métier pour que l'info circule de bout en bout. Zéro double saisie, zéro copier-coller entre deux applis.</p></div>
   </div>
 </div></section>
 
@@ -704,14 +748,15 @@ const DOM_EX={
 const cv=document.getElementById('graph'),ctx=cv.getContext('2d');
 const dpr=Math.min(2,window.devicePixelRatio||1);
 const phaseEl=document.getElementById('phase');
-let W,H,sources=[],outputs=[],hub,card,startT=null;
+let W,H,sources=[],outputs=[],hub,card,startT=null,MOB=false;
 const SRC_LABELS=['DONNÉES','VISION','TEMPS','DÉCISIONS','CONTRÔLE'];
 function rand(a,b){return a+Math.random()*(b-a)}
 function build(){
   W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr;
-  hub={tx:W*0.52,ty:H*0.5};
-  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*0.16, ty:H*(0.16+i*0.17), cxp:rand(0,W*0.75), cyp:rand(0,H), seed:rand(0,6.28)}));
-  card={ x:W*0.62, w:W*0.30, y:H*0.27, h:H*0.46 };
+  MOB=innerWidth<880;   // = même seuil que le passage du hero en colonne (CSS @media 880px)
+  hub={tx:(MOB?0.42:0.52)*W,ty:(MOB?0.24:0.5)*H};
+  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*(MOB?0.14:0.16), ty:H*((MOB?0.05:0.16)+i*(MOB?0.085:0.17)), cxp:rand(0,W*0.8), cyp:rand(0,H*(MOB?0.42:1)), seed:rand(0,6.28)}));
+  card=MOB?{ x:W*0.21, w:W*0.58, y:H*0.36, h:H*0.60 }:{ x:W*0.62, w:W*0.30, y:H*0.27, h:H*0.46 };
   outputs=[rand(.55,1),rand(.4,.85),rand(.7,1)].map(b=>({bar:b}));
 }
 function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
@@ -757,7 +802,7 @@ function frame(ts){
   ctx.textBaseline='middle';
   for(const s of sources){
     const la=clamp(gather*1.4-.3);
-    if(la>0 && s.lab){
+    if(la>0 && s.lab && !MOB){
       ctx.font=`600 ${10.5*dpr}px Inter, sans-serif`; ctx.textAlign='right';
       if('letterSpacing' in ctx) ctx.letterSpacing=`${1.3*dpr}px`;
       ctx.fillStyle=`rgba(20,19,15,${0.62*la})`; ctx.fillText(s.lab,s.x-12*dpr,s.y);
@@ -768,9 +813,47 @@ function frame(ts){
   if(hubP>0.001){const pulse=frozen?1:1+Math.sin(t*3)*0.06*hubP;ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse+8*dpr*hubP,0,7);ctx.strokeStyle=`rgba(58,88,148,${.35*hubP})`;ctx.lineWidth=1.5*dpr;ctx.stroke();ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse,0,7);ctx.fillStyle='rgba(58,88,148,1)';ctx.fill();ctx.fillStyle=`rgba(255,255,255,${hubP})`;ctx.textAlign='center';ctx.font=`800 ${10*dpr}px Inter, sans-serif`;ctx.fillText('OSE',hub.x,hub.y);}
   if(outP>0.001){const sc=outP,cw=card.w*sc,ch=card.h*sc,cx=card.x+card.w/2-cw/2,cy=card.y+card.h/2-ch/2;
     ctx.fillStyle='rgba(251,250,246,0.96)';roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.fill();ctx.lineWidth=1.4*dpr;ctx.strokeStyle='rgba(58,88,148,0.55)';roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.stroke();
-    if(sc>0.45){const ia=clamp((sc-0.45)/0.4),pad=16*dpr*sc;ctx.fillStyle=`rgba(58,88,148,${ia})`;ctx.beginPath();ctx.arc(cx+pad+3*dpr,cy+pad+2*dpr,3*dpr,0,7);ctx.fill();ctx.fillStyle=`rgba(20,19,15,${.55*ia})`;ctx.fillRect(cx+pad+12*dpr,cy+pad,cw*0.42,3.5*dpr);
-      const bn=outputs.length,bw=(cw-pad*2-(bn-1)*10*dpr)/bn,baseY=cy+ch-pad,maxBH=ch-pad*3.2;
-      outputs.forEach((o,i)=>{const grow=clamp((sc-0.5-i*0.08)/0.4),bh=maxBH*o.bar*grow,bx=cx+pad+i*(bw+10*dpr);ctx.fillStyle=`rgba(58,88,148,${.16*ia})`;ctx.fillRect(bx,baseY-maxBH,bw,maxBH);ctx.fillStyle=`rgba(58,88,148,${.9*ia})`;ctx.fillRect(bx,baseY-bh,bw,bh);});}
+    if(sc>0.45){const ia=clamp((sc-0.45)/0.4),u=dpr*sc,pad=12*u,ix=cx+pad,iw=cw-pad*2;let yc=cy+10*u;
+      const ink=(a)=>`rgba(20,19,15,${a*ia})`,blue=(a)=>`rgba(58,88,148,${a*ia})`,dim=(a)=>`rgba(122,118,108,${a*ia})`,grn=(a)=>`rgba(40,120,80,${a*ia})`;
+      const sav=ctx.textBaseline;ctx.textBaseline='alphabetic';
+      if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+      // encoche
+      ctx.fillStyle=ink(.22);roundRect(cx+cw/2-cw*0.10,cy+5*u,cw*0.20,4.2*u,2*u);ctx.fill();
+      // barre d'état : heure + signal/batterie
+      ctx.textAlign='left';ctx.font=`700 ${7*u}px Inter, sans-serif`;ctx.fillStyle=ink(.55);ctx.fillText('9:41',ix,yc+3*u);
+      ctx.fillStyle=ink(.4);for(let d=0;d<3;d++)ctx.fillRect(cx+cw-pad-18*u+d*5*u,yc+(2.5-d)*u,3*u,(1.5+d)*u);
+      ctx.strokeStyle=ink(.35);ctx.lineWidth=1*u;ctx.strokeRect(cx+cw-pad-2*u-9*u,yc-0.5*u,8*u,4*u);ctx.fillStyle=grn(1);ctx.fillRect(cx+cw-pad-2*u-8.2*u,yc+0.3*u,5*u,2.4*u);
+      yc+=18*u;
+      // en-tête d'app
+      ctx.textAlign='left';ctx.font=`800 ${11*u}px Inter, sans-serif`;ctx.fillStyle=blue(1);ctx.fillText('OSE Pilotage',ix,yc);
+      ctx.font=`500 ${7*u}px Inter, sans-serif`;ctx.fillStyle=dim(1);ctx.fillText("Toute l'entreprise · juin",ix,yc+9.5*u);
+      yc+=20*u;
+      // 2 tuiles KPI avec chiffres
+      const gap=8*u,tw=(iw-gap)/2,th=ch*0.165,kpi=[["CA du mois","248 k€","+12%"],["Trésorerie","86 k€","+4%"]];
+      for(let k=0;k<2;k++){const tx=ix+k*(tw+gap);
+        ctx.fillStyle=blue(.10);roundRect(tx,yc,tw,th,5*u);ctx.fill();
+        ctx.textAlign='left';ctx.font=`600 ${6.5*u}px Inter, sans-serif`;ctx.fillStyle=dim(1);ctx.fillText(kpi[k][0],tx+8*u,yc+12*u);
+        ctx.font=`800 ${13*u}px Inter, sans-serif`;ctx.fillStyle=ink(.85);ctx.fillText(kpi[k][1],tx+8*u,yc+th-9*u);
+        ctx.textAlign='right';ctx.font=`700 ${6.5*u}px Inter, sans-serif`;ctx.fillStyle=grn(1);ctx.fillText(kpi[k][2],tx+tw-8*u,yc+12*u);}
+      yc+=th+13*u;
+      // section ventes + graphe
+      ctx.textAlign='left';ctx.font=`700 ${7*u}px Inter, sans-serif`;ctx.fillStyle=ink(.5);ctx.fillText('Ventes 6 mois',ix,yc);
+      ctx.textAlign='right';ctx.fillStyle=grn(1);ctx.fillText('+18 %',ix+iw,yc);
+      yc+=7*u;
+      const bn=outputs.length,chartH=ch*0.20,bw=(iw-(bn-1)*7*u)/bn,baseY=yc+chartH;
+      outputs.forEach((o,i)=>{const grow=clamp((sc-0.5-i*0.08)/0.4),bh=chartH*o.bar*grow,bx=ix+i*(bw+7*u);ctx.fillStyle=blue(.16);roundRect(bx,yc,bw,chartH,2*u);ctx.fill();ctx.fillStyle=blue(.9);roundRect(bx,baseY-bh,bw,bh,2*u);ctx.fill();});
+      yc=baseY+15*u;
+      // activité avec montants
+      ctx.textAlign='left';ctx.font=`700 ${7*u}px Inter, sans-serif`;ctx.fillStyle=ink(.5);ctx.fillText('Activité',ix,yc);
+      yc+=4*u;
+      const rows=[["Devis #1042","4 200 €",blue(.9)],["Facture payée","+1 980 €",grn(1)],["Stock faible","3 réf.",ink(.6)]];
+      for(let r=0;r<rows.length;r++){const ry=yc+r*(13*u);if(ry+10*u>cy+ch-9*u)break;
+        ctx.fillStyle=blue(.5);roundRect(ix,ry,7*u,7*u,2*u);ctx.fill();
+        ctx.textAlign='left';ctx.font=`500 ${7.5*u}px Inter, sans-serif`;ctx.fillStyle=ink(.7);ctx.fillText(rows[r][0],ix+13*u,ry+7*u);
+        ctx.textAlign='right';ctx.font=`700 ${7.5*u}px Inter, sans-serif`;ctx.fillStyle=rows[r][2];ctx.fillText(rows[r][1],ix+iw,ry+7*u);}
+      // barre d'accueil
+      ctx.fillStyle=ink(.25);roundRect(cx+cw/2-cw*0.13,cy+ch-6*u,cw*0.26,2.6*u,1.3*u);ctx.fill();
+      ctx.textBaseline=sav;}
     ctx.font=`600 ${10*dpr}px Inter, sans-serif`;ctx.textAlign='center';ctx.fillStyle=`rgba(122,118,108,${clamp(sc*1.4-.4)})`;ctx.fillText('VOTRE OUTIL',card.x+card.w/2,cy+ch+18*dpr);}
   if(RM) return;                          // mouvement réduit : image finale statique
   requestAnimationFrame(frame);           // la construction est figée, mais les billes coulent en continu
