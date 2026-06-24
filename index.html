@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OSE — Studio IA sur-mesure pour PME</title>
-<meta name="description" content="OSE construit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.">
+<meta name="description" content="OSE construit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service.">
 <link rel="canonical" href="https://ose-os.fr/">
 <meta property="og:title" content="OSE — Studio IA sur-mesure pour PME">
 <meta property="og:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
@@ -20,9 +20,8 @@
 <style>
   :root{
     --bg:#f4f2ec; --ink:#14130f; --dim:#7a766c; --line:#d9d5c8;
-    --accent:#3a5894;      /* bleu acier — fond clair */
-    --accent-d:#8fb0e0;    /* bleu acier clair — bandes sombres */
-    --paper:#fbfaf6;
+    --accent:#3a5894; --accent-d:#8fb0e0; --paper:#fbfaf6;
+    --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -34,27 +33,78 @@
   .serif{font-family:"Times New Roman",Georgia,serif}
   ::selection{background:var(--accent);color:#fff}
 
-  header{position:fixed;top:0;width:100%;z-index:40;border-bottom:1px solid transparent;transition:.3s}
-  header.solid{background:rgba(244,242,236,.85);backdrop-filter:blur(8px);border-color:var(--line)}
-  nav{display:flex;justify-content:space-between;align-items:center;height:78px}
-  .logo{display:flex;align-items:center}
-  .logo img{height:30px}
-  .nav-r{display:flex;gap:14px;align-items:center;font-size:13px;letter-spacing:.5px}
-  .nav-r .idx{color:var(--dim)}
-  .nav-cta{border:1px solid var(--ink);padding:9px 18px;border-radius:40px;transition:.25s}
-  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+  /* ---------- preloader ---------- */
+  #pre{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;
+    transition:opacity .7s ease,visibility .7s}
+  #pre.done{opacity:0;visibility:hidden}
+  #pre .mk{font-style:italic;font-weight:800;font-size:clamp(60px,12vw,150px);letter-spacing:-4px;
+    background:linear-gradient(110deg,#1c2c52 0%,#3a5894 28%,#9db9e6 47%,#eaf3ff 50%,#9db9e6 53%,#33508c 72%,#16224a 100%);
+    background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:sheen 1.6s var(--ease) infinite}
+  #pre .bar{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);width:0;animation:load 1.3s var(--ease) forwards}
+  @keyframes load{to{width:100%}}
+  @keyframes sheen{0%{background-position:140% 0}100%{background-position:-40% 0}}
 
-  /* HERO */
-  .hero{min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:50px;padding:110px 0 60px}
-  .hero-l .tag{display:inline-block;font-size:12px;letter-spacing:2px;text-transform:uppercase;
-    border:1px solid var(--line);border-radius:40px;padding:7px 16px;color:var(--dim);margin-bottom:38px}
-  h1{font-size:clamp(44px,6vw,98px);line-height:.94;letter-spacing:-3px;font-weight:400}
-  h1 b{font-weight:800}
-  h1 .it{font-style:italic;font-weight:400}
-  .hero-l p{font-size:19px;color:var(--dim);max-width:44ch;margin:38px 0 0;line-height:1.65}
-  .hero-actions{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap}
-  .btn{padding:16px 30px;border-radius:40px;font-size:15px;font-weight:600;transition:.25s;display:inline-flex;align-items:center;gap:9px}
-  .btn-h{background:var(--accent);color:#fff}.btn-h:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  /* ---------- scroll progress ---------- */
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-d));z-index:60}
+
+  /* ---------- cursor glow ---------- */
+  #glow{position:fixed;top:0;left:0;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:1;
+    background:radial-gradient(circle,rgba(58,88,148,.10),transparent 60%);transform:translate(-50%,-50%);
+    transition:opacity .4s;will-change:left,top;mix-blend-mode:multiply}
+
+  /* ---------- chrome animated text ---------- */
+  .chrome{background:linear-gradient(110deg,#1c2c52 0%,#3a5894 26%,#9db9e6 47%,#eaf3ff 50%,#9db9e6 53%,#33508c 70%,#16224a 100%);
+    background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:flow 7s linear infinite}
+  @keyframes flow{0%{background-position:200% 0}100%{background-position:-60% 0}}
+
+  /* ---------- reveal ---------- */
+  .r{opacity:0;transform:translateY(30px);filter:blur(5px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .r.in{opacity:1;transform:none;filter:none}
+  .words span{display:inline-block;opacity:0;transform:translateY(40px) rotate(2deg);filter:blur(6px);
+    transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease)}
+  .words.in span{opacity:1;transform:none;filter:none}
+
+  /* ---------- header ---------- */
+  header{position:fixed;top:0;width:100%;z-index:40;border-bottom:1px solid transparent;transition:.3s}
+  header.solid{background:rgba(244,242,236,.82);backdrop-filter:blur(10px);border-color:var(--line)}
+  nav{display:flex;justify-content:space-between;align-items:center;height:78px}
+  .logo{display:flex;align-items:center}.logo img{height:30px;transition:transform .4s var(--ease)}
+  .logo:hover img{transform:scale(1.05)}
+  .nav-r{display:flex;gap:18px;align-items:center;font-size:13px;letter-spacing:.5px}
+  .nav-r .idx{color:var(--dim)}
+  .nav-cta{position:relative;border:1px solid var(--ink);padding:9px 18px;border-radius:40px;overflow:hidden;z-index:0}
+  .nav-cta span{position:relative;z-index:1;transition:color .3s}
+  .nav-cta::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .35s var(--ease);z-index:0}
+  .nav-cta:hover::before{transform:translateY(0)}
+  .nav-cta:hover span{color:var(--bg)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:50px;padding:120px 0 60px}
+  .aurora{position:absolute;inset:-10% -20%;z-index:-1;pointer-events:none;filter:blur(40px);opacity:.6}
+  .aurora i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(58,88,148,.22),transparent 70%);animation:drift 18s ease-in-out infinite}
+  .aurora i:nth-child(1){width:520px;height:520px;top:-8%;left:8%}
+  .aurora i:nth-child(2){width:440px;height:440px;bottom:-6%;right:6%;background:radial-gradient(circle,rgba(143,176,224,.26),transparent 70%);animation-delay:-6s}
+  .aurora i:nth-child(3){width:360px;height:360px;top:30%;left:46%;animation-delay:-11s}
+  @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.12)}66%{transform:translate(-30px,25px) scale(.94)}}
+
+  .hero-l .tag{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:40px;padding:7px 16px;color:var(--dim);margin-bottom:34px;
+    background:rgba(251,250,246,.6);animation:floaty 5s ease-in-out infinite}
+  .hero-l .tag b{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(58,88,148,.5)}70%{box-shadow:0 0 0 7px rgba(58,88,148,0)}}
+  h1{font-size:clamp(44px,6vw,96px);line-height:.95;letter-spacing:-3px;font-weight:400}
+  h1 b{font-weight:800}h1 .it{font-style:italic;font-weight:400}
+  .hero-l p{font-size:19px;color:var(--dim);max-width:44ch;margin:36px 0 0;line-height:1.65}
+  .hero-actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  .btn{position:relative;padding:16px 30px;border-radius:40px;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:9px;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;will-change:transform}
+  .btn .arr{transition:transform .3s var(--ease)}
+  .btn:hover .arr{transform:translateX(5px)}
+  .btn-h{background:var(--accent);color:#fff;box-shadow:0 8px 24px -10px rgba(58,88,148,.7)}
+  .btn-h:hover{filter:brightness(1.1);box-shadow:0 14px 30px -10px rgba(58,88,148,.8)}
   .btn-o{border:1px solid var(--ink)}.btn-o:hover{background:var(--ink);color:var(--bg)}
   .assur{display:flex;gap:24px;margin-top:30px;flex-wrap:wrap;font-size:13px;color:var(--dim);letter-spacing:.3px}
   .assur span{display:flex;align-items:center;gap:9px}
@@ -66,13 +116,13 @@
     font-size:11.5px;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase}
   .cap .phase{color:var(--accent);transition:opacity .4s;font-weight:600}
 
-  /* marquee */
-  .strip{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;padding:20px 0}
+  /* ---------- marquee ---------- */
+  .strip{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;padding:18px 0}
   .strip .run{display:inline-block;animation:run 28s linear infinite}
-  .strip span{font-size:32px;font-weight:800;letter-spacing:-1px;margin:0 28px}
+  .strip.rev .run{animation-direction:reverse;animation-duration:34s}
+  .strip span{font-size:30px;font-weight:800;letter-spacing:-1px;margin:0 26px}
   .strip .o{color:var(--accent);font-style:italic;font-weight:400}
   @keyframes run{to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.strip .run{animation:none}}
 
   section{padding:100px 0}
   .lead-row{display:grid;grid-template-columns:.8fr 2fr;gap:70px;align-items:start}
@@ -80,34 +130,84 @@
   .lead-row h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
   .lead-row h2 b{font-weight:800}
 
+  /* ---------- stats band ---------- */
+  .stats{background:var(--ink);color:var(--bg);padding:90px 0}
+  .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+  .stat{text-align:center;border-left:1px solid rgba(255,255,255,.12);padding:0 16px}
+  .stat:first-child{border-left:none}
+  .stat .num{font-size:clamp(40px,5vw,68px);font-weight:800;letter-spacing:-2px;line-height:1;
+    background:linear-gradient(110deg,#9db9e6,#eaf3ff 50%,#8fb0e0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .lab{margin-top:16px;font-size:14px;color:rgba(255,255,255,.6);line-height:1.5;max-width:22ch;margin-inline:auto}
+  @media(max-width:880px){.stats .grid{grid-template-columns:1fr 1fr;gap:40px 20px}.stat:nth-child(3){border-left:none}}
+
+  /* ---------- work / capabilities ---------- */
   .work{margin-top:64px;border-top:1px solid var(--ink)}
-  .work .item{display:grid;grid-template-columns:.4fr 1fr 2fr;gap:50px;padding:50px 0;border-bottom:1px solid var(--line);
-    align-items:baseline;transition:padding .35s,background .35s}
-  .work .item:hover{background:var(--paper);padding-left:24px;padding-right:24px;border-color:var(--accent)}
+  .work .item{position:relative;display:grid;grid-template-columns:.4fr 1fr 2fr;gap:50px;padding:50px 0;border-bottom:1px solid var(--line);
+    align-items:baseline;transition:padding .4s var(--ease),background .4s}
+  .work .item::before{content:"";position:absolute;left:0;top:-1px;height:calc(100% + 2px);width:0;
+    border-left:2px solid var(--accent);transition:width .4s var(--ease)}
+  .work .item:hover{background:var(--paper);padding-left:28px;padding-right:24px}
+  .work .item:hover::before{width:2px}
   .work .item .n{font-size:13px;color:var(--accent);letter-spacing:1px}
-  .work .item h3{font-size:32px;font-weight:600;letter-spacing:-.5px}
+  .work .item h3{font-size:32px;font-weight:600;letter-spacing:-.5px;transition:transform .4s var(--ease)}
+  .work .item:hover h3{transform:translateX(4px)}
   .work .item p{color:var(--dim);font-size:17px;line-height:1.65}
   .work .item .ex{display:block;margin-top:14px;font-size:14.5px;color:var(--accent)}
-  .work .item .ex::before{content:"Ex. — ";font-style:normal;font-weight:600}
+  .work .item .ex::before{content:"Ex. — ";font-weight:600}
 
-  /* dark "domaines" band */
+  /* ---------- domaines ---------- */
   .domains{background:var(--ink);color:var(--bg);padding:118px 0}
   .domains .idx{font-size:13px;letter-spacing:2px;color:var(--accent-d);margin-bottom:24px}
   .domains h2{font-size:clamp(28px,3.4vw,46px);line-height:1.12;letter-spacing:-1px;font-weight:400;max-width:22ch}
   .domains h2 .serif{color:rgba(255,255,255,.55)}
   .db-grid{margin-top:58px;display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-  .db-grid span{border:1px solid rgba(255,255,255,.18);border-radius:40px;padding:15px 20px;font-size:14.5px;
-    text-align:center;transition:.25s}
-  .db-grid span:hover{border-color:var(--accent-d);background:rgba(143,176,224,.14);transform:translateY(-2px)}
+  .db-grid .dom{font:inherit;color:inherit;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.18);
+    border-radius:40px;padding:15px 20px;font-size:14.5px;text-align:center;cursor:pointer;
+    transition:transform .35s var(--ease),background .3s,border-color .3s,box-shadow .35s,color .3s}
+  .db-grid .dom:hover{border-color:var(--accent-d);background:rgba(143,176,224,.14);transform:translateY(-4px) scale(1.03)}
+  .db-grid .dom.active{border-color:var(--accent-d);background:rgba(143,176,224,.2);color:#fff;
+    transform:translateY(-8px) scale(1.05);box-shadow:0 16px 34px -16px rgba(143,176,224,.55)}
   @media(max-width:880px){.db-grid{grid-template-columns:1fr 1fr}}
 
-  /* process steps */
+  /* domain : la bulle grossit SUR PLACE, le reste se floute */
+  #domOverlay{position:fixed;inset:0;z-index:90;background:rgba(8,12,26,.45);
+    -webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px);
+    opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s}
+  #domOverlay.open{opacity:1;visibility:visible}
+  #domCard{position:fixed;z-index:95;left:0;top:0;width:120px;height:52px;overflow:hidden;
+    background:#1c2438;border:1px solid rgba(143,176,224,.4);border-radius:40px;color:var(--bg);
+    box-shadow:0 40px 90px -28px rgba(0,0,0,.82);opacity:0;visibility:hidden;
+    transition:left .5s var(--ease),top .5s var(--ease),width .5s var(--ease),height .5s var(--ease),
+      border-radius .5s var(--ease),opacity .3s var(--ease),visibility .5s,box-shadow .5s}
+  #domCard.show{opacity:1;visibility:visible}
+  #domCard.open{border-radius:22px;background:linear-gradient(180deg,#1c2438,#12161f)}
+  .dom-card-in{padding:34px 36px;opacity:0;transition:opacity .25s var(--ease)}
+  #domCard.open .dom-card-in{opacity:1;transition:opacity .45s var(--ease) .16s}
+  .dom-close{position:absolute;top:15px;right:16px;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--bg);font-size:20px;line-height:1;
+    cursor:pointer;transition:.25s;z-index:2}
+  .dom-close:hover{background:rgba(255,255,255,.1);border-color:var(--accent-d)}
+  .dom-panel-h{display:flex;align-items:center;gap:12px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-d);margin-bottom:22px;padding-right:30px;white-space:nowrap}
+  .dom-panel-h::before{content:"";width:26px;height:1px;background:var(--accent-d);flex:none}
+  .dom-list{list-style:none;display:flex;flex-direction:column;gap:15px}
+  .dom-list li{display:flex;gap:13px;align-items:baseline;font-size:17px;color:rgba(255,255,255,.9);line-height:1.5;
+    opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .dom-list.in li{opacity:1;transform:none}
+  .dom-list li::before{content:"→";color:var(--accent-d);flex:none;font-weight:600}
+  .dom-list.in li:nth-child(1){transition-delay:.20s}
+  .dom-list.in li:nth-child(2){transition-delay:.27s}
+  .dom-list.in li:nth-child(3){transition-delay:.34s}
+  .dom-list.in li:nth-child(4){transition-delay:.41s}
+  @media(prefers-reduced-motion:reduce){#domCard,.dom-card-in,.dom-list li{transition:opacity .25s!important}}
+
+  /* ---------- process ---------- */
   .steps{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
-  .step{position:relative;overflow:hidden;padding:46px 32px 50px;border-right:1px solid var(--line);transition:background .35s}
+  .step{position:relative;overflow:hidden;padding:46px 32px 50px;border-right:1px solid var(--line);transition:background .4s}
   .step:last-child{border-right:none}
   .step:hover{background:var(--paper)}
-  .step .bg{position:absolute;right:2px;top:-46px;font-size:160px;font-weight:800;color:var(--line);
-    letter-spacing:-8px;opacity:.55;pointer-events:none;user-select:none}
+  .step .bg{position:absolute;right:2px;top:-46px;font-size:160px;font-weight:800;color:var(--line);letter-spacing:-8px;
+    opacity:.5;pointer-events:none;user-select:none;transition:transform .5s var(--ease),color .4s}
+  .step:hover .bg{transform:translateY(8px) scale(1.05);color:rgba(58,88,148,.16)}
   .step .no{position:relative;font-size:13px;letter-spacing:2px;color:var(--accent);font-weight:700}
   .step h3{position:relative;font-size:26px;font-weight:700;letter-spacing:-.5px;margin:20px 0 14px}
   .step p{position:relative;color:var(--dim);font-size:16px;line-height:1.7}
@@ -123,49 +223,53 @@
   .origin h2 b{font-weight:800}
   .origin p{color:var(--dim);font-size:18px;line-height:1.75;max-width:60ch;margin-top:30px}
   .creed{list-style:none;margin-top:46px;border-top:1px solid var(--line)}
-  .creed li{padding:24px 0;border-bottom:1px solid var(--line);font-size:18px;display:flex;gap:18px;align-items:baseline}
+  .creed li{padding:24px 0;border-bottom:1px solid var(--line);font-size:18px;display:flex;gap:18px;align-items:baseline;
+    transition:padding-left .35s var(--ease)}
+  .creed li:hover{padding-left:12px}
   .creed li::before{content:"—";color:var(--accent);font-weight:700}
   @media(max-width:880px){.origin .grid2{grid-template-columns:1fr;gap:16px}}
 
-  /* reveal */
-  .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-  .rv.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-
-  .cta{background:var(--ink);color:var(--bg);padding:130px 0}
-  .cta h2{font-size:clamp(40px,7vw,112px);line-height:.9;letter-spacing:-3px;font-weight:400}
+  /* ---------- CTA ---------- */
+  .cta{position:relative;overflow:hidden;background:var(--ink);color:var(--bg);padding:130px 0}
+  .cta .aurora i{background:radial-gradient(circle,rgba(143,176,224,.3),transparent 70%)}
+  .cta h2{font-size:clamp(40px,7vw,108px);line-height:.9;letter-spacing:-3px;font-weight:400}
   .cta h2 b{font-weight:800}.cta .it{font-style:italic}
-  .cta p{color:rgba(255,255,255,.55);font-size:18px;max-width:46ch;margin-top:34px;line-height:1.6}
-  .cta .actions{display:flex;gap:18px;margin-top:56px;flex-wrap:wrap}
-  .cta .btn-h{background:var(--accent-d);color:var(--ink)}
-  .cta .btn-g{border:1px solid rgba(255,255,255,.4);color:#fff}.cta .btn-g:hover{border-color:#fff;background:transparent}
+  .cta p{color:rgba(255,255,255,.6);font-size:18px;max-width:46ch;margin-top:34px;line-height:1.6}
+  .cta .actions{display:flex;gap:18px;margin-top:52px;flex-wrap:wrap}
+  .cta .btn-h{background:var(--accent-d);color:var(--ink);box-shadow:0 10px 30px -12px rgba(143,176,224,.6)}
+  .cta .btn-g{border:1px solid rgba(255,255,255,.4);color:#fff}.cta .btn-g:hover{border-color:#fff}
 
   footer{background:var(--ink);color:var(--dim);border-top:1px solid #2a2823}
   .f-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding:70px 0 56px}
-  .f-brand .logo{margin-bottom:18px}
-  .f-brand .logo img{height:34px}
+  .f-brand .logo{margin-bottom:18px}.f-brand .logo img{height:34px}
   .f-brand p{font-size:14px;line-height:1.7;max-width:34ch}
   .f-col{display:flex;flex-direction:column;gap:12px;font-size:14px}
   .f-col .f-h{color:var(--bg);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-  .f-col a{transition:.2s}.f-col a:hover{color:var(--accent-d)}
-  .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
-    padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
-  .f-base a:hover{color:var(--bg)}
+  .f-col a{position:relative;width:fit-content}
+  .f-col a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--accent-d);transition:width .3s var(--ease)}
+  .f-col a:hover::after{width:100%}
+  .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
   @media(max-width:880px){.f-top{grid-template-columns:1fr;gap:34px;padding:54px 0 40px}}
   @media(max-width:880px){
     .hero{grid-template-columns:1fr;gap:24px;padding-top:120px}
     .hero-r{height:54vh;min-height:380px;order:2}
     .lead-row,.work .item{grid-template-columns:1fr;gap:16px}
     .work .item{padding:34px 0}
+    #glow{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    .r,.words span{opacity:1!important;transform:none!important;filter:none!important;transition:none}
+    #pre{display:none}
   }
 
-  /* ===== modale contact — éditorial épuré ===== */
+  /* ---- modale contact ---- */
   .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;
-    background:rgba(20,19,15,.5);backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+    background:rgba(20,19,15,.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
   .modal.open{opacity:1;visibility:visible}
-  .modal-card{background:var(--paper);border:1px solid var(--line);border-radius:4px;
+  .modal-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;
     width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:58px 56px 48px;position:relative;
-    box-shadow:0 40px 90px -34px rgba(20,19,15,.55);transform:translateY(18px);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+    box-shadow:0 40px 90px -34px rgba(20,19,15,.55);transform:translateY(18px);transition:transform .4s var(--ease)}
   .modal.open .modal-card{transform:none}
   .modal-close{position:absolute;top:22px;right:24px;width:34px;height:34px;border:none;background:transparent;
     color:var(--dim);font-size:26px;font-weight:300;line-height:1;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center}
@@ -176,7 +280,6 @@
   .modal h2 .it{font-style:italic}
   .modal .sub{color:var(--dim);font-size:15.5px;line-height:1.65;max-width:40ch;
     margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid var(--line)}
-
   .field{margin-bottom:30px}
   .field label{display:block;font-size:11.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
     color:var(--dim);margin-bottom:11px}
@@ -187,7 +290,6 @@
   .field textarea{resize:vertical;min-height:46px;line-height:1.5;font-size:16px}
   .field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--accent);border-bottom-width:1.5px}
   .field input::placeholder,.field textarea::placeholder{color:#c2bdb0;font-size:16px}
-
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chips label{display:inline-flex;align-items:center;margin:0;cursor:pointer}
   .chips input{position:absolute;opacity:0;width:0;height:0}
@@ -196,7 +298,6 @@
   .chips label:hover span{border-color:var(--ink);color:var(--ink)}
   .chips input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
   .chips input:focus-visible+span{box-shadow:0 0 0 3px rgba(58,88,148,.25)}
-
   .modal .btn-submit{width:100%;justify-content:center;background:var(--ink);color:var(--bg);border:none;border-radius:40px;
     cursor:pointer;font:inherit;font-weight:600;font-size:15px;margin-top:10px;transition:.25s}
   .modal .btn-submit:hover{background:var(--accent);transform:translateY(-1px)}
@@ -204,7 +305,6 @@
   .modal .legal{font-size:12px;color:var(--dim);line-height:1.55;margin-top:20px;text-align:center}
   .modal .legal a{color:var(--accent);text-decoration:underline}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-
   .form-msg{display:none;text-align:center;padding:30px 0}
   .form-msg.show{display:block}
   .form-msg .big{font-size:clamp(30px,4.6vw,42px);font-weight:400;letter-spacing:-1.5px;margin-bottom:14px}
@@ -212,37 +312,40 @@
   .form-msg.err .big{color:#a8443a}
   .form-msg p{color:var(--dim);font-size:15.5px;line-height:1.65;max-width:36ch;margin:0 auto}
   .form-msg a{color:var(--accent);text-decoration:underline}
-
   @media(max-width:560px){.modal-card{padding:44px 26px 34px}}
   @media(prefers-reduced-motion:reduce){.modal,.modal-card,.modal-close{transition:none}}
 </style>
 </head>
 <body>
+
+<div id="pre"><div class="mk">OSE</div><div class="bar"></div></div>
+<div id="prog"></div>
+<div id="glow"></div>
+
 <header id="hdr"><div class="wrap"><nav>
   <a class="logo" href="#hdr" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
-  <div class="nav-r"><span class="idx">FR — 2026</span><a class="nav-cta js-contact" href="#contact">Prendre contact</a></div>
+  <div class="nav-r"><span class="idx">FR — 2026</span><a class="nav-cta mag js-contact" href="#contact"><span>Prendre contact</span></a></div>
 </nav></div></header>
 
 <main>
 <div class="wrap">
   <div class="hero">
+    <div class="aurora"><i></i><i></i><i></i></div>
     <div class="hero-l">
-      <span class="tag">Studio IA sur-mesure · PME</span>
-      <h1>On <b>construit</b><br>l'outil que<br>vous n'<span class="it serif">imaginiez</span><br>pas pouvoir<br>avoir.</h1>
-      <p>OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
-      <div class="hero-actions">
-        <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes →</a>
+      <span class="tag r"><b></b> Studio IA sur-mesure · PME</span>
+      <h1 class="words">On <b class="chrome">construit</b> l'outil que vous n'<span class="it serif">imaginiez</span> pas pouvoir avoir.</h1>
+      <p class="r">OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
+      <div class="hero-actions r">
+        <a class="btn btn-h mag js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
         <a class="btn btn-o" href="#process">Comment ça marche</a>
       </div>
-      <div class="assur">
-        <span>Sans engagement</span>
-        <span>Premier outil en quelques semaines</span>
-        <span>Vous gardez la main</span>
+      <div class="assur r">
+        <span>Sans engagement</span><span>Premier outil en quelques semaines</span><span>Vous gardez la main</span>
       </div>
     </div>
-    <div class="hero-r">
+    <div class="hero-r r">
       <canvas id="graph"></canvas>
-      <div class="cap"><span>temps perdu</span><span class="phase" id="phase">OSE assemble…</span><span>votre outil</span></div>
+      <div class="cap"><span>matière brute</span><span class="phase" id="phase">OSE assemble…</span><span>votre outil</span></div>
     </div>
   </div>
 </div>
@@ -253,66 +356,75 @@
 </div></div>
 
 <section id="constat"><div class="wrap">
-  <div class="lead-row rv">
+  <div class="lead-row r">
     <div class="idx">01 — LE CONSTAT</div>
     <h2>Vos équipes perdent un temps fou sur des tâches que l'IA sait déjà <span class="serif it">absorber.</span></h2>
   </div>
   <div class="work">
-    <div class="item rv"><div class="n">i</div><h3>Gagner du temps</h3><p>Saisies, relances, reporting, allers-retours entre fichiers — on automatise le répétitif pour que votre équipe se concentre sur ce qui compte vraiment.<span class="ex">une relance client qui partait à la main, désormais automatique.</span></p></div>
-    <div class="item rv"><div class="n">ii</div><h3>Sur-mesure</h3><p>Aucun template. Un outil assemblé avec l'IA pour votre métier précis et votre façon de travailler — pas l'inverse.<span class="ex">vos étapes, vos mots, vos règles — pas celles d'un logiciel générique.</span></p></div>
-    <div class="item rv"><div class="n">iii</div><h3>Évolutif</h3><p>L'outil grandit avec vous : on l'ajuste dès que votre activité, vos process ou vos besoins changent.<span class="ex">un nouveau besoin lundi, l'outil le gère la semaine suivante.</span></p></div>
+    <div class="item r"><div class="n">i</div><h3>Gagner du temps</h3><p>Saisies, relances, reporting, allers-retours entre fichiers — on automatise le répétitif pour que votre équipe se concentre sur ce qui compte vraiment.</p></div>
+    <div class="item r"><div class="n">ii</div><h3>Sur-mesure</h3><p>Aucun template. Un outil assemblé avec l'IA pour votre métier précis et votre façon de travailler — pas l'inverse.</p></div>
+    <div class="item r"><div class="n">iii</div><h3>Évolutif</h3><p>L'outil grandit avec vous : on l'ajuste dès que votre activité, vos process ou vos besoins changent.</p></div>
+  </div>
+</div></section>
+
+<section class="stats"><div class="wrap">
+  <div class="grid">
+    <div class="stat r"><div class="num" data-to="100" data-suffix=" %">0</div><div class="lab">sur-mesure — zéro template, zéro logiciel générique.</div></div>
+    <div class="stat r"><div class="num" data-to="3" data-suffix="">0</div><div class="lab">étapes, c'est tout : on regarde, on construit, vous gagnez du temps.</div></div>
+    <div class="stat r"><div class="num" data-to="2" data-prefix="~" data-suffix=" sem.">0</div><div class="lab">pour un premier outil utile entre vos mains.</div></div>
+    <div class="stat r"><div class="num" data-to="1" data-suffix="">0</div><div class="lab">interlocuteur qui construit avec vous — pas un service support.</div></div>
   </div>
 </div></section>
 
 <section id="domaines" class="domains"><div class="wrap">
-  <div class="rv">
+  <div class="r">
     <div class="idx">— DANS N'IMPORTE QUEL SERVICE</div>
     <h2>Commercial, compta, production, RH, logistique, SAV… <span class="serif it">si une tâche fait perdre du temps, elle est candidate.</span></h2>
   </div>
-  <div class="db-grid rv">
-    <span>Prospection &amp; relances</span>
-    <span>Devis &amp; facturation</span>
-    <span>Reporting &amp; tableaux de bord</span>
-    <span>Suivi de production</span>
-    <span>Saisie &amp; ressaisie</span>
-    <span>Réponses clients</span>
-    <span>Planning &amp; coordination</span>
-    <span>Veille &amp; synthèse</span>
+  <div class="db-grid">
+    <button type="button" class="dom r" data-k="prospection">Prospection &amp; relances</button>
+    <button type="button" class="dom r" data-k="devis">Devis &amp; facturation</button>
+    <button type="button" class="dom r" data-k="reporting">Reporting &amp; tableaux de bord</button>
+    <button type="button" class="dom r" data-k="production">Suivi de production</button>
+    <button type="button" class="dom r" data-k="saisie">Saisie &amp; ressaisie</button>
+    <button type="button" class="dom r" data-k="reponses">Réponses clients</button>
+    <button type="button" class="dom r" data-k="planning">Planning &amp; coordination</button>
+    <button type="button" class="dom r" data-k="veille">Veille &amp; synthèse</button>
   </div>
 </div></section>
 
 <section id="savoir-faire"><div class="wrap">
-  <div class="lead-row rv">
+  <div class="lead-row r">
     <div class="idx">02 — CE QU'ON SAIT CONSTRUIRE</div>
     <h2>Pas des promesses : des briques <b>déjà construites,</b> testées en conditions réelles, <span class="serif it">qu'on recâble pour votre métier.</span></h2>
   </div>
   <div class="work">
-    <div class="item rv"><div class="n">i</div><h3>Trouver et trier vos cibles</h3><p>Repérer automatiquement les bonnes entreprises depuis les registres officiels, les enrichir, puis les classer par potentiel. Le système tourne seul et vous remet une short-list prête à traiter.<span class="ex">sur des milliers d'entreprises, 5 à 10 vraiment prioritaires chaque semaine, classées par l'IA.</span></p></div>
-    <div class="item rv"><div class="n">ii</div><h3>Réunir l'info éparpillée</h3><p>Croiser registres, données financières, site web et profils publics pour reconstituer, sans recherche manuelle, le dossier complet d'une entreprise ou d'un contact.<span class="ex">dirigeants, certifications et signaux d'investissement détectés tout seuls.</span></p></div>
-    <div class="item rv"><div class="n">iii</div><h3>Noter et décider avec l'IA</h3><p>Un moteur de scoring sur-mesure : vos critères pondérés, une note justifiée et un verdict — prioritaire, à creuser, à écarter — preuves citées à l'appui.<span class="ex">chaque dossier noté sur 10, avec un argumentaire écrit pour lui, pas un copier-coller.</span></p></div>
-    <div class="item rv"><div class="n">iv</div><h3>Un tableau de bord pour piloter</h3><p>Une interface web claire — indicateurs, cartes, listes filtrables, fiches détaillées, suivi — pour voir l'activité d'un coup d'œil et garder la main.<span class="ex">une console qui montre en temps réel ce que la machine est en train de faire.</span></p></div>
-    <div class="item rv"><div class="n">v</div><h3>Connecter vos outils existants</h3><p>Brancher votre CRM, vos fichiers, vos emails, des services externes — pour que tout circule de bout en bout, sans ressaisie.<span class="ex">des prospects qualifiés qui arrivent directement dans le CRM, argumentaire inclus.</span></p></div>
+    <div class="item r"><div class="n">i</div><h3>Trouver et trier vos cibles</h3><p>Repérer automatiquement les bonnes entreprises depuis les registres officiels, les enrichir, puis les classer par potentiel. Le système tourne seul et vous remet une short-list prête à traiter.<span class="ex">sur des milliers d'entreprises, 5 à 10 vraiment prioritaires chaque semaine, classées par l'IA.</span></p></div>
+    <div class="item r"><div class="n">ii</div><h3>Réunir l'info éparpillée</h3><p>Croiser registres, données financières, site web et profils publics pour reconstituer, sans recherche manuelle, le dossier complet d'une entreprise ou d'un contact.<span class="ex">dirigeants, certifications et signaux d'investissement détectés tout seuls.</span></p></div>
+    <div class="item r"><div class="n">iii</div><h3>Noter et décider avec l'IA</h3><p>Un moteur de scoring sur-mesure : vos critères pondérés, une note justifiée et un verdict — prioritaire, à creuser, à écarter — preuves citées à l'appui.<span class="ex">chaque dossier noté sur 10, avec un argumentaire écrit pour lui, pas un copier-coller.</span></p></div>
+    <div class="item r"><div class="n">iv</div><h3>Un tableau de bord pour piloter</h3><p>Une interface web claire — indicateurs, cartes, listes filtrables, fiches détaillées, suivi — pour voir l'activité d'un coup d'œil et garder la main.<span class="ex">une console qui montre en temps réel ce que la machine est en train de faire.</span></p></div>
+    <div class="item r"><div class="n">v</div><h3>Connecter vos outils existants</h3><p>Brancher votre CRM, vos fichiers, vos emails, des services externes — pour que tout circule de bout en bout, sans ressaisie.<span class="ex">des prospects qualifiés qui arrivent directement dans le CRM, argumentaire inclus.</span></p></div>
   </div>
 </div></section>
 
 <section id="process"><div class="wrap">
-  <div class="lead-row rv">
+  <div class="lead-row r">
     <div class="idx">03 — COMMENT ÇA MARCHE</div>
     <h2>Trois étapes, <b>zéro jargon,</b> <span class="serif it">zéro cahier des charges à rallonge.</span></h2>
   </div>
   <div class="steps">
-    <div class="step rv"><div class="bg">01</div><div class="no">01</div><h3>On part de votre quotidien</h3><p>On regarde où le temps file et où ça coince, service par service. On cherche le point qui fera gagner le plus, tout de suite.</p></div>
-    <div class="step rv"><div class="bg">02</div><div class="no">02</div><h3>On assemble l'outil avec l'IA</h3><p>On construit vite un premier outil utile, qu'on affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan.</p></div>
-    <div class="step rv"><div class="bg">03</div><div class="no">03</div><h3>Vous reprenez du temps</h3><p>Vous l'utilisez, il évolue. Les heures que la machine peut faire à votre place, vous les récupérez.</p></div>
+    <div class="step r"><div class="bg">01</div><div class="no">01</div><h3>On part de votre quotidien</h3><p>On regarde où le temps file et où ça coince, service par service. On cherche le point qui fera gagner le plus, tout de suite.</p></div>
+    <div class="step r"><div class="bg">02</div><div class="no">02</div><h3>On assemble l'outil avec l'IA</h3><p>On construit vite un premier outil utile, qu'on affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan.</p></div>
+    <div class="step r"><div class="bg">03</div><div class="no">03</div><h3>Vous reprenez du temps</h3><p>Vous l'utilisez, il évolue. Les heures que la machine peut faire à votre place, vous les récupérez.</p></div>
   </div>
 </div></section>
 
-<div class="quote"><div class="wrap rv">
+<div class="quote"><div class="wrap r">
   <blockquote class="serif">On ne vous vend pas un logiciel de plus. On part de votre angle mort.</blockquote>
   <div class="src">L'approche OSE</div>
 </div></div>
 
-<section id="origine" class="origin"><div class="wrap rv">
+<section id="origine" class="origin"><div class="wrap r">
   <div class="grid2">
     <div class="idx">04 — D'OÙ ON VIENT</div>
     <div>
@@ -328,14 +440,17 @@
 </div></section>
 </main>
 
-<div class="cta" id="contact"><div class="wrap rv">
-  <h2>Montrez-moi<br>votre <span class="it serif">angle mort.</span></h2>
-  <p>30 minutes pour repérer, ensemble, où l'IA peut vous faire gagner du temps. Sans engagement.</p>
-  <div class="actions">
-    <a class="btn btn-h js-contact" href="#contact">Prendre contact →</a>
-    <a class="btn btn-g" href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+<div class="cta" id="contact">
+  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="wrap r">
+    <h2>Montrez-moi<br>votre <span class="it serif chrome">angle mort.</span></h2>
+    <p>30 minutes pour repérer, ensemble, où l'IA peut vous faire gagner du temps. Sans engagement.</p>
+    <div class="actions">
+      <a class="btn btn-h mag js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
+      <a class="btn btn-g" href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+    </div>
   </div>
-</div></div>
+</div>
 
 <footer>
   <div class="wrap f-top">
@@ -345,16 +460,11 @@
     </div>
     <nav class="f-col">
       <span class="f-h">Le site</span>
-      <a href="#constat">Le constat</a>
-      <a href="#domaines">Domaines</a>
-      <a href="#savoir-faire">Savoir-faire</a>
-      <a href="#process">Comment ça marche</a>
-      <a href="#origine">D'où on vient</a>
+      <a href="#constat">Le constat</a><a href="#domaines">Domaines</a><a href="#savoir-faire">Savoir-faire</a><a href="#process">Comment ça marche</a><a href="#origine">D'où on vient</a>
     </nav>
     <nav class="f-col">
       <span class="f-h">Contact</span>
-      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
-      <a class="js-contact" href="#contact">Prendre contact</a>
+      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a><a class="js-contact" href="#contact">Réserver 30 minutes</a>
     </nav>
   </div>
   <div class="wrap f-base">
@@ -363,33 +473,35 @@
   </div>
 </footer>
 
-<!-- ===== modale contact ===== -->
+<div id="domOverlay"></div>
+<div id="domCard" role="dialog" aria-modal="true" aria-labelledby="domCardH">
+  <div class="dom-card-in">
+    <button class="dom-close" type="button" aria-label="Fermer">&times;</button>
+    <span class="dom-panel-h" id="domCardH"></span>
+    <ul class="dom-list" id="domCardList"></ul>
+  </div>
+</div>
+
 <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
   <div class="modal-card">
     <button type="button" class="modal-close" id="contact-close" aria-label="Fermer">&times;</button>
-
     <form id="contact-form" novalidate>
       <div class="idx">— Prendre contact</div>
       <h2 id="contact-title">Montrez-nous votre <span class="it serif">angle&nbsp;mort.</span></h2>
       <p class="sub">Quelques infos pour préparer l'échange. On revient vers vous très vite — sans engagement.</p>
-
       <!-- Web3Forms -->
       <input type="hidden" name="access_key" value="c73f7f9f-2dd1-4f68-83cf-6a650d88b499">
       <input type="hidden" name="subject" value="Nouveau contact depuis ose-os.fr">
       <input type="hidden" name="from_name" value="Site OSE">
-      <!-- honeypot anti-spam -->
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-
       <div class="field">
         <label for="cf-email">Votre email</label>
         <input type="email" id="cf-email" name="email" required placeholder="vous@entreprise.fr" autocomplete="email">
       </div>
-
       <div class="field">
         <label for="cf-secteur">Votre secteur d'activité</label>
         <input type="text" id="cf-secteur" name="secteur" placeholder="ex. BTP, cabinet comptable, distribution…">
       </div>
-
       <div class="field">
         <label>Les services les plus touchés <span class="opt">— où ça coince le plus</span></label>
         <div class="chips">
@@ -403,21 +515,17 @@
           <label><input type="checkbox" name="services" value="Autre"><span>Autre</span></label>
         </div>
       </div>
-
       <div class="field">
         <label for="cf-message">Votre message <span class="opt">(optionnel)</span></label>
         <textarea id="cf-message" name="message" placeholder="En quelques mots, où le temps file chez vous ?"></textarea>
       </div>
-
       <div class="field">
         <label for="cf-name">Votre nom <span class="opt">(optionnel)</span></label>
         <input type="text" id="cf-name" name="name" placeholder="Prénom Nom" autocomplete="name">
       </div>
-
       <button type="submit" class="btn btn-submit" id="cf-submit">Envoyer →</button>
       <p class="legal">En envoyant ce message, vous acceptez d'être recontacté par OSE. Vos infos ne servent qu'à ça.</p>
     </form>
-
     <div class="form-msg" id="cf-ok" role="status">
       <div class="big"><b>Merci.</b></div>
       <p>On a bien reçu votre message — on revient vers vous très vite à l'adresse indiquée.</p>
@@ -430,166 +538,255 @@
 </div>
 
 <script>
-const hdr=document.getElementById('hdr');
-addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>40));
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// scroll reveal
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.18});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// ---- preloader (timer-based, never blocks) ----
+function hidePre(){ var p=document.getElementById('pre'); if(p) p.classList.add('done'); }
+setTimeout(hidePre, RM?0:1200);
+addEventListener('load', ()=>setTimeout(hidePre, RM?0:200));
 
-// ============ GRAPH : temps perdu (tâches éparses) → OSE → votre outil ============
+// ---- scroll progress + header ----
+const prog=document.getElementById('prog'), hdr=document.getElementById('hdr');
+function onScroll(){
+  const h=document.documentElement;
+  const max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0?(scrollY/max*100):0)+'%';
+  hdr.classList.toggle('solid', scrollY>40);
+}
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// ---- reveals (set up FIRST, robust) ----
+function revealAll(){ document.querySelectorAll('.r,.words').forEach(e=>e.classList.add('in')); }
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }),{threshold:.14, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.r,.words').forEach((el,i)=>{ if(!RM) el.style.transitionDelay=(Math.min(i%6,5)*0.05)+'s'; io.observe(el); });
+  // reveal whatever is already on screen right away (don't wait for a scroll)
+  requestAnimationFrame(()=>document.querySelectorAll('.r,.words').forEach(el=>{
+    if(el.getBoundingClientRect().top < innerHeight*0.95) el.classList.add('in');
+  }));
+  // hard safety net: if anything went wrong, show everything after 3s
+  setTimeout(()=>{ const hidden=[...document.querySelectorAll('.r:not(.in)')].filter(el=>el.getBoundingClientRect().top<innerHeight); if(hidden.length) hidden.forEach(el=>el.classList.add('in')); }, 3000);
+}else{ revealAll(); }
+
+// ---- split headline into words (after reveal is wired; failure-safe) ----
+try{
+  document.querySelectorAll('.words').forEach(el=>{
+    const tmp=document.createElement('div'); tmp.innerHTML=el.innerHTML;
+    const out=[];
+    tmp.childNodes.forEach(node=>{
+      if(node.nodeType===3){
+        node.textContent.split(/(\s+)/).forEach(w=>{ out.push(w.trim()?'<span>'+w+'</span>':w); });
+      }else{ out.push('<span>'+node.outerHTML+'</span>'); }
+    });
+    el.innerHTML=out.join('');
+    [...el.querySelectorAll('span')].forEach((s,i)=>{ if(!RM) s.style.transitionDelay=(0.12+i*0.06)+'s'; });
+  });
+}catch(e){ document.querySelectorAll('.words').forEach(el=>el.classList.add('in')); }
+
+// stagger db-grid
+document.querySelectorAll('.db-grid .r').forEach((el,i)=>{ if(!RM) el.style.transitionDelay=(i*0.06)+'s'; });
+
+// ---- count-up ----
+const cio=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(!e.isIntersecting) return; cio.unobserve(e.target);
+  const el=e.target, to=+el.dataset.to, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
+  if(RM){el.textContent=pre+to+suf;return;}
+  const dur=1200, t0=performance.now();
+  (function tick(t){
+    const p=Math.min((t-t0)/dur,1), eased=1-Math.pow(1-p,3);
+    el.textContent=pre+Math.round(to*eased)+suf;
+    if(p<1) requestAnimationFrame(tick);
+  })(t0);
+}),{threshold:.5});
+document.querySelectorAll('.num[data-to]').forEach(el=>cio.observe(el));
+
+// ---- cursor glow ----
+const glow=document.getElementById('glow');
+if(!RM && matchMedia('(pointer:fine)').matches){
+  let gx=innerWidth/2, gy=innerHeight/2, cx=gx, cy=gy;
+  addEventListener('mousemove',e=>{gx=e.clientX;gy=e.clientY;});
+  (function loop(){ cx+=(gx-cx)*.12; cy+=(gy-cy)*.12; glow.style.left=cx+'px'; glow.style.top=cy+'px'; requestAnimationFrame(loop); })();
+}else{ glow.style.display='none'; }
+
+// ---- magnetic buttons ----
+if(!RM && matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('.mag').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const r=b.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
+      b.style.transform=`translate(${x*.25}px,${y*.35}px)`;
+    });
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+}
+
+// ---- parallax (hero canvas + aurora subtle) ----
+if(!RM){
+  const auroras=[...document.querySelectorAll('.aurora')];
+  addEventListener('scroll',()=>{
+    const y=scrollY;
+    auroras.forEach(a=>{ a.style.transform=`translateY(${y*0.06}px)`; });
+  },{passive:true});
+}
+
+// ---- domain bubbles : reveal examples on click ----
+const DOM_EX={
+  'prospection':['Trouver et qualifier de nouveaux prospects automatiquement','Relancer les devis sans réponse, au bon moment','Préparer une fiche complète avant chaque appel','Repérer les clients à réactiver'],
+  'devis':['Générer un devis à partir d\'un simple échange','Relancer automatiquement les factures impayées','Repérer les écarts entre devis et facture','Suivre les paiements sans ressaisie'],
+  'reporting':['Un tableau de bord qui se met à jour tout seul','Le résumé de la semaine, envoyé chaque lundi','Croiser plusieurs fichiers et outils en une seule vue','Être alerté dès qu\'un indicateur décroche'],
+  'production':['Suivre l\'avancement des commandes en temps réel','Anticiper les retards et les ruptures','Centraliser les infos d\'atelier éparpillées','Être alerté sur les anomalies'],
+  'saisie':['Extraire les infos d\'un PDF ou d\'un email automatiquement','Remplir un outil à partir d\'un autre, sans copier-coller','Détecter et corriger les doublons','Récupérer les heures perdues sur la saisie'],
+  'reponses':['Un brouillon de réponse prêt en un clic','Trier et router les demandes entrantes','Répondre aux questions fréquentes 24/7','Garder votre ton et vos modèles'],
+  'planning':['Construire un planning à partir de vos contraintes','Prévenir automatiquement les bonnes personnes','Réajuster quand un imprévu tombe','Voir qui fait quoi d\'un coup d\'œil'],
+  'veille':['Surveiller un sujet ou un concurrent en continu','Résumer de longs documents en points clés','Une synthèse quotidienne dans votre boîte mail','Repérer ce qui mérite vraiment votre attention']
+};
+(function(){
+  const grid=document.querySelector('.db-grid'); if(!grid) return;
+  const overlay=document.getElementById('domOverlay'), card=document.getElementById('domCard');
+  const pH=document.getElementById('domCardH'), pList=document.getElementById('domCardList');
+  let curBtn=null, shown=false, closeTimer=null;
+  const M=16;                                   // marge écran
+
+  function fill(b){
+    grid.querySelectorAll('.dom').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); curBtn=b;
+    pH.textContent='Exemples — '+b.textContent.trim();
+    pList.classList.remove('in');
+    pList.innerHTML=(DOM_EX[b.dataset.k]||[]).map(i=>'<li>'+i+'</li>').join('');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>pList.classList.add('in')));
+  }
+  function setGeom(l,t,w,h){ card.style.left=l+'px';card.style.top=t+'px';card.style.width=w+'px';card.style.height=h+'px'; }
+
+  function open(b){
+    clearTimeout(closeTimer);
+    const wasShown=shown;
+    fill(b);
+    card.classList.add('show');
+    const r=b.getBoundingClientRect();
+    const W=Math.min(440, innerWidth-2*M);
+    // mesurer la hauteur cible à la largeur W (sans transition)
+    card.style.transition='none';
+    card.style.width=W+'px'; card.style.height='auto';
+    const endH=card.offsetHeight;
+    // position cible : ancrée sur la bulle, ramenée dans l'écran
+    const endL=Math.min(Math.max(M, r.left), innerWidth-M-W);
+    const endT=Math.min(Math.max(M, r.top), innerHeight-M-endH);
+    if(!wasShown){ setGeom(r.left,r.top,r.width,r.height); }  // départ = la bulle
+    void card.offsetWidth;                                    // fige l'état de départ
+    requestAnimationFrame(()=>{
+      card.style.transition='';
+      overlay.classList.add('open'); card.classList.add('open');
+      setGeom(endL,endT,W,endH);
+    });
+    shown=true; document.body.style.overflow='hidden';
+  }
+  function close(){
+    if(!curBtn) return;
+    const r=curBtn.getBoundingClientRect();
+    pList.classList.remove('in');
+    card.classList.remove('open'); overlay.classList.remove('open');
+    setGeom(r.left,r.top,r.width,r.height);                   // rétrécit vers la bulle
+    curBtn.classList.remove('active'); curBtn=null;
+    document.body.style.overflow='';
+    clearTimeout(closeTimer);
+    closeTimer=setTimeout(()=>{ card.classList.remove('show'); shown=false; }, 520);
+  }
+  grid.querySelectorAll('.dom').forEach(b=>b.addEventListener('click',()=>{ curBtn===b?close():open(b); }));
+  overlay.addEventListener('click',close);
+  card.querySelector('.dom-close').addEventListener('click',close);
+  addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+  addEventListener('resize',()=>{ if(curBtn) close(); });
+})();
+
+// ============ HERO CANVAS : temps perdu → OSE → votre outil ============
 const cv=document.getElementById('graph'),ctx=cv.getContext('2d');
 const dpr=Math.min(2,window.devicePixelRatio||1);
 const phaseEl=document.getElementById('phase');
 let W,H,sources=[],outputs=[],hub,card,startT=null;
-const SRC_LABELS=['SAISIE','RELANCES','REPORTING','SUIVI','EMAILS'];
-
+const SRC_LABELS=['DONNÉES','VISION','TEMPS','DÉCISIONS','CONTRÔLE'];
 function rand(a,b){return a+Math.random()*(b-a)}
 function build(){
   W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr;
   hub={tx:W*0.52,ty:H*0.5};
-  // sources: tidy left column targets + random chaos start
-  sources=SRC_LABELS.map((lab,i)=>({
-    lab, tx:W*0.16, ty:H*(0.16+i*0.17),
-    cxp:rand(0,W*0.75), cyp:rand(0,H), seed:rand(0,6.28)
-  }));
-  // output: a single coherent "tool" card on the right = "votre outil"
+  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*0.16, ty:H*(0.16+i*0.17), cxp:rand(0,W*0.75), cyp:rand(0,H), seed:rand(0,6.28)}));
   card={ x:W*0.62, w:W*0.30, y:H*0.27, h:H*0.46 };
   outputs=[rand(.55,1),rand(.4,.85),rand(.7,1)].map(b=>({bar:b}));
 }
-function roundRect(x,y,w,h,r){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
-  ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
-}
-build();addEventListener('resize',build);
-
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+build();addEventListener('resize',restart);
 const clamp=(t)=>t<0?0:t>1?1:t;
 const easeIO=(t)=>{t=clamp(t);return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2};
 const seg=(u,a,b)=>easeIO((u-a)/(b-a));
-
-const CYCLE=10;
+const bez=(p0,p1,p2,p3,t)=>{const m=1-t;return m*m*m*p0+3*m*m*t*p1+3*m*t*t*p2+t*t*t*p3;};
+const DUR=4.6;                 // la construction joue une fois, puis se fige
 function frame(ts){
   if(startT===null)startT=ts;
-  const u=((ts-startT)/1000 % CYCLE)/1;
-  const p=u/CYCLE;
+  const elapsed=(ts-startT)/1000;
+  const p = RM ? 1 : clamp(elapsed/DUR,0,1);
+  const frozen = p>=1;
   ctx.clearRect(0,0,W,H);
-
-  const gather = seg(p,0.04,0.30);
-  const linkIn = seg(p,0.30,0.50);
-  const hubP   = seg(p,0.34,0.52);
-  const linkOut= seg(p,0.52,0.74);
-  const outP   = seg(p,0.56,0.78);
-  const dissolve = seg(p,0.90,1.0);
-  const live = 1-dissolve;
-
-  let label = p<0.30?'tâches chronophages' : p<0.52?'OSE assemble' : p<0.90?'votre outil sur-mesure' : '…';
-  if(phaseEl.textContent!==label){phaseEl.style.opacity=0;
-    setTimeout(()=>{phaseEl.textContent=label;phaseEl.style.opacity=1;},180);}
-
+  const gather=seg(p,0.06,0.40), linkIn=seg(p,0.34,0.66), hubP=seg(p,0.36,0.62), linkOut=seg(p,0.62,0.84), outP=seg(p,0.66,0.95), live=1;
+  let label=p<0.34?'matière brute':p<0.66?'OSE assemble':'votre outil sur-mesure';
+  if(phaseEl.textContent!==label){phaseEl.style.opacity=0;setTimeout(()=>{phaseEl.textContent=label;phaseEl.style.opacity=1;},180);}
   const t=ts/1000;
-  for(const s of sources){
-    const m=Math.max(gather-dissolve,0);
-    const driftX=Math.sin(t*.7+s.seed)*16*dpr, driftY=Math.cos(t*.6+s.seed)*16*dpr;
-    s.x=(s.cxp+driftX)*(1-m)+s.tx*m;
-    s.y=(s.cyp+driftY)*(1-m)+s.ty*m;
-  }
-  hub.x=hub.tx; hub.y=hub.ty;
-  const cardCx=card.x, cardCy=card.y+card.h/2; // connector lands on card's left edge
-
+  for(const s of sources){const m=gather;const dx=frozen?0:Math.sin(t*.7+s.seed)*16*dpr,dy=frozen?0:Math.cos(t*.6+s.seed)*16*dpr;s.x=(s.cxp+dx)*(1-m)+s.tx*m;s.y=(s.cyp+dy)*(1-m)+s.ty*m;}
+  hub.x=hub.tx;hub.y=hub.ty;const cardCx=card.x,cardCy=card.y+card.h/2;
   ctx.lineCap='round';
-  ctx.lineWidth=1.4*dpr;
+  // toutes les lignes convergent au centre d'OSE (même progression → jonction nette)
   sources.forEach((s,i)=>{
-    const prog=clamp(linkIn*1 - i*0.05)*live; if(prog<=0)return;
-    const ex=s.x+(hub.x-s.x)*prog, ey=s.y+(hub.y-s.y)*prog;
-    ctx.beginPath();ctx.moveTo(s.x,s.y);
-    const mx=(s.x+ex)/2;
-    ctx.bezierCurveTo(mx,s.y,mx,ey,ex,ey);
-    ctx.strokeStyle=`rgba(58,88,148,${.30*live})`;ctx.stroke();
-  });
-  if(linkOut>0){
-    const ex=hub.x+(cardCx-hub.x)*linkOut, ey=hub.y+(cardCy-hub.y)*linkOut;
-    ctx.beginPath();ctx.moveTo(hub.x,hub.y);
-    const mx=(hub.x+ex)/2;
-    ctx.bezierCurveTo(mx,hub.y,mx,ey,ex,ey);
-    ctx.strokeStyle=`rgba(58,88,148,${.34*live})`;ctx.stroke();
-  }
-
-  ctx.font=`${10.5*dpr}px Inter, sans-serif`;ctx.textBaseline='middle';
-  for(const s of sources){
-    const r=4*dpr*(0.7+gather*0.6)*live + .5;
-    ctx.beginPath();ctx.arc(s.x,s.y,r,0,7);
-    ctx.fillStyle=`rgba(20,19,15,${(.4+gather*.45)*live})`;ctx.fill();
-    const la=clamp(gather*1.4-.3)*live;
-    if(la>0){ctx.fillStyle=`rgba(122,118,108,${la})`;ctx.textAlign='right';
-      ctx.fillText(s.lab,s.x-10*dpr,s.y);}
-  }
-
-  const hr=(10+hubP*6)*dpr*live;
-  if(live>0.01){
-    const pulse=1+Math.sin(t*3)*0.06*hubP;
-    ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse+8*dpr*hubP,0,7);
-    ctx.strokeStyle=`rgba(58,88,148,${.35*hubP*live})`;ctx.lineWidth=1.5*dpr;ctx.stroke();
-    ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse,0,7);
-    ctx.fillStyle=`rgba(58,88,148,${live})`;ctx.fill();
-    ctx.fillStyle=`rgba(255,255,255,${hubP*live})`;ctx.textAlign='center';
-    ctx.font=`800 ${10*dpr}px Inter, sans-serif`;ctx.fillText('OSE',hub.x,hub.y);
-  }
-
-  // ---- the tool card grows in on the right ----
-  if(outP>0.001 && live>0.01){
-    const sc=outP*live;                          // 0..1 build-in
-    const cw=card.w*sc, ch=card.h*sc;            // grow from center
-    const cx=card.x+card.w/2-cw/2, cy=card.y+card.h/2-ch/2;
-    const a=live;
-    // panel
-    ctx.fillStyle=`rgba(251,250,246,${.96*a})`;
-    roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.fill();
-    ctx.lineWidth=1.4*dpr;ctx.strokeStyle=`rgba(58,88,148,${.55*a})`;
-    roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.stroke();
-    if(sc>0.45){
-      const ia=clamp((sc-0.45)/0.4)*a;           // inner content fades in after frame
-      const pad=16*dpr*sc;
-      // title bar: dot + label line
-      ctx.fillStyle=`rgba(58,88,148,${ia})`;
-      ctx.beginPath();ctx.arc(cx+pad+3*dpr,cy+pad+2*dpr,3*dpr,0,7);ctx.fill();
-      ctx.fillStyle=`rgba(20,19,15,${.55*ia})`;
-      ctx.fillRect(cx+pad+12*dpr,cy+pad,cw*0.42,3.5*dpr);
-      // rising bars along the bottom
-      const bn=outputs.length, bw=(cw-pad*2-(bn-1)*10*dpr)/bn;
-      const baseY=cy+ch-pad, maxBH=ch-pad*3.2;
-      outputs.forEach((o,i)=>{
-        const grow=clamp((sc-0.5-i*0.08)/0.4);
-        const bh=maxBH*o.bar*grow;
-        const bx=cx+pad+i*(bw+10*dpr);
-        ctx.fillStyle=`rgba(58,88,148,${.16*ia})`;
-        ctx.fillRect(bx,baseY-maxBH,bw,maxBH);
-        ctx.fillStyle=`rgba(58,88,148,${.9*ia})`;
-        ctx.fillRect(bx,baseY-bh,bw,bh);
-      });
+    const prog=linkIn; if(prog<=0)return;
+    const ex=s.x+(hub.x-s.x)*prog, ey=s.y+(hub.y-s.y)*prog, mx=s.x+(hub.x-s.x)*0.5;
+    const g=ctx.createLinearGradient(s.x,s.y,hub.x,hub.y);
+    g.addColorStop(0,'rgba(58,88,148,0.12)'); g.addColorStop(1,'rgba(58,88,148,0.5)');
+    ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.bezierCurveTo(mx,s.y,mx,ey,ex,ey);
+    ctx.strokeStyle=g;ctx.lineWidth=1.5*dpr;ctx.stroke();
+    // billes qui suivent le fil en continu vers OSE
+    if(!RM && prog>0.1){
+      const NB=3;
+      for(let j=0;j<NB;j++){
+        const tp=((t*0.4 + i*0.17 + j/NB)%1), u=tp*prog;
+        const bx=bez(s.x,mx,mx,ex,u), by=bez(s.y,s.y,ey,ey,u);
+        const a=Math.min(1,tp/0.12)*0.9;
+        ctx.beginPath();ctx.arc(bx,by,2*dpr,0,7);ctx.fillStyle=`rgba(120,150,205,${a})`;ctx.fill();
+      }
     }
-    // caption
-    ctx.font=`600 ${10*dpr}px Inter, sans-serif`;ctx.textAlign='center';
-    ctx.fillStyle=`rgba(122,118,108,${clamp(sc*1.4-.4)*a})`;
-    ctx.fillText('VOTRE OUTIL',card.x+card.w/2,cy+ch+18*dpr);
+  });
+  if(linkOut>0){const ex=hub.x+(cardCx-hub.x)*linkOut,ey=hub.y+(cardCy-hub.y)*linkOut;ctx.beginPath();ctx.moveTo(hub.x,hub.y);const mx=(hub.x+ex)/2;ctx.bezierCurveTo(mx,hub.y,mx,ey,ex,ey);ctx.lineWidth=1.5*dpr;ctx.strokeStyle='rgba(58,88,148,0.45)';ctx.stroke();}
+  ctx.textBaseline='middle';
+  for(const s of sources){
+    const la=clamp(gather*1.4-.3);
+    if(la>0 && s.lab){
+      ctx.font=`600 ${10.5*dpr}px Inter, sans-serif`; ctx.textAlign='right';
+      if('letterSpacing' in ctx) ctx.letterSpacing=`${1.3*dpr}px`;
+      ctx.fillStyle=`rgba(20,19,15,${0.62*la})`; ctx.fillText(s.lab,s.x-12*dpr,s.y);
+      if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+    }
   }
-
-  requestAnimationFrame(frame);
+  const hr=(10+hubP*6)*dpr;
+  if(hubP>0.001){const pulse=frozen?1:1+Math.sin(t*3)*0.06*hubP;ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse+8*dpr*hubP,0,7);ctx.strokeStyle=`rgba(58,88,148,${.35*hubP})`;ctx.lineWidth=1.5*dpr;ctx.stroke();ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse,0,7);ctx.fillStyle='rgba(58,88,148,1)';ctx.fill();ctx.fillStyle=`rgba(255,255,255,${hubP})`;ctx.textAlign='center';ctx.font=`800 ${10*dpr}px Inter, sans-serif`;ctx.fillText('OSE',hub.x,hub.y);}
+  if(outP>0.001){const sc=outP,cw=card.w*sc,ch=card.h*sc,cx=card.x+card.w/2-cw/2,cy=card.y+card.h/2-ch/2;
+    ctx.fillStyle='rgba(251,250,246,0.96)';roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.fill();ctx.lineWidth=1.4*dpr;ctx.strokeStyle='rgba(58,88,148,0.55)';roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.stroke();
+    if(sc>0.45){const ia=clamp((sc-0.45)/0.4),pad=16*dpr*sc;ctx.fillStyle=`rgba(58,88,148,${ia})`;ctx.beginPath();ctx.arc(cx+pad+3*dpr,cy+pad+2*dpr,3*dpr,0,7);ctx.fill();ctx.fillStyle=`rgba(20,19,15,${.55*ia})`;ctx.fillRect(cx+pad+12*dpr,cy+pad,cw*0.42,3.5*dpr);
+      const bn=outputs.length,bw=(cw-pad*2-(bn-1)*10*dpr)/bn,baseY=cy+ch-pad,maxBH=ch-pad*3.2;
+      outputs.forEach((o,i)=>{const grow=clamp((sc-0.5-i*0.08)/0.4),bh=maxBH*o.bar*grow,bx=cx+pad+i*(bw+10*dpr);ctx.fillStyle=`rgba(58,88,148,${.16*ia})`;ctx.fillRect(bx,baseY-maxBH,bw,maxBH);ctx.fillStyle=`rgba(58,88,148,${.9*ia})`;ctx.fillRect(bx,baseY-bh,bw,bh);});}
+    ctx.font=`600 ${10*dpr}px Inter, sans-serif`;ctx.textAlign='center';ctx.fillStyle=`rgba(122,118,108,${clamp(sc*1.4-.4)})`;ctx.fillText('VOTRE OUTIL',card.x+card.w/2,cy+ch+18*dpr);}
+  if(RM) return;                          // mouvement réduit : image finale statique
+  requestAnimationFrame(frame);           // la construction est figée, mais les billes coulent en continu
 }
+function restart(){ build(); startT=null; if(RM) requestAnimationFrame(frame); }
 requestAnimationFrame(frame);
 
 // ============ modale contact ============
 (function(){
   const modal=document.getElementById('contact-modal');
-  const card=modal.querySelector('.modal-card');
   const form=document.getElementById('contact-form');
   const okMsg=document.getElementById('cf-ok');
   const errMsg=document.getElementById('cf-err');
   const submitBtn=document.getElementById('cf-submit');
   let lastFocus=null;
-
   const focusable=()=>modal.querySelectorAll('button, [href], input, textarea, select');
-
   function open(e){
     if(e)e.preventDefault();
     lastFocus=document.activeElement;
@@ -605,14 +802,13 @@ requestAnimationFrame(frame);
     document.body.style.overflow='';
     if(lastFocus)lastFocus.focus();
   }
-
   document.querySelectorAll('.js-contact').forEach(el=>el.addEventListener('click',open));
   document.getElementById('contact-close').addEventListener('click',close);
   modal.addEventListener('mousedown',e=>{if(e.target===modal)close();});
   document.addEventListener('keydown',e=>{
     if(!modal.classList.contains('open'))return;
     if(e.key==='Escape')close();
-    if(e.key==='Tab'){ // focus trap
+    if(e.key==='Tab'){
       const f=Array.from(focusable()).filter(el=>el.offsetParent!==null);
       if(!f.length)return;
       const first=f[0],last=f[f.length-1];
@@ -620,7 +816,6 @@ requestAnimationFrame(frame);
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
     }
   });
-
   form.addEventListener('submit',async e=>{
     e.preventDefault();
     if(!form.reportValidity())return;
@@ -628,21 +823,12 @@ requestAnimationFrame(frame);
     errMsg.classList.remove('show');
     try{
       const data=new FormData(form);
-      const res=await fetch('https://api.web3forms.com/submit',{
-        method:'POST',
-        headers:{'Accept':'application/json'},
-        body:data
-      });
+      const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:data});
       const json=await res.json();
-      if(json.success){
-        form.style.display='none';
-        okMsg.classList.add('show');
-      }else{throw new Error(json.message||'fail');}
-    }catch(err){
-      errMsg.classList.add('show');
-    }finally{
-      submitBtn.disabled=false;submitBtn.textContent='Envoyer →';
-    }
+      if(json.success){form.style.display='none';okMsg.classList.add('show');}
+      else{throw new Error(json.message||'fail');}
+    }catch(err){ errMsg.classList.add('show'); }
+    finally{ submitBtn.disabled=false;submitBtn.textContent='Envoyer →'; }
   });
 })();
 </script>
