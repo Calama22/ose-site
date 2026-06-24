@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120" role="img" aria-label="OSE">
+  <defs>
+    <!-- Chrome "acier" pour fond clair : sombre en haut, éclat clair médian, sombre en bas -->
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#1c2c52"/>
+      <stop offset="0.34" stop-color="#3a5894"/>
+      <stop offset="0.49" stop-color="#9db9e6"/>
+      <stop offset="0.50" stop-color="#dfeaff"/>
+      <stop offset="0.51" stop-color="#9db9e6"/>
+      <stop offset="0.66" stop-color="#33508c"/>
+      <stop offset="1"    stop-color="#16224a"/>
+    </linearGradient>
+  </defs>
+  <g font-family="Arial, 'Helvetica Neue', sans-serif" font-size="86" font-weight="900" font-style="italic" letter-spacing="-3">
+    <text x="28" y="84" fill="url(#steel)">OSE</text>
+  </g>
+</svg>

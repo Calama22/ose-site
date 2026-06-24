@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="OSE">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="32%" r="80%">
+      <stop offset="0" stop-color="#2b3a67"/>
+      <stop offset="1" stop-color="#0a0f1f"/>
+    </radialGradient>
+    <linearGradient id="chrome-i" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#f3f8ff"/>
+      <stop offset="0.30" stop-color="#aacaf2"/>
+      <stop offset="0.49" stop-color="#5d83c2"/>
+      <stop offset="0.50" stop-color="#23386b"/>
+      <stop offset="0.52" stop-color="#3a5fa0"/>
+      <stop offset="0.70" stop-color="#bcd6ff"/>
+      <stop offset="1"    stop-color="#eaf3ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <g font-family="Arial, 'Helvetica Neue', sans-serif" font-size="190" font-weight="900" font-style="italic" letter-spacing="-8" text-anchor="middle">
+    <text x="262" y="318" fill="#16264d" stroke="#16264d" stroke-width="6" stroke-linejoin="round">OSE</text>
+    <text x="262" y="318" fill="url(#chrome-i)">OSE</text>
+  </g>
+</svg>

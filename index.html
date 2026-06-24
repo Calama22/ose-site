@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSE — Studio IA sur-mesure pour PME</title>
+<meta name="description" content="OSE construit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.">
+<link rel="canonical" href="https://ose-os.fr/">
+<meta property="og:title" content="OSE — Studio IA sur-mesure pour PME">
+<meta property="og:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ose-os.fr/">
+<meta property="og:locale" content="fr_FR">
+<meta name="theme-color" content="#0a0f1f">
+<link rel="icon" type="image/svg+xml" href="ose-icon.svg">
+<link rel="apple-touch-icon" href="ose-icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f2ec; --ink:#14130f; --dim:#7a766c; --line:#d9d5c8;
+    --accent:#3a5894;      /* bleu acier — fond clair */
+    --accent-d:#8fb0e0;    /* bleu acier clair — bandes sombres */
+    --paper:#fbfaf6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  .serif{font-family:"Times New Roman",Georgia,serif}
+  ::selection{background:var(--accent);color:#fff}
+
+  header{position:fixed;top:0;width:100%;z-index:40;border-bottom:1px solid transparent;transition:.3s}
+  header.solid{background:rgba(244,242,236,.85);backdrop-filter:blur(8px);border-color:var(--line)}
+  nav{display:flex;justify-content:space-between;align-items:center;height:78px}
+  .logo{display:flex;align-items:center}
+  .logo img{height:30px}
+  .nav-r{display:flex;gap:14px;align-items:center;font-size:13px;letter-spacing:.5px}
+  .nav-r .idx{color:var(--dim)}
+  .nav-cta{border:1px solid var(--ink);padding:9px 18px;border-radius:40px;transition:.25s}
+  .nav-cta:hover{background:var(--ink);color:var(--bg)}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:50px;padding:110px 0 60px}
+  .hero-l .tag{display:inline-block;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:40px;padding:7px 16px;color:var(--dim);margin-bottom:38px}
+  h1{font-size:clamp(44px,6vw,98px);line-height:.94;letter-spacing:-3px;font-weight:400}
+  h1 b{font-weight:800}
+  h1 .it{font-style:italic;font-weight:400}
+  .hero-l p{font-size:19px;color:var(--dim);max-width:44ch;margin:38px 0 0;line-height:1.65}
+  .hero-actions{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap}
+  .btn{padding:16px 30px;border-radius:40px;font-size:15px;font-weight:600;transition:.25s;display:inline-flex;align-items:center;gap:9px}
+  .btn-h{background:var(--accent);color:#fff}.btn-h:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  .btn-o{border:1px solid var(--ink)}.btn-o:hover{background:var(--ink);color:var(--bg)}
+  .assur{display:flex;gap:24px;margin-top:30px;flex-wrap:wrap;font-size:13px;color:var(--dim);letter-spacing:.3px}
+  .assur span{display:flex;align-items:center;gap:9px}
+  .assur span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+
+  .hero-r{position:relative;height:80vh;min-height:520px}
+  #graph{width:100%;height:100%;display:block}
+  .cap{position:absolute;bottom:6px;left:0;width:100%;display:flex;justify-content:space-between;
+    font-size:11.5px;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase}
+  .cap .phase{color:var(--accent);transition:opacity .4s;font-weight:600}
+
+  /* marquee */
+  .strip{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;padding:20px 0}
+  .strip .run{display:inline-block;animation:run 28s linear infinite}
+  .strip span{font-size:32px;font-weight:800;letter-spacing:-1px;margin:0 28px}
+  .strip .o{color:var(--accent);font-style:italic;font-weight:400}
+  @keyframes run{to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.strip .run{animation:none}}
+
+  section{padding:100px 0}
+  .lead-row{display:grid;grid-template-columns:.8fr 2fr;gap:70px;align-items:start}
+  .lead-row .idx{font-size:13px;letter-spacing:2px;color:var(--accent);padding-top:14px}
+  .lead-row h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
+  .lead-row h2 b{font-weight:800}
+
+  .work{margin-top:64px;border-top:1px solid var(--ink)}
+  .work .item{display:grid;grid-template-columns:.4fr 1fr 2fr;gap:50px;padding:50px 0;border-bottom:1px solid var(--line);
+    align-items:baseline;transition:padding .35s,background .35s}
+  .work .item:hover{background:var(--paper);padding-left:24px;padding-right:24px;border-color:var(--accent)}
+  .work .item .n{font-size:13px;color:var(--accent);letter-spacing:1px}
+  .work .item h3{font-size:32px;font-weight:600;letter-spacing:-.5px}
+  .work .item p{color:var(--dim);font-size:17px;line-height:1.65}
+  .work .item .ex{display:block;margin-top:14px;font-size:14.5px;color:var(--accent)}
+  .work .item .ex::before{content:"Ex. — ";font-style:normal;font-weight:600}
+
+  /* dark "domaines" band */
+  .domains{background:var(--ink);color:var(--bg);padding:118px 0}
+  .domains .idx{font-size:13px;letter-spacing:2px;color:var(--accent-d);margin-bottom:24px}
+  .domains h2{font-size:clamp(28px,3.4vw,46px);line-height:1.12;letter-spacing:-1px;font-weight:400;max-width:22ch}
+  .domains h2 .serif{color:rgba(255,255,255,.55)}
+  .db-grid{margin-top:58px;display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+  .db-grid span{border:1px solid rgba(255,255,255,.18);border-radius:40px;padding:15px 20px;font-size:14.5px;
+    text-align:center;transition:.25s}
+  .db-grid span:hover{border-color:var(--accent-d);background:rgba(143,176,224,.14);transform:translateY(-2px)}
+  @media(max-width:880px){.db-grid{grid-template-columns:1fr 1fr}}
+
+  /* process steps */
+  .steps{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
+  .step{position:relative;overflow:hidden;padding:46px 32px 50px;border-right:1px solid var(--line);transition:background .35s}
+  .step:last-child{border-right:none}
+  .step:hover{background:var(--paper)}
+  .step .bg{position:absolute;right:2px;top:-46px;font-size:160px;font-weight:800;color:var(--line);
+    letter-spacing:-8px;opacity:.55;pointer-events:none;user-select:none}
+  .step .no{position:relative;font-size:13px;letter-spacing:2px;color:var(--accent);font-weight:700}
+  .step h3{position:relative;font-size:26px;font-weight:700;letter-spacing:-.5px;margin:20px 0 14px}
+  .step p{position:relative;color:var(--dim);font-size:16px;line-height:1.7}
+  @media(max-width:880px){.steps{grid-template-columns:1fr}.step{border-right:none;border-bottom:1px solid var(--line)}}
+
+  .quote{padding:120px 0;text-align:center}
+  .quote blockquote{font-size:clamp(30px,3.8vw,54px);line-height:1.15;letter-spacing:-1px;max-width:19ch;margin:0 auto;font-weight:400}
+  .quote .src{margin-top:44px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+
+  .origin .grid2{display:grid;grid-template-columns:.8fr 2fr;gap:70px;align-items:start}
+  .origin .idx{font-size:13px;letter-spacing:2px;color:var(--accent);padding-top:14px}
+  .origin h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
+  .origin h2 b{font-weight:800}
+  .origin p{color:var(--dim);font-size:18px;line-height:1.75;max-width:60ch;margin-top:30px}
+  .creed{list-style:none;margin-top:46px;border-top:1px solid var(--line)}
+  .creed li{padding:24px 0;border-bottom:1px solid var(--line);font-size:18px;display:flex;gap:18px;align-items:baseline}
+  .creed li::before{content:"—";color:var(--accent);font-weight:700}
+  @media(max-width:880px){.origin .grid2{grid-template-columns:1fr;gap:16px}}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  .cta{background:var(--ink);color:var(--bg);padding:130px 0}
+  .cta h2{font-size:clamp(40px,7vw,112px);line-height:.9;letter-spacing:-3px;font-weight:400}
+  .cta h2 b{font-weight:800}.cta .it{font-style:italic}
+  .cta p{color:rgba(255,255,255,.55);font-size:18px;max-width:46ch;margin-top:34px;line-height:1.6}
+  .cta .actions{display:flex;gap:18px;margin-top:56px;flex-wrap:wrap}
+  .cta .btn-h{background:var(--accent-d);color:var(--ink)}
+  .cta .btn-g{border:1px solid rgba(255,255,255,.4);color:#fff}.cta .btn-g:hover{border-color:#fff;background:transparent}
+
+  footer{background:var(--ink);color:var(--dim);border-top:1px solid #2a2823}
+  .f-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding:70px 0 56px}
+  .f-brand .logo{margin-bottom:18px}
+  .f-brand .logo img{height:34px}
+  .f-brand p{font-size:14px;line-height:1.7;max-width:34ch}
+  .f-col{display:flex;flex-direction:column;gap:12px;font-size:14px}
+  .f-col .f-h{color:var(--bg);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .f-col a{transition:.2s}.f-col a:hover{color:var(--accent-d)}
+  .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+    padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
+  .f-base a:hover{color:var(--bg)}
+  @media(max-width:880px){.f-top{grid-template-columns:1fr;gap:34px;padding:54px 0 40px}}
+  @media(max-width:880px){
+    .hero{grid-template-columns:1fr;gap:24px;padding-top:120px}
+    .hero-r{height:54vh;min-height:380px;order:2}
+    .lead-row,.work .item{grid-template-columns:1fr;gap:16px}
+    .work .item{padding:34px 0}
+  }
+
+  /* ===== modale contact — éditorial épuré ===== */
+  .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;
+    background:rgba(20,19,15,.5);backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+  .modal.open{opacity:1;visibility:visible}
+  .modal-card{background:var(--paper);border:1px solid var(--line);border-radius:4px;
+    width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:58px 56px 48px;position:relative;
+    box-shadow:0 40px 90px -34px rgba(20,19,15,.55);transform:translateY(18px);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .modal.open .modal-card{transform:none}
+  .modal-close{position:absolute;top:22px;right:24px;width:34px;height:34px;border:none;background:transparent;
+    color:var(--dim);font-size:26px;font-weight:300;line-height:1;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center}
+  .modal-close:hover{color:var(--ink);transform:rotate(90deg)}
+  .modal .idx{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .modal h2{font-size:clamp(30px,4.6vw,42px);line-height:1.02;letter-spacing:-1.5px;font-weight:400;margin:18px 0 14px}
+  .modal h2 b{font-weight:800}
+  .modal h2 .it{font-style:italic}
+  .modal .sub{color:var(--dim);font-size:15.5px;line-height:1.65;max-width:40ch;
+    margin-bottom:40px;padding-bottom:30px;border-bottom:1px solid var(--line)}
+
+  .field{margin-bottom:30px}
+  .field label{display:block;font-size:11.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--dim);margin-bottom:11px}
+  .field label .opt{text-transform:none;letter-spacing:0;font-weight:400}
+  .field input[type=text],.field input[type=email],.field textarea{
+    width:100%;font:inherit;font-size:18px;color:var(--ink);background:transparent;
+    border:none;border-bottom:1px solid var(--line);border-radius:0;padding:6px 0 9px;transition:border-color .25s}
+  .field textarea{resize:vertical;min-height:46px;line-height:1.5;font-size:16px}
+  .field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--accent);border-bottom-width:1.5px}
+  .field input::placeholder,.field textarea::placeholder{color:#c2bdb0;font-size:16px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips label{display:inline-flex;align-items:center;margin:0;cursor:pointer}
+  .chips input{position:absolute;opacity:0;width:0;height:0}
+  .chips span{border:1px solid var(--line);border-radius:40px;padding:8px 15px;font-size:13.5px;color:var(--dim);
+    background:transparent;transition:.2s;user-select:none}
+  .chips label:hover span{border-color:var(--ink);color:var(--ink)}
+  .chips input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+  .chips input:focus-visible+span{box-shadow:0 0 0 3px rgba(58,88,148,.25)}
+
+  .modal .btn-submit{width:100%;justify-content:center;background:var(--ink);color:var(--bg);border:none;border-radius:40px;
+    cursor:pointer;font:inherit;font-weight:600;font-size:15px;margin-top:10px;transition:.25s}
+  .modal .btn-submit:hover{background:var(--accent);transform:translateY(-1px)}
+  .modal .btn-submit[disabled]{opacity:.55;cursor:wait;transform:none}
+  .modal .legal{font-size:12px;color:var(--dim);line-height:1.55;margin-top:20px;text-align:center}
+  .modal .legal a{color:var(--accent);text-decoration:underline}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .form-msg{display:none;text-align:center;padding:30px 0}
+  .form-msg.show{display:block}
+  .form-msg .big{font-size:clamp(30px,4.6vw,42px);font-weight:400;letter-spacing:-1.5px;margin-bottom:14px}
+  .form-msg .big b{font-weight:800}
+  .form-msg.err .big{color:#a8443a}
+  .form-msg p{color:var(--dim);font-size:15.5px;line-height:1.65;max-width:36ch;margin:0 auto}
+  .form-msg a{color:var(--accent);text-decoration:underline}
+
+  @media(max-width:560px){.modal-card{padding:44px 26px 34px}}
+  @media(prefers-reduced-motion:reduce){.modal,.modal-card,.modal-close{transition:none}}
+</style>
+</head>
+<body>
+<header id="hdr"><div class="wrap"><nav>
+  <a class="logo" href="#hdr" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
+  <div class="nav-r"><span class="idx">FR — 2026</span><a class="nav-cta js-contact" href="#contact">Prendre contact</a></div>
+</nav></div></header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-l">
+      <span class="tag">Studio IA sur-mesure · PME</span>
+      <h1>On <b>construit</b><br>l'outil que<br>vous n'<span class="it serif">imaginiez</span><br>pas pouvoir<br>avoir.</h1>
+      <p>OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
+      <div class="hero-actions">
+        <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes →</a>
+        <a class="btn btn-o" href="#process">Comment ça marche</a>
+      </div>
+      <div class="assur">
+        <span>Sans engagement</span>
+        <span>Premier outil en quelques semaines</span>
+        <span>Vous gardez la main</span>
+      </div>
+    </div>
+    <div class="hero-r">
+      <canvas id="graph"></canvas>
+      <div class="cap"><span>temps perdu</span><span class="phase" id="phase">OSE assemble…</span><span>votre outil</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="strip"><div class="run">
+  <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
+  <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
+</div></div>
+
+<section id="constat"><div class="wrap">
+  <div class="lead-row rv">
+    <div class="idx">01 — LE CONSTAT</div>
+    <h2>Vos équipes perdent un temps fou sur des tâches que l'IA sait déjà <span class="serif it">absorber.</span></h2>
+  </div>
+  <div class="work">
+    <div class="item rv"><div class="n">i</div><h3>Gagner du temps</h3><p>Saisies, relances, reporting, allers-retours entre fichiers — on automatise le répétitif pour que votre équipe se concentre sur ce qui compte vraiment.<span class="ex">une relance client qui partait à la main, désormais automatique.</span></p></div>
+    <div class="item rv"><div class="n">ii</div><h3>Sur-mesure</h3><p>Aucun template. Un outil assemblé avec l'IA pour votre métier précis et votre façon de travailler — pas l'inverse.<span class="ex">vos étapes, vos mots, vos règles — pas celles d'un logiciel générique.</span></p></div>
+    <div class="item rv"><div class="n">iii</div><h3>Évolutif</h3><p>L'outil grandit avec vous : on l'ajuste dès que votre activité, vos process ou vos besoins changent.<span class="ex">un nouveau besoin lundi, l'outil le gère la semaine suivante.</span></p></div>
+  </div>
+</div></section>
+
+<section id="domaines" class="domains"><div class="wrap">
+  <div class="rv">
+    <div class="idx">— DANS N'IMPORTE QUEL SERVICE</div>
+    <h2>Commercial, compta, production, RH, logistique, SAV… <span class="serif it">si une tâche fait perdre du temps, elle est candidate.</span></h2>
+  </div>
+  <div class="db-grid rv">
+    <span>Prospection &amp; relances</span>
+    <span>Devis &amp; facturation</span>
+    <span>Reporting &amp; tableaux de bord</span>
+    <span>Suivi de production</span>
+    <span>Saisie &amp; ressaisie</span>
+    <span>Réponses clients</span>
+    <span>Planning &amp; coordination</span>
+    <span>Veille &amp; synthèse</span>
+  </div>
+</div></section>
+
+<section id="savoir-faire"><div class="wrap">
+  <div class="lead-row rv">
+    <div class="idx">02 — CE QU'ON SAIT CONSTRUIRE</div>
+    <h2>Pas des promesses : des briques <b>déjà construites,</b> testées en conditions réelles, <span class="serif it">qu'on recâble pour votre métier.</span></h2>
+  </div>
+  <div class="work">
+    <div class="item rv"><div class="n">i</div><h3>Trouver et trier vos cibles</h3><p>Repérer automatiquement les bonnes entreprises depuis les registres officiels, les enrichir, puis les classer par potentiel. Le système tourne seul et vous remet une short-list prête à traiter.<span class="ex">sur des milliers d'entreprises, 5 à 10 vraiment prioritaires chaque semaine, classées par l'IA.</span></p></div>
+    <div class="item rv"><div class="n">ii</div><h3>Réunir l'info éparpillée</h3><p>Croiser registres, données financières, site web et profils publics pour reconstituer, sans recherche manuelle, le dossier complet d'une entreprise ou d'un contact.<span class="ex">dirigeants, certifications et signaux d'investissement détectés tout seuls.</span></p></div>
+    <div class="item rv"><div class="n">iii</div><h3>Noter et décider avec l'IA</h3><p>Un moteur de scoring sur-mesure : vos critères pondérés, une note justifiée et un verdict — prioritaire, à creuser, à écarter — preuves citées à l'appui.<span class="ex">chaque dossier noté sur 10, avec un argumentaire écrit pour lui, pas un copier-coller.</span></p></div>
+    <div class="item rv"><div class="n">iv</div><h3>Un tableau de bord pour piloter</h3><p>Une interface web claire — indicateurs, cartes, listes filtrables, fiches détaillées, suivi — pour voir l'activité d'un coup d'œil et garder la main.<span class="ex">une console qui montre en temps réel ce que la machine est en train de faire.</span></p></div>
+    <div class="item rv"><div class="n">v</div><h3>Connecter vos outils existants</h3><p>Brancher votre CRM, vos fichiers, vos emails, des services externes — pour que tout circule de bout en bout, sans ressaisie.<span class="ex">des prospects qualifiés qui arrivent directement dans le CRM, argumentaire inclus.</span></p></div>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="lead-row rv">
+    <div class="idx">03 — COMMENT ÇA MARCHE</div>
+    <h2>Trois étapes, <b>zéro jargon,</b> <span class="serif it">zéro cahier des charges à rallonge.</span></h2>
+  </div>
+  <div class="steps">
+    <div class="step rv"><div class="bg">01</div><div class="no">01</div><h3>On part de votre quotidien</h3><p>On regarde où le temps file et où ça coince, service par service. On cherche le point qui fera gagner le plus, tout de suite.</p></div>
+    <div class="step rv"><div class="bg">02</div><div class="no">02</div><h3>On assemble l'outil avec l'IA</h3><p>On construit vite un premier outil utile, qu'on affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan.</p></div>
+    <div class="step rv"><div class="bg">03</div><div class="no">03</div><h3>Vous reprenez du temps</h3><p>Vous l'utilisez, il évolue. Les heures que la machine peut faire à votre place, vous les récupérez.</p></div>
+  </div>
+</div></section>
+
+<div class="quote"><div class="wrap rv">
+  <blockquote class="serif">On ne vous vend pas un logiciel de plus. On part de votre angle mort.</blockquote>
+  <div class="src">L'approche OSE</div>
+</div></div>
+
+<section id="origine" class="origin"><div class="wrap rv">
+  <div class="grid2">
+    <div class="idx">04 — D'OÙ ON VIENT</div>
+    <div>
+      <h2>Né du <b>terrain.</b> On a vu, en conditions réelles, ce que l'IA change <span class="serif it">vraiment</span> — on l'ouvre aux PME.</h2>
+      <p>Pas une promesse de plateforme magique. Des outils construits là où le travail se fait, testés en vrai, jugés à une seule aune : est-ce qu'ils font gagner du temps ? OSE met cette expérience au service des PME qui n'ont ni le budget ni l'envie d'un gros projet logiciel.</p>
+      <ul class="creed">
+        <li>On construit vite et on prouve sur l'usage, pas sur un plan.</li>
+        <li>Un outil qui ne fait pas gagner de temps n'a aucune raison d'exister.</li>
+        <li>Vous gardez la main : c'est votre outil, pas une boîte noire.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<div class="cta" id="contact"><div class="wrap rv">
+  <h2>Montrez-moi<br>votre <span class="it serif">angle mort.</span></h2>
+  <p>30 minutes pour repérer, ensemble, où l'IA peut vous faire gagner du temps. Sans engagement.</p>
+  <div class="actions">
+    <a class="btn btn-h js-contact" href="#contact">Prendre contact →</a>
+    <a class="btn btn-g" href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+  </div>
+</div></div>
+
+<footer>
+  <div class="wrap f-top">
+    <div class="f-brand">
+      <div class="logo"><img src="ose-logo.svg" alt="OSE" width="91" height="34"></div>
+      <p>Studio IA sur-mesure pour PME. Faire gagner du temps, dans n'importe quel service.</p>
+    </div>
+    <nav class="f-col">
+      <span class="f-h">Le site</span>
+      <a href="#constat">Le constat</a>
+      <a href="#domaines">Domaines</a>
+      <a href="#savoir-faire">Savoir-faire</a>
+      <a href="#process">Comment ça marche</a>
+      <a href="#origine">D'où on vient</a>
+    </nav>
+    <nav class="f-col">
+      <span class="f-h">Contact</span>
+      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+      <a class="js-contact" href="#contact">Prendre contact</a>
+    </nav>
+  </div>
+  <div class="wrap f-base">
+    <span>OSE © 2026 — Studio IA sur-mesure</span>
+    <a href="#hdr">Haut de page ↑</a>
+  </div>
+</footer>
+
+<!-- ===== modale contact ===== -->
+<div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
+  <div class="modal-card">
+    <button type="button" class="modal-close" id="contact-close" aria-label="Fermer">&times;</button>
+
+    <form id="contact-form" novalidate>
+      <div class="idx">— Prendre contact</div>
+      <h2 id="contact-title">Montrez-nous votre <span class="it serif">angle&nbsp;mort.</span></h2>
+      <p class="sub">Quelques infos pour préparer l'échange. On revient vers vous très vite — sans engagement.</p>
+
+      <!-- Web3Forms -->
+      <input type="hidden" name="access_key" value="c73f7f9f-2dd1-4f68-83cf-6a650d88b499">
+      <input type="hidden" name="subject" value="Nouveau contact depuis ose-os.fr">
+      <input type="hidden" name="from_name" value="Site OSE">
+      <!-- honeypot anti-spam -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="field">
+        <label for="cf-email">Votre email</label>
+        <input type="email" id="cf-email" name="email" required placeholder="vous@entreprise.fr" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="cf-secteur">Votre secteur d'activité</label>
+        <input type="text" id="cf-secteur" name="secteur" placeholder="ex. BTP, cabinet comptable, distribution…">
+      </div>
+
+      <div class="field">
+        <label>Les services les plus touchés <span class="opt">— où ça coince le plus</span></label>
+        <div class="chips">
+          <label><input type="checkbox" name="services" value="Commercial & prospection"><span>Commercial &amp; prospection</span></label>
+          <label><input type="checkbox" name="services" value="Compta & facturation"><span>Compta &amp; facturation</span></label>
+          <label><input type="checkbox" name="services" value="Production"><span>Production</span></label>
+          <label><input type="checkbox" name="services" value="RH"><span>RH</span></label>
+          <label><input type="checkbox" name="services" value="Logistique"><span>Logistique</span></label>
+          <label><input type="checkbox" name="services" value="SAV & relation client"><span>SAV &amp; relation client</span></label>
+          <label><input type="checkbox" name="services" value="Direction & pilotage"><span>Direction &amp; pilotage</span></label>
+          <label><input type="checkbox" name="services" value="Autre"><span>Autre</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cf-message">Votre message <span class="opt">(optionnel)</span></label>
+        <textarea id="cf-message" name="message" placeholder="En quelques mots, où le temps file chez vous ?"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="cf-name">Votre nom <span class="opt">(optionnel)</span></label>
+        <input type="text" id="cf-name" name="name" placeholder="Prénom Nom" autocomplete="name">
+      </div>
+
+      <button type="submit" class="btn btn-submit" id="cf-submit">Envoyer →</button>
+      <p class="legal">En envoyant ce message, vous acceptez d'être recontacté par OSE. Vos infos ne servent qu'à ça.</p>
+    </form>
+
+    <div class="form-msg" id="cf-ok" role="status">
+      <div class="big"><b>Merci.</b></div>
+      <p>On a bien reçu votre message — on revient vers vous très vite à l'adresse indiquée.</p>
+    </div>
+    <div class="form-msg err" id="cf-err" role="alert">
+      <div class="big"><b>Oups…</b></div>
+      <p>L'envoi a échoué. Réessayez, ou écrivez-nous directement à <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>40));
+
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.18});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// ============ GRAPH : temps perdu (tâches éparses) → OSE → votre outil ============
+const cv=document.getElementById('graph'),ctx=cv.getContext('2d');
+const dpr=Math.min(2,window.devicePixelRatio||1);
+const phaseEl=document.getElementById('phase');
+let W,H,sources=[],outputs=[],hub,card,startT=null;
+const SRC_LABELS=['SAISIE','RELANCES','REPORTING','SUIVI','EMAILS'];
+
+function rand(a,b){return a+Math.random()*(b-a)}
+function build(){
+  W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr;
+  hub={tx:W*0.52,ty:H*0.5};
+  // sources: tidy left column targets + random chaos start
+  sources=SRC_LABELS.map((lab,i)=>({
+    lab, tx:W*0.16, ty:H*(0.16+i*0.17),
+    cxp:rand(0,W*0.75), cyp:rand(0,H), seed:rand(0,6.28)
+  }));
+  // output: a single coherent "tool" card on the right = "votre outil"
+  card={ x:W*0.62, w:W*0.30, y:H*0.27, h:H*0.46 };
+  outputs=[rand(.55,1),rand(.4,.85),rand(.7,1)].map(b=>({bar:b}));
+}
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+}
+build();addEventListener('resize',build);
+
+const clamp=(t)=>t<0?0:t>1?1:t;
+const easeIO=(t)=>{t=clamp(t);return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2};
+const seg=(u,a,b)=>easeIO((u-a)/(b-a));
+
+const CYCLE=10;
+function frame(ts){
+  if(startT===null)startT=ts;
+  const u=((ts-startT)/1000 % CYCLE)/1;
+  const p=u/CYCLE;
+  ctx.clearRect(0,0,W,H);
+
+  const gather = seg(p,0.04,0.30);
+  const linkIn = seg(p,0.30,0.50);
+  const hubP   = seg(p,0.34,0.52);
+  const linkOut= seg(p,0.52,0.74);
+  const outP   = seg(p,0.56,0.78);
+  const dissolve = seg(p,0.90,1.0);
+  const live = 1-dissolve;
+
+  let label = p<0.30?'tâches chronophages' : p<0.52?'OSE assemble' : p<0.90?'votre outil sur-mesure' : '…';
+  if(phaseEl.textContent!==label){phaseEl.style.opacity=0;
+    setTimeout(()=>{phaseEl.textContent=label;phaseEl.style.opacity=1;},180);}
+
+  const t=ts/1000;
+  for(const s of sources){
+    const m=Math.max(gather-dissolve,0);
+    const driftX=Math.sin(t*.7+s.seed)*16*dpr, driftY=Math.cos(t*.6+s.seed)*16*dpr;
+    s.x=(s.cxp+driftX)*(1-m)+s.tx*m;
+    s.y=(s.cyp+driftY)*(1-m)+s.ty*m;
+  }
+  hub.x=hub.tx; hub.y=hub.ty;
+  const cardCx=card.x, cardCy=card.y+card.h/2; // connector lands on card's left edge
+
+  ctx.lineCap='round';
+  ctx.lineWidth=1.4*dpr;
+  sources.forEach((s,i)=>{
+    const prog=clamp(linkIn*1 - i*0.05)*live; if(prog<=0)return;
+    const ex=s.x+(hub.x-s.x)*prog, ey=s.y+(hub.y-s.y)*prog;
+    ctx.beginPath();ctx.moveTo(s.x,s.y);
+    const mx=(s.x+ex)/2;
+    ctx.bezierCurveTo(mx,s.y,mx,ey,ex,ey);
+    ctx.strokeStyle=`rgba(58,88,148,${.30*live})`;ctx.stroke();
+  });
+  if(linkOut>0){
+    const ex=hub.x+(cardCx-hub.x)*linkOut, ey=hub.y+(cardCy-hub.y)*linkOut;
+    ctx.beginPath();ctx.moveTo(hub.x,hub.y);
+    const mx=(hub.x+ex)/2;
+    ctx.bezierCurveTo(mx,hub.y,mx,ey,ex,ey);
+    ctx.strokeStyle=`rgba(58,88,148,${.34*live})`;ctx.stroke();
+  }
+
+  ctx.font=`${10.5*dpr}px Inter, sans-serif`;ctx.textBaseline='middle';
+  for(const s of sources){
+    const r=4*dpr*(0.7+gather*0.6)*live + .5;
+    ctx.beginPath();ctx.arc(s.x,s.y,r,0,7);
+    ctx.fillStyle=`rgba(20,19,15,${(.4+gather*.45)*live})`;ctx.fill();
+    const la=clamp(gather*1.4-.3)*live;
+    if(la>0){ctx.fillStyle=`rgba(122,118,108,${la})`;ctx.textAlign='right';
+      ctx.fillText(s.lab,s.x-10*dpr,s.y);}
+  }
+
+  const hr=(10+hubP*6)*dpr*live;
+  if(live>0.01){
+    const pulse=1+Math.sin(t*3)*0.06*hubP;
+    ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse+8*dpr*hubP,0,7);
+    ctx.strokeStyle=`rgba(58,88,148,${.35*hubP*live})`;ctx.lineWidth=1.5*dpr;ctx.stroke();
+    ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse,0,7);
+    ctx.fillStyle=`rgba(58,88,148,${live})`;ctx.fill();
+    ctx.fillStyle=`rgba(255,255,255,${hubP*live})`;ctx.textAlign='center';
+    ctx.font=`800 ${10*dpr}px Inter, sans-serif`;ctx.fillText('OSE',hub.x,hub.y);
+  }
+
+  // ---- the tool card grows in on the right ----
+  if(outP>0.001 && live>0.01){
+    const sc=outP*live;                          // 0..1 build-in
+    const cw=card.w*sc, ch=card.h*sc;            // grow from center
+    const cx=card.x+card.w/2-cw/2, cy=card.y+card.h/2-ch/2;
+    const a=live;
+    // panel
+    ctx.fillStyle=`rgba(251,250,246,${.96*a})`;
+    roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.fill();
+    ctx.lineWidth=1.4*dpr;ctx.strokeStyle=`rgba(58,88,148,${.55*a})`;
+    roundRect(cx,cy,cw,ch,10*dpr*sc);ctx.stroke();
+    if(sc>0.45){
+      const ia=clamp((sc-0.45)/0.4)*a;           // inner content fades in after frame
+      const pad=16*dpr*sc;
+      // title bar: dot + label line
+      ctx.fillStyle=`rgba(58,88,148,${ia})`;
+      ctx.beginPath();ctx.arc(cx+pad+3*dpr,cy+pad+2*dpr,3*dpr,0,7);ctx.fill();
+      ctx.fillStyle=`rgba(20,19,15,${.55*ia})`;
+      ctx.fillRect(cx+pad+12*dpr,cy+pad,cw*0.42,3.5*dpr);
+      // rising bars along the bottom
+      const bn=outputs.length, bw=(cw-pad*2-(bn-1)*10*dpr)/bn;
+      const baseY=cy+ch-pad, maxBH=ch-pad*3.2;
+      outputs.forEach((o,i)=>{
+        const grow=clamp((sc-0.5-i*0.08)/0.4);
+        const bh=maxBH*o.bar*grow;
+        const bx=cx+pad+i*(bw+10*dpr);
+        ctx.fillStyle=`rgba(58,88,148,${.16*ia})`;
+        ctx.fillRect(bx,baseY-maxBH,bw,maxBH);
+        ctx.fillStyle=`rgba(58,88,148,${.9*ia})`;
+        ctx.fillRect(bx,baseY-bh,bw,bh);
+      });
+    }
+    // caption
+    ctx.font=`600 ${10*dpr}px Inter, sans-serif`;ctx.textAlign='center';
+    ctx.fillStyle=`rgba(122,118,108,${clamp(sc*1.4-.4)*a})`;
+    ctx.fillText('VOTRE OUTIL',card.x+card.w/2,cy+ch+18*dpr);
+  }
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ============ modale contact ============
+(function(){
+  const modal=document.getElementById('contact-modal');
+  const card=modal.querySelector('.modal-card');
+  const form=document.getElementById('contact-form');
+  const okMsg=document.getElementById('cf-ok');
+  const errMsg=document.getElementById('cf-err');
+  const submitBtn=document.getElementById('cf-submit');
+  let lastFocus=null;
+
+  const focusable=()=>modal.querySelectorAll('button, [href], input, textarea, select');
+
+  function open(e){
+    if(e)e.preventDefault();
+    lastFocus=document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    const first=modal.querySelector('#cf-email');
+    if(first)setTimeout(()=>first.focus(),60);
+  }
+  function close(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    if(lastFocus)lastFocus.focus();
+  }
+
+  document.querySelectorAll('.js-contact').forEach(el=>el.addEventListener('click',open));
+  document.getElementById('contact-close').addEventListener('click',close);
+  modal.addEventListener('mousedown',e=>{if(e.target===modal)close();});
+  document.addEventListener('keydown',e=>{
+    if(!modal.classList.contains('open'))return;
+    if(e.key==='Escape')close();
+    if(e.key==='Tab'){ // focus trap
+      const f=Array.from(focusable()).filter(el=>el.offsetParent!==null);
+      if(!f.length)return;
+      const first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    }
+  });
+
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!form.reportValidity())return;
+    submitBtn.disabled=true;submitBtn.textContent='Envoi…';
+    errMsg.classList.remove('show');
+    try{
+      const data=new FormData(form);
+      const res=await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Accept':'application/json'},
+        body:data
+      });
+      const json=await res.json();
+      if(json.success){
+        form.style.display='none';
+        okMsg.classList.add('show');
+      }else{throw new Error(json.message||'fail');}
+    }catch(err){
+      errMsg.classList.add('show');
+    }finally{
+      submitBtn.disabled=false;submitBtn.textContent='Envoyer →';
+    }
+  });
+})();
+</script>
+</body>
+</html>
