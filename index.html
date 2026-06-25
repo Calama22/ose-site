@@ -24,7 +24,7 @@
     --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:hidden}
   body{background:var(--bg);color:var(--ink);
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
@@ -251,8 +251,8 @@
   .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
   @media(max-width:880px){.f-top{grid-template-columns:1fr;gap:34px;padding:54px 0 40px}}
   @media(max-width:880px){
-    .hero{grid-template-columns:1fr;gap:24px;padding-top:120px}
-    .hero-r{height:54vh;min-height:380px;order:2}
+    .hero{grid-template-columns:1fr;gap:24px;min-height:auto;padding:118px 0 56px}
+    .hero-r{display:none}            /* visuel canvas animé réservé au desktop */
     .lead-row,.work .item{grid-template-columns:1fr;gap:16px}
     .work .item{padding:34px 0}
     #glow{display:none}
@@ -273,7 +273,6 @@
     .hero-actions{margin-top:26px;gap:12px}
     .btn{padding:15px 24px;font-size:14.5px}
     .assur{gap:8px 16px;margin-top:20px;font-size:12.5px}
-    .hero-r{height:64vh;min-height:330px}
     .strip{padding:14px 0}
     .strip span{font-size:21px;margin:0 15px}
     .lead-row{gap:14px}
