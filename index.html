@@ -3,13 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Microsoft Clarity (heatmaps + enregistrements de sessions) -->
+<!-- Microsoft Clarity (heatmaps + enregistrements) — chargé UNIQUEMENT après consentement (RGPD) -->
 <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xch9i8c6ru");
+    window.loadClarity = function(){
+        if (window.__clarityLoaded) return; window.__clarityLoaded = true;
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xch9i8c6ru");
+    };
+    try { if (localStorage.getItem("ose-consent") === "granted") window.loadClarity(); } catch(e){}
 </script>
 <title>OSE — Studio IA sur-mesure pour PME</title>
 <meta name="description" content="OSE construit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service.">
@@ -520,7 +524,7 @@
   </div>
   <div class="wrap f-base">
     <span>OSE © 2026 — Studio IA sur-mesure</span>
-    <a href="#hdr">Haut de page ↑</a>
+    <span class="f-legal"><a href="confidentialite.html">Confidentialité &amp; cookies</a> · <a href="#" class="js-cookie-settings">Gérer les cookies</a> · <a href="#hdr">Haut de page ↑</a></span>
   </div>
 </footer>
 
@@ -921,6 +925,59 @@ requestAnimationFrame(frame);
     finally{ submitBtn.disabled=false;submitBtn.textContent='Envoyer →'; }
   });
 })();
+</script>
+
+<!-- ============ Bandeau de consentement cookies (RGPD) ============ -->
+<style>
+  .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
+    background:var(--paper,#fbfaf6);border:1px solid var(--line,#d9d5c8);border-radius:14px;
+    box-shadow:0 10px 34px rgba(20,19,15,.18);padding:18px 20px;
+    animation:cookieUp .4s ease both}
+  @keyframes cookieUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .cookie-inner{max-width:1100px;margin:0 auto;display:flex;gap:18px;align-items:center;
+    flex-wrap:wrap;justify-content:space-between}
+  .cookie-txt{margin:0;font-size:14px;line-height:1.55;color:var(--ink,#14130f);flex:1 1 440px}
+  .cookie-txt a{color:var(--accent,#3a5894);text-decoration:underline}
+  .cookie-actions{display:flex;gap:10px;flex:0 0 auto}
+  .cookie-btn{font:inherit;font-size:14px;font-weight:600;padding:10px 24px;border-radius:30px;
+    cursor:pointer;border:1px solid var(--line,#d9d5c8);transition:transform .12s ease,opacity .12s ease}
+  .cookie-btn:hover{transform:translateY(-1px)}
+  .cookie-refuse{background:transparent;color:var(--ink,#14130f)}
+  .cookie-accept{background:var(--accent,#3a5894);color:#fff;border-color:var(--accent,#3a5894)}
+  .f-legal a{color:inherit}
+  @media(max-width:560px){.cookie-actions{width:100%}.cookie-btn{flex:1}}
+</style>
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentement aux cookies" hidden>
+  <div class="cookie-inner">
+    <p class="cookie-txt">
+      On utilise <strong>Microsoft Clarity</strong> pour comprendre comment le site est utilisé (pages, clics, parcours) et l'améliorer. Ces cookies de mesure ne sont déposés qu'avec votre accord. <a href="confidentialite.html">En savoir plus</a>.
+    </p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-refuse" id="cookie-refuse">Refuser</button>
+      <button type="button" class="cookie-btn cookie-accept" id="cookie-accept">Accepter</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var KEY="ose-consent", banner=document.getElementById("cookie-banner");
+    if(!banner) return;
+    var choice; try{ choice=localStorage.getItem(KEY); }catch(e){}
+    if(!choice){ banner.hidden=false; }
+    function decide(v){
+      try{ localStorage.setItem(KEY,v); }catch(e){}
+      banner.hidden=true;
+      if(v==="granted" && typeof window.loadClarity==="function") window.loadClarity();
+    }
+    document.getElementById("cookie-accept").addEventListener("click",function(){decide("granted");});
+    document.getElementById("cookie-refuse").addEventListener("click",function(){decide("denied");});
+    // Lien "Gérer les cookies" du footer : ré-affiche le bandeau
+    var reopen=document.querySelectorAll(".js-cookie-settings");
+    for(var i=0;i<reopen.length;i++){
+      reopen[i].addEventListener("click",function(e){e.preventDefault();banner.hidden=false;
+        banner.scrollIntoView({behavior:"smooth",block:"end"});});
+    }
+  })();
 </script>
 </body>
 </html>
