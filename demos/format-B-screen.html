@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSE · Short-list commerciale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f2ec;
+    --ink:#14130f;
+    --dim:#7a766c;
+    --line:#d9d5c8;
+    --accent:#3a5894;
+    --accent-d:#8fb0e0;
+    --paper:#fbfaf6;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+
+  *{box-sizing:border-box;}
+
+  /* The body IS the screen (inside the parent's phone frame iframe) */
+  html,body{height:100%;margin:0;overflow:hidden;}
+
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .screen{
+    position:relative;
+    width:100%;
+    height:100%;
+    background:var(--paper);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Dynamic island */
+  .island{
+    position:absolute;
+    top:11px;left:50%;
+    transform:translateX(-50%);
+    width:108px;height:30px;
+    background:#0a0a08;
+    border-radius:18px;
+    z-index:30;
+  }
+  .island::after{
+    content:"";
+    position:absolute;
+    right:14px;top:50%;
+    transform:translateY(-50%);
+    width:9px;height:9px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #2b3550, #0a0a08 70%);
+  }
+
+  /* Status bar */
+  .statusbar{
+    flex:0 0 auto;
+    height:48px;
+    padding:16px 26px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    z-index:20;
+  }
+  .statusbar .time{font-variant-numeric:tabular-nums;letter-spacing:.2px;}
+  .statusbar .ico{display:flex;align-items:center;gap:6px;}
+  .statusbar svg{display:block;}
+
+  /* App header */
+  .app-head{
+    flex:0 0 auto;
+    padding:8px 22px 12px;
+  }
+  .kicker{
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin:0 0 7px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+  .kicker .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px rgba(58,88,148,.14);
+  }
+  .app-head h1{
+    margin:0;
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.1;
+  }
+  .app-head h1 em{
+    font-family:"Times New Roman",Georgia,serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--accent);
+  }
+  .app-head .sub{
+    margin:5px 0 0;
+    font-size:13px;
+    color:var(--dim);
+  }
+  .app-head .sub b{color:var(--ink);font-weight:700;}
+
+  /* Filter chips */
+  .filters{
+    flex:0 0 auto;
+    display:flex;
+    gap:8px;
+    padding:14px 22px 12px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .filters::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;
+    font-family:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--dim);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 14px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .35s var(--ease), color .35s var(--ease),
+               border-color .35s var(--ease), transform .25s var(--ease),
+               box-shadow .35s var(--ease);
+  }
+  .chip:hover{transform:translateY(-1px);border-color:var(--accent-d);color:var(--ink);}
+  .chip[aria-pressed="true"]{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+    box-shadow:0 6px 16px -6px rgba(58,88,148,.55);
+  }
+  .chip .count{
+    opacity:.6;
+    font-weight:700;
+    margin-left:3px;
+    font-variant-numeric:tabular-nums;
+  }
+  .chip[aria-pressed="true"] .count{opacity:.85;}
+
+  /* Scrollable list */
+  .list{
+    flex:1 1 auto;
+    overflow-y:auto;
+    padding:4px 16px 26px;
+    scrollbar-width:thin;
+    scrollbar-color:var(--line) transparent;
+    -webkit-overflow-scrolling:touch;
+  }
+  .list::-webkit-scrollbar{width:5px;}
+  .list::-webkit-scrollbar-track{background:transparent;}
+  .list::-webkit-scrollbar-thumb{background:var(--line);border-radius:999px;}
+  .list::-webkit-scrollbar-thumb:hover{background:var(--accent-d);}
+
+  /* Prospect card */
+  .card{
+    position:relative;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    margin-bottom:11px;
+    overflow:hidden;
+    transition:opacity .4s var(--ease), transform .4s var(--ease),
+               max-height .45s var(--ease), margin .4s var(--ease),
+               border-color .35s var(--ease), box-shadow .35s var(--ease);
+    box-shadow:0 1px 2px rgba(20,19,15,.03);
+  }
+  .card.is-hidden{
+    opacity:0;
+    transform:scale(.96);
+    max-height:0 !important;
+    margin-bottom:0;
+    border-width:0;
+    pointer-events:none;
+  }
+  .card.is-open{
+    border-color:var(--accent-d);
+    box-shadow:0 14px 30px -14px rgba(58,88,148,.40);
+  }
+
+  .card-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:0;
+    font-family:inherit;
+    color:inherit;
+    cursor:pointer;
+    padding:14px 15px;
+    display:block;
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .card-id{min-width:0;}
+  .card-name{
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    line-height:1.2;
+    margin:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .card-sector{
+    font-size:11.5px;
+    color:var(--dim);
+    margin:3px 0 0;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .tag{
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    color:var(--dim);
+    background:#fff;
+  }
+  .tag.hot{color:#b4431f;border-color:#eccab9;background:#fbeee6;}
+  .tag.relance{color:#8a6d12;border-color:#e6d8a8;background:#fbf4dd;}
+  .tag.new{color:var(--accent);border-color:var(--accent-d);background:#eef3fb;}
+
+  /* Score badge */
+  .score{
+    flex:0 0 auto;
+    width:48px;height:48px;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    line-height:1;
+    border:1px solid transparent;
+  }
+  .score .n{font-size:18px;font-variant-numeric:tabular-nums;}
+  .score .l{font-size:8px;font-weight:700;letter-spacing:.1em;opacity:.7;margin-top:2px;}
+  .score.high{color:#1f6b3a;background:#e6f3ea;border-color:#bfe1c9;}
+  .score.mid{color:var(--accent);background:#eaf1fb;border-color:#cadcf3;}
+  .score.low{color:#9a6a12;background:#f6eedd;border-color:#e6d3aa;}
+
+  /* Signal line */
+  .signal{
+    margin-top:11px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--ink);
+  }
+  .signal .pulse{
+    flex:0 0 auto;
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 0 rgba(58,88,148,.4);
+    animation:pulse 2.2s var(--ease) infinite;
+  }
+  .signal .txt{color:var(--dim);}
+  .signal .txt b{color:var(--ink);font-weight:600;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(58,88,148,.40);}
+    70%{box-shadow:0 0 0 7px rgba(58,88,148,0);}
+    100%{box-shadow:0 0 0 0 rgba(58,88,148,0);}
+  }
+
+  .chevron{
+    position:absolute;
+    right:15px;bottom:14px;
+    color:var(--dim);
+    transition:transform .4s var(--ease), color .35s var(--ease);
+  }
+  .card.is-open .chevron{transform:rotate(180deg);color:var(--accent);}
+
+  /* Accordion detail */
+  .detail{
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transition:max-height .5s var(--ease), opacity .4s var(--ease);
+  }
+  .card.is-open .detail{max-height:280px;opacity:1;}
+  .detail-inner{
+    padding:2px 15px 15px;
+    border-top:1px dashed var(--line);
+    margin-top:2px;
+  }
+  .facts{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px 12px;
+    margin:14px 0 14px;
+  }
+  .fact .k{
+    font-size:9.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--dim);
+    font-weight:700;
+    margin:0 0 2px;
+  }
+  .fact .v{
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0;
+  }
+
+  .ia-action{
+    background:linear-gradient(180deg, #eef3fb, #e6eefa);
+    border:1px solid #cadcf3;
+    border-radius:14px;
+    padding:12px;
+  }
+  .ia-label{
+    font-size:9.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:700;
+    margin:0 0 6px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .ia-label .spark{
+    font-family:"Times New Roman",Georgia,serif;
+    font-style:italic;
+    font-size:13px;
+    letter-spacing:0;
+    text-transform:none;
+  }
+  .ia-text{
+    font-size:12.5px;
+    color:var(--ink);
+    margin:0 0 10px;
+    line-height:1.4;
+  }
+  .ia-btn{
+    width:100%;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    background:var(--accent);
+    border:0;
+    border-radius:10px;
+    padding:10px 12px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .3s var(--ease), transform .2s var(--ease), box-shadow .3s var(--ease);
+  }
+  .ia-btn:hover{background:#2f4a7e;transform:translateY(-1px);box-shadow:0 8px 18px -8px rgba(58,88,148,.6);}
+  .ia-btn:active{transform:translateY(0);}
+
+  /* Empty state */
+  .empty{
+    text-align:center;
+    color:var(--dim);
+    font-size:13px;
+    padding:40px 24px;
+    display:none;
+  }
+  .empty.show{display:block;}
+  .empty em{
+    font-family:"Times New Roman",Georgia,serif;
+    font-style:italic;
+    color:var(--accent);
+  }
+
+  /* Home indicator */
+  .home-bar{
+    flex:0 0 auto;
+    height:26px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .home-bar span{
+    width:120px;height:5px;border-radius:999px;background:var(--ink);opacity:.22;
+  }
+
+  /* Focus */
+  .chip:focus-visible,
+  .card-btn:focus-visible,
+  .ia-btn:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+    border-radius:10px;
+  }
+  .card-btn:focus-visible{outline-offset:-3px;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;}
+    .card,.detail,.chip,.chevron,.ia-btn{transition-duration:.001ms !important;}
+  }
+</style>
+</head>
+<body>
+  <div class="screen">
+    <div class="island" aria-hidden="true"></div>
+
+    <!-- Status bar -->
+    <div class="statusbar">
+      <span class="time">9:41</span>
+      <span class="ico" aria-hidden="true">
+        <!-- signal -->
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+          <rect x="0" y="8" width="3" height="4" rx="1"/>
+          <rect x="5" y="5" width="3" height="7" rx="1"/>
+          <rect x="10" y="2.5" width="3" height="9.5" rx="1"/>
+          <rect x="15" y="0" width="3" height="12" rx="1"/>
+        </svg>
+        <!-- wifi -->
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+          <path d="M8 11.5a1.4 1.4 0 100-2.8 1.4 1.4 0 000 2.8z"/>
+          <path d="M3.4 6.6a6.6 6.6 0 019.2 0l-1.3 1.3a4.8 4.8 0 00-6.6 0L3.4 6.6z"/>
+          <path d="M.9 4.1a10.2 10.2 0 0114.2 0l-1.3 1.3a8.4 8.4 0 00-11.6 0L.9 4.1z"/>
+        </svg>
+        <!-- battery -->
+        <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/>
+          <rect x="2" y="2" width="16" height="8" rx="1.6" fill="currentColor"/>
+          <rect x="23" y="3.5" width="2" height="5" rx="1" fill="currentColor" opacity=".5"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- App header -->
+    <div class="app-head">
+      <p class="kicker"><span class="dot"></span>OSE · Vendre sans courir</p>
+      <h1>Vos pistes <em>du jour</em></h1>
+      <p class="sub"><b>12 cibles</b> prêtes à traiter</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters" role="group" aria-label="Filtrer les prospects">
+      <button class="chip" data-filter="all" aria-pressed="true">Tous <span class="count">12</span></button>
+      <button class="chip" data-filter="hot" aria-pressed="false">🔥 Chaud <span class="count">4</span></button>
+      <button class="chip" data-filter="relance" aria-pressed="false">À relancer <span class="count">3</span></button>
+      <button class="chip" data-filter="new" aria-pressed="false">Nouveau <span class="count">3</span></button>
+    </div>
+
+    <!-- Prospect list -->
+    <div class="list" id="list"></div>
+
+    <div class="empty" id="empty">Aucune piste dans ce filtre.<br><em>Élargissez votre sélection.</em></div>
+
+    <div class="home-bar" aria-hidden="true"><span></span></div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Data : prospects PME français ----------
+  var prospects = [
+    {
+      name:"Menuiserie Ariège", sector:"Menuiserie · Pamiers (09)",
+      score:91, cat:"hot", catLabel:"Chaud",
+      signal:["Recrute","3 commerciaux sur LinkedIn"],
+      ca:"2,4 M€", boss:"Élodie Vidal", staff:"24 salariés",
+      ia:"Recruter, c'est croître : pitch sur l'outillage de votre force de vente. Email d'accroche prêt.",
+      cta:"Relancer par email — modèle prêt"
+    },
+    {
+      name:"Transports Vidal", sector:"Logistique · Toulouse (31)",
+      score:87, cat:"hot", catLabel:"Chaud",
+      signal:["Levée de fonds","2 M€ bouclée ce mois"],
+      ca:"6,1 M€", boss:"Karim Benali", staff:"58 salariés",
+      ia:"Trésorerie fraîche = budget équipement. Proposez un RDV de cadrage cette semaine.",
+      cta:"Programmer un appel — script prêt"
+    },
+    {
+      name:"Cabinet Lemaire", sector:"Expertise comptable · Lyon (69)",
+      score:69, cat:"relance", catLabel:"À relancer",
+      signal:["Devis sans réponse","depuis 9 jours"],
+      ca:"1,3 M€", boss:"Sophie Lemaire", staff:"11 salariés",
+      ia:"Relance douce conseillée : rappelez l'offre + une preuve sociale d'un confrère.",
+      cta:"Relancer par email — modèle prêt"
+    },
+    {
+      name:"Boulangerie Castel", sector:"Artisanat · Albi (81)",
+      score:64, cat:"new", catLabel:"Nouveau",
+      signal:["Nouveau point de vente","ouvert la semaine passée"],
+      ca:"480 K€", boss:"Thomas Castel", staff:"7 salariés",
+      ia:"Ouverture = moment d'achat. Présentez le pack démarrage avant la concurrence locale.",
+      cta:"Envoyer une intro — modèle prêt"
+    },
+    {
+      name:"Atelier Roussel", sector:"Métallerie · Rodez (12)",
+      score:78, cat:"relance", catLabel:"À relancer",
+      signal:["A ouvert votre devis","3 fois en 2 jours"],
+      ca:"1,9 M€", boss:"Marc Roussel", staff:"16 salariés",
+      ia:"Signal d'intérêt fort : appelez tant que le devis est chaud, objection prix anticipée.",
+      cta:"Appeler maintenant — argumentaire prêt"
+    },
+    {
+      name:"Pharmacie du Cours", sector:"Santé · Montpellier (34)",
+      score:73, cat:"new", catLabel:"Nouveau",
+      signal:["Reprise d'officine","par un nouveau titulaire"],
+      ca:"2,8 M€", boss:"Inès Moreau", staff:"9 salariés",
+      ia:"Nouveau dirigeant ouvert aux changements. Cadrez ses priorités des 100 premiers jours.",
+      cta:"Envoyer une intro — modèle prêt"
+    },
+    {
+      name:"Garage Fontaine", sector:"Automobile · Pau (64)",
+      score:94, cat:"hot", catLabel:"Chaud",
+      signal:["Demande de rappel","reçue ce matin"],
+      ca:"1,1 M€", boss:"Julien Fontaine", staff:"8 salariés",
+      ia:"Lead entrant à fort intérêt. Rappelez sous 2 h, créneau de démo à proposer d'emblée.",
+      cta:"Rappeler en priorité — script prêt"
+    },
+    {
+      name:"Domaine Sauveterre", sector:"Viticulture · Gaillac (81)",
+      score:82, cat:"hot", catLabel:"Chaud",
+      signal:["Médaille au concours","→ pic de notoriété"],
+      ca:"3,2 M€", boss:"Camille Aubert", staff:"19 salariés",
+      ia:"Moment de visibilité idéal. Positionnez votre solution sur la montée en gamme commerciale.",
+      cta:"Relancer par email — modèle prêt"
+    },
+    {
+      name:"BTP Larrieu & Fils", sector:"Construction · Tarbes (65)",
+      score:76, cat:"relance", catLabel:"À relancer",
+      signal:["Relance n°2 en attente","dernier contact il y a 14j"],
+      ca:"4,7 M€", boss:"Antoine Larrieu", staff:"42 salariés",
+      ia:"Dernière relance avant mise en veille. Changez d'angle : ROI chantier chiffré.",
+      cta:"Relancer par email — modèle prêt"
+    },
+    {
+      name:"Imprimerie Védène", sector:"Industrie graphique · Avignon (84)",
+      score:67, cat:"new", catLabel:"Nouveau",
+      signal:["Nouvel investissement","machine annoncé en ligne"],
+      ca:"2,1 M€", boss:"Nadia Charpentier", staff:"15 salariés",
+      ia:"Phase d'investissement : timing parfait pour un diagnostic. Proposez un audit gratuit.",
+      cta:"Envoyer une intro — modèle prêt"
+    }
+  ];
+
+  var listEl = document.getElementById("list");
+  var emptyEl = document.getElementById("empty");
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var openIndex = -1;
+
+  function scoreClass(s){ return s>=80 ? "high" : (s>=65 ? "mid" : "low"); }
+
+  // ---------- Build cards ----------
+  prospects.forEach(function(p, i){
+    var card = document.createElement("div");
+    card.className = "card";
+    card.dataset.cat = p.cat;
+    card.dataset.index = i;
+
+    var sc = scoreClass(p.score);
+    var tagClass = p.cat === "hot" ? "hot" : (p.cat === "relance" ? "relance" : "new");
+
+    card.innerHTML =
+      '<button class="card-btn" type="button" aria-expanded="false" id="cb-'+i+'" aria-controls="cd-'+i+'">' +
+        '<div class="card-top">' +
+          '<div class="card-id">' +
+            '<p class="card-name">'+p.name+'</p>' +
+            '<p class="card-sector"><span class="tag '+tagClass+'">'+p.catLabel+'</span>'+p.sector+'</p>' +
+          '</div>' +
+          '<div class="score '+sc+'"><span class="n">'+p.score+'</span><span class="l">/100</span></div>' +
+        '</div>' +
+        '<div class="signal">' +
+          '<span class="pulse"></span>' +
+          '<span class="txt"><b>'+p.signal[0]+'</b> '+p.signal[1]+'</span>' +
+        '</div>' +
+        '<span class="chevron" aria-hidden="true">' +
+          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</span>' +
+      '</button>' +
+      '<div class="detail" id="cd-'+i+'" role="region" aria-labelledby="cb-'+i+'">' +
+        '<div class="detail-inner">' +
+          '<div class="facts">' +
+            '<div class="fact"><p class="k">CA estimé</p><p class="v">'+p.ca+'</p></div>' +
+            '<div class="fact"><p class="k">Effectif</p><p class="v">'+p.staff+'</p></div>' +
+            '<div class="fact" style="grid-column:1 / -1"><p class="k">Dirigeant</p><p class="v">'+p.boss+'</p></div>' +
+          '</div>' +
+          '<div class="ia-action">' +
+            '<p class="ia-label"><span class="spark">par l’IA</span> · Action suggérée</p>' +
+            '<p class="ia-text">'+p.ia+'</p>' +
+            '<button class="ia-btn" type="button">' +
+              '<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 8l12-5-5 12-2-5-5-2z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+              p.cta +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    listEl.appendChild(card);
+
+    var btn = card.querySelector(".card-btn");
+    btn.addEventListener("click", function(){ toggle(i); });
+
+    // prevent CTA from collapsing the card
+    var iaBtn = card.querySelector(".ia-btn");
+    iaBtn.addEventListener("click", function(e){ e.stopPropagation(); });
+  });
+
+  var cards = Array.prototype.slice.call(listEl.querySelectorAll(".card"));
+
+  // ---------- Accordion (one open at a time) ----------
+  function toggle(i){
+    var card = cards[i];
+    var btn = card.querySelector(".card-btn");
+    var isOpen = card.classList.contains("is-open");
+
+    if (openIndex !== -1 && openIndex !== i){
+      var prev = cards[openIndex];
+      prev.classList.remove("is-open");
+      prev.querySelector(".card-btn").setAttribute("aria-expanded","false");
+    }
+
+    if (isOpen){
+      card.classList.remove("is-open");
+      btn.setAttribute("aria-expanded","false");
+      openIndex = -1;
+    } else {
+      card.classList.add("is-open");
+      btn.setAttribute("aria-expanded","true");
+      openIndex = i;
+    }
+  }
+
+  // ---------- Filters ----------
+  function applyFilter(f){
+    var visible = 0;
+    cards.forEach(function(card){
+      var match = (f === "all") || (card.dataset.cat === f);
+      if (match){
+        card.classList.remove("is-hidden");
+        visible++;
+      } else {
+        card.classList.add("is-hidden");
+        // close any hidden open card
+        if (card.classList.contains("is-open")){
+          card.classList.remove("is-open");
+          card.querySelector(".card-btn").setAttribute("aria-expanded","false");
+          openIndex = -1;
+        }
+      }
+    });
+    emptyEl.classList.toggle("show", visible === 0);
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener("click", function(){
+      chips.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      applyFilter(chip.dataset.filter);
+    });
+  });
+
+  applyFilter("all");
+})();
+</script>
+</body>
+</html>

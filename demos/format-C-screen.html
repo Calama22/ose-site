@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSE · Décrivez, on construit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f2ec;
+    --ink:#14130f;
+    --dim:#7a766c;
+    --line:#d9d5c8;
+    --accent:#3a5894;
+    --accent-d:#8fb0e0;
+    --paper:#fbfaf6;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+
+  *{box-sizing:border-box;}
+
+  /* ---------- Body IS the screen (lives inside an iframe) ---------- */
+  html,body{height:100%;margin:0;padding:0;overflow:hidden;}
+
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Screen (fluid, no bezel, no radius) ---------- */
+  .screen{
+    position:relative;
+    width:100%;
+    height:100%;
+    background:var(--paper);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Dynamic island */
+  .island{
+    position:absolute;
+    top:11px;left:50%;
+    transform:translateX(-50%);
+    width:104px;height:30px;
+    background:#000;
+    border-radius:16px;
+    z-index:40;
+  }
+  .island::after{
+    content:"";
+    position:absolute;
+    right:12px;top:50%;
+    transform:translateY(-50%);
+    width:9px;height:9px;
+    border-radius:50%;
+    background:#1a2435;
+    box-shadow:0 0 0 1px rgba(143,176,224,.25);
+  }
+
+  /* Status bar */
+  .statusbar{
+    height:48px;
+    flex:0 0 auto;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding:0 24px 6px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    z-index:30;
+  }
+  .statusbar .right{display:flex;align-items:center;gap:6px;}
+  .statusbar svg{display:block;}
+
+  /* App header */
+  .appbar{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:8px 18px 12px;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    z-index:20;
+  }
+  .avatar{
+    width:38px;height:38px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--accent-d), var(--accent));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:15px;
+    flex:0 0 auto;
+    box-shadow:0 2px 8px rgba(58,88,148,.3);
+  }
+  .appbar .meta{display:flex;flex-direction:column;line-height:1.25;}
+  .appbar .name{font-weight:700;font-size:15px;color:var(--ink);}
+  .appbar .status{
+    font-size:11.5px;color:var(--dim);
+    display:flex;align-items:center;gap:5px;
+  }
+  .dot-online{
+    width:7px;height:7px;border-radius:50%;
+    background:#27ae60;
+    box-shadow:0 0 0 0 rgba(39,174,96,.5);
+    animation:pulse 2.4s var(--ease) infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(39,174,96,.5);}
+    70%{box-shadow:0 0 0 6px rgba(39,174,96,0);}
+    100%{box-shadow:0 0 0 0 rgba(39,174,96,0);}
+  }
+  .appbar .tag{
+    margin-left:auto;
+    font-family:"Times New Roman",Georgia,serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--accent);
+    opacity:.85;
+  }
+
+  /* Conversation thread */
+  .thread{
+    flex:1 1 auto;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:16px 14px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+  }
+  .thread::-webkit-scrollbar{width:0;}
+
+  .daystamp{
+    align-self:center;
+    font-size:10.5px;
+    letter-spacing:.06em;
+    color:var(--dim);
+    text-transform:uppercase;
+    margin:2px 0 6px;
+  }
+
+  /* Bubbles */
+  .row{display:flex;width:100%;}
+  .row.agent{justify-content:flex-start;}
+  .row.user{justify-content:flex-end;}
+
+  .bubble{
+    max-width:80%;
+    padding:10px 13px;
+    font-size:13.5px;
+    line-height:1.42;
+    border-radius:18px;
+    position:relative;
+    word-wrap:break-word;
+  }
+  .bubble.agent{
+    background:#fff;
+    border:1px solid var(--line);
+    color:var(--ink);
+    border-bottom-left-radius:5px;
+    box-shadow:0 1px 2px rgba(20,19,15,.04);
+  }
+  .bubble.user{
+    background:var(--accent);
+    color:#fff;
+    border-bottom-right-radius:5px;
+    box-shadow:0 2px 8px rgba(58,88,148,.28);
+  }
+
+  /* Entrance animation for messages */
+  .enter{
+    animation:rise .5s var(--ease) both;
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(12px) scale(.98);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+
+  /* Typing indicator */
+  .typing{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:13px 15px;
+  }
+  .typing span{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--dim);
+    opacity:.5;
+    animation:blink 1.2s var(--ease) infinite;
+  }
+  .typing span:nth-child(2){animation-delay:.18s;}
+  .typing span:nth-child(3){animation-delay:.36s;}
+  @keyframes blink{
+    0%,60%,100%{transform:translateY(0);opacity:.4;}
+    30%{transform:translateY(-4px);opacity:.95;}
+  }
+
+  /* Chips */
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:4px 2px 2px;
+  }
+  .chip{
+    font-family:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--accent);
+    background:rgba(58,88,148,.07);
+    border:1px solid rgba(58,88,148,.28);
+    padding:8px 13px;
+    border-radius:18px;
+    cursor:pointer;
+    transition:transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease), opacity .25s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .chip:hover{
+    background:rgba(58,88,148,.13);
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(58,88,148,.18);
+  }
+  .chip:active{transform:translateY(0) scale(.97);}
+  .chip:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  .chip:disabled{
+    opacity:.35;
+    cursor:default;
+    pointer-events:none;
+  }
+  .chip .plus{font-size:14px;line-height:1;opacity:.7;}
+
+  .chips.followup{animation:rise .5s var(--ease) both;}
+
+  /* ---------- Generated tool cards ---------- */
+  .toolcard{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    max-width:90%;
+    box-shadow:0 6px 20px -8px rgba(20,19,15,.18);
+    transform-origin:top left;
+  }
+  .toolcard.deploy{
+    animation:deploy .6s var(--ease) both;
+  }
+  @keyframes deploy{
+    from{opacity:0;transform:translateY(10px) scaleY(.6);}
+    to{opacity:1;transform:translateY(0) scaleY(1);}
+  }
+  .tc-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:11px 13px;
+    background:linear-gradient(135deg, rgba(58,88,148,.95), rgba(58,88,148,.82));
+    color:#fff;
+  }
+  .tc-ico{
+    width:28px;height:28px;
+    border-radius:9px;
+    background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;
+  }
+  .tc-ico svg{width:16px;height:16px;stroke:#fff;}
+  .tc-title{display:flex;flex-direction:column;line-height:1.2;}
+  .tc-title b{font-size:13px;font-weight:700;}
+  .tc-title span{font-size:10.5px;opacity:.85;font-weight:500;}
+  .tc-badge{
+    margin-left:auto;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.05em;
+    background:rgba(255,255,255,.2);
+    padding:3px 7px;
+    border-radius:20px;
+    text-transform:uppercase;
+  }
+  .tc-body{padding:11px 13px 13px;}
+
+  /* Generic list line (relances) */
+  .line{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    font-size:12px;
+  }
+  .line:last-child{border-bottom:none;}
+  .line .who{display:flex;flex-direction:column;line-height:1.25;flex:1;}
+  .line .who b{font-weight:600;color:var(--ink);font-size:12px;}
+  .line .who small{color:var(--dim);font-size:10.5px;}
+  .line .amt{font-weight:700;font-size:12px;color:var(--ink);white-space:nowrap;}
+  .pill{
+    font-size:9.5px;font-weight:700;
+    padding:3px 7px;border-radius:20px;
+    white-space:nowrap;
+  }
+  .pill.late{background:#fdeceb;color:#c0392b;}
+  .pill.soon{background:#fef6e7;color:#b9770e;}
+  .pill.ok{background:#eafaf1;color:#1e8449;}
+
+  /* KPI tiles (dashboard) */
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .kpi{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:9px 10px;
+  }
+  .kpi .label{font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.04em;}
+  .kpi .val{font-size:18px;font-weight:800;color:var(--ink);line-height:1.1;margin-top:3px;}
+  .kpi .trend{font-size:10px;font-weight:600;margin-top:2px;display:flex;align-items:center;gap:3px;}
+  .kpi .trend.up{color:#1e8449;}
+  .kpi .trend.down{color:#c0392b;}
+  .bars{
+    display:flex;align-items:flex-end;gap:4px;height:34px;margin-top:9px;
+  }
+  .bars i{
+    flex:1;
+    background:linear-gradient(180deg,var(--accent-d),var(--accent));
+    border-radius:3px 3px 0 0;
+    opacity:.85;
+    animation:grow .7s var(--ease) both;
+  }
+  @keyframes grow{from{height:0;}}
+
+  /* Email triage */
+  .mail{
+    display:flex;align-items:flex-start;gap:9px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .mail:last-child{border-bottom:none;}
+  .mail .cat{
+    width:8px;height:8px;border-radius:50%;margin-top:5px;flex:0 0 auto;
+  }
+  .mail .cat.urgent{background:#c0392b;}
+  .mail .cat.devis{background:var(--accent);}
+  .mail .cat.info{background:#b9770e;}
+  .mail .txt{flex:1;line-height:1.3;}
+  .mail .txt b{font-size:12px;font-weight:600;display:block;color:var(--ink);}
+  .mail .txt small{font-size:10.5px;color:var(--dim);}
+  .mail . flag{font-size:10px;}
+  .mailtag{
+    font-size:9px;font-weight:700;
+    padding:2px 6px;border-radius:5px;
+    white-space:nowrap;margin-top:1px;
+  }
+  .mailtag.urgent{background:#fdeceb;color:#c0392b;}
+  .mailtag.devis{background:rgba(58,88,148,.1);color:var(--accent);}
+  .mailtag.info{background:#fef6e7;color:#b9770e;}
+
+  /* Production tracker */
+  .prod-row{
+    display:flex;align-items:center;gap:9px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    font-size:12px;
+  }
+  .prod-row:last-child{border-bottom:none;}
+  .prod-row .of{flex:0 0 auto;width:62px;}
+  .prod-row .of b{font-size:11.5px;}
+  .prod-row .of small{display:block;font-size:9.5px;color:var(--dim);}
+  .progress{
+    flex:1;height:8px;border-radius:6px;
+    background:var(--line);overflow:hidden;
+  }
+  .progress i{
+    display:block;height:100%;
+    border-radius:6px;
+    background:linear-gradient(90deg,var(--accent-d),var(--accent));
+    animation:fill .8s var(--ease) both;
+  }
+  @keyframes fill{from{width:0 !important;}}
+  .prod-row .pct{width:34px;text-align:right;font-weight:700;font-size:11.5px;}
+
+  .tc-foot{
+    display:flex;align-items:center;gap:6px;
+    padding:9px 13px;
+    border-top:1px solid var(--line);
+    background:var(--paper);
+    font-size:11px;color:var(--dim);
+  }
+  .tc-foot .live{
+    width:6px;height:6px;border-radius:50%;background:#27ae60;
+    animation:pulse 2.4s var(--ease) infinite;
+  }
+  .tc-foot .cta{
+    margin-left:auto;
+    color:var(--accent);font-weight:700;font-size:11px;
+  }
+
+  /* Home indicator */
+  .home-indicator{
+    position:absolute;
+    bottom:8px;left:50%;
+    transform:translateX(-50%);
+    width:128px;height:5px;
+    border-radius:3px;
+    background:var(--ink);
+    opacity:.85;
+    z-index:25;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto !important;}
+    .enter,.toolcard.deploy,.chips.followup,.bars i,.progress i{animation:none !important;}
+    .dot-online,.typing span,.tc-foot .live{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="screen">
+    <div class="island"></div>
+
+    <!-- Status bar -->
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="right">
+        <!-- signal -->
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+          <rect x="0" y="8" width="3" height="4" rx="1" fill="#14130f"/>
+          <rect x="5" y="5" width="3" height="7" rx="1" fill="#14130f"/>
+          <rect x="10" y="2.5" width="3" height="9.5" rx="1" fill="#14130f"/>
+          <rect x="15" y="0" width="3" height="12" rx="1" fill="#14130f"/>
+        </svg>
+        <!-- wifi -->
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true">
+          <path d="M8.5 11.2 11 8.5a3.6 3.6 0 0 0-5 0l2.5 2.7Z" fill="#14130f"/>
+          <path d="M3.4 5.9a7.3 7.3 0 0 1 10.2 0l1.5-1.6a9.6 9.6 0 0 0-13.2 0l1.5 1.6Z" fill="#14130f"/>
+        </svg>
+        <!-- battery -->
+        <svg width="26" height="13" viewBox="0 0 26 13" fill="none" aria-hidden="true">
+          <rect x="0.5" y="1" width="22" height="11" rx="3" stroke="#14130f" opacity="0.4"/>
+          <rect x="2.5" y="3" width="16" height="7" rx="1.5" fill="#14130f"/>
+          <rect x="24" y="4" width="2" height="5" rx="1" fill="#14130f" opacity="0.4"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- App header -->
+    <div class="appbar">
+      <div class="avatar" aria-hidden="true">O</div>
+      <div class="meta">
+        <span class="name">OSE · Studio IA</span>
+        <span class="status"><span class="dot-online" aria-hidden="true"></span>en ligne</span>
+      </div>
+      <span class="tag">Décrivez</span>
+    </div>
+
+    <!-- Thread -->
+    <div class="thread" id="thread" aria-live="polite" aria-atomic="false">
+      <div class="daystamp">Aujourd'hui</div>
+    </div>
+
+    <div class="home-indicator" aria-hidden="true"></div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+
+  var thread = document.getElementById("thread");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function scrollBottom(){
+    thread.scrollTop = thread.scrollHeight;
+  }
+
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(html != null) n.innerHTML = html;
+    return n;
+  }
+
+  // ----- message helpers -----
+  function agentBubble(text){
+    var row = el("div","row agent");
+    var b = el("div","bubble agent enter", text);
+    row.appendChild(b);
+    thread.appendChild(row);
+    scrollBottom();
+    return row;
+  }
+
+  function userBubble(text){
+    var row = el("div","row user");
+    var b = el("div","bubble user enter", text);
+    row.appendChild(b);
+    thread.appendChild(row);
+    scrollBottom();
+    return row;
+  }
+
+  function showTyping(){
+    var row = el("div","row agent");
+    var t = el("div","bubble agent typing enter",
+      '<span></span><span></span><span></span>');
+    row.appendChild(t);
+    thread.appendChild(row);
+    scrollBottom();
+    return row;
+  }
+
+  // ----- tool cards -----
+  var ICONS = {
+    bell:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
+    chart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+    mail:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    cog:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v8M8 12h8"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
+  };
+
+  function cardShell(icon, title, subtitle, badge, bodyHTML, footLabel, cta){
+    var c = el("div","toolcard deploy");
+    var head = el("div","tc-head");
+    head.innerHTML =
+      '<div class="tc-ico">'+icon+'</div>'+
+      '<div class="tc-title"><b>'+title+'</b><span>'+subtitle+'</span></div>'+
+      '<div class="tc-badge">'+badge+'</div>';
+    var body = el("div","tc-body");
+    body.innerHTML = bodyHTML;
+    var foot = el("div","tc-foot");
+    foot.innerHTML = '<span class="live"></span>'+footLabel+'<span class="cta">'+cta+' →</span>';
+    c.appendChild(head); c.appendChild(body); c.appendChild(foot);
+
+    var row = el("div","row agent");
+    row.appendChild(c);
+    thread.appendChild(row);
+    scrollBottom();
+  }
+
+  // ---- Card builders (4 distinct, crédibles, PME FR) ----
+  function cardRelances(){
+    var body =
+      '<div class="line"><div class="who"><b>Menuiserie Royer</b><small>Devis #DV-2041 · 4 820 €</small></div><span class="pill late">+18 j</span></div>'+
+      '<div class="line"><div class="who"><b>SARL Beaulieu TP</b><small>Devis #DV-2038 · 12 350 €</small></div><span class="pill late">+11 j</span></div>'+
+      '<div class="line"><div class="who"><b>Cabinet Lemoine</b><small>Devis #DV-2052 · 1 990 €</small></div><span class="pill soon">J+2</span></div>';
+    cardShell(ICONS.bell,"Relances auto","3 devis à relancer cette semaine","Outil",
+      body,"Email + SMS prêts à partir","Lancer les relances");
+  }
+
+  function cardDashboard(){
+    var body =
+      '<div class="kpis">'+
+        '<div class="kpi"><div class="label">CA du mois</div><div class="val">38 420 €</div><div class="trend up">▲ +12 % vs M-1</div></div>'+
+        '<div class="kpi"><div class="label">Devis en cours</div><div class="val">9</div><div class="trend up">▲ 47 600 €</div></div>'+
+        '<div class="kpi"><div class="label">Factures dues</div><div class="val">5 210 €</div><div class="trend down">▼ 2 en retard</div></div>'+
+        '<div class="kpi"><div class="label">Trésorerie</div><div class="val">21 9k</div><div class="trend up">▲ stable</div></div>'+
+      '</div>'+
+      '<div class="bars" aria-hidden="true">'+
+        '<i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i>'+
+        '<i style="height:78%"></i><i style="height:66%"></i><i style="height:92%"></i><i style="height:70%"></i>'+
+      '</div>';
+    cardShell(ICONS.chart,"Tableau de bord","Activité en temps réel","Outil",
+      body,"Mis à jour il y a 2 min","Ouvrir en grand");
+  }
+
+  function cardEmails(){
+    var body =
+      '<div class="mail"><span class="cat urgent"></span><div class="txt"><b>Panne machine — réponse svp</b><small>contact@atelier-durand.fr</small></div><span class="mailtag urgent">Urgent</span></div>'+
+      '<div class="mail"><span class="cat devis"></span><div class="txt"><b>Demande de devis 120 pièces</b><small>achats@groupe-vallat.com</small></div><span class="mailtag devis">Devis</span></div>'+
+      '<div class="mail"><span class="cat info"></span><div class="txt"><b>Relance facture FA-1187</b><small>compta@sodimex.fr</small></div><span class="mailtag info">Compta</span></div>';
+    cardShell(ICONS.mail,"Tri des emails clients","18 messages classés ce matin","Outil",
+      body,"3 urgents repérés","Voir la boîte triée");
+  }
+
+  function cardProduction(){
+    var body =
+      '<div class="prod-row"><div class="of"><b>OF-3092</b><small>Fraisage</small></div><div class="progress"><i style="width:82%"></i></div><span class="pct">82%</span></div>'+
+      '<div class="prod-row"><div class="of"><b>OF-3095</b><small>Assemblage</small></div><div class="progress"><i style="width:45%"></i></div><span class="pct">45%</span></div>'+
+      '<div class="prod-row"><div class="of"><b>OF-3097</b><small>Contrôle</small></div><div class="progress"><i style="width:18%"></i></div><span class="pct">18%</span></div>';
+    cardShell(ICONS.cog,"Suivi de production","3 ordres en cours · atelier","Outil",
+      body,"Cadence conforme au planning","Voir l'atelier");
+  }
+
+  // ----- conversation flow -----
+  var CHIPS = {
+    relances:{ label:"Automatiser mes relances", user:"J'aimerais automatiser mes relances de devis.",
+      reply:"Compris. Je vous monte un petit outil qui repère les devis sans réponse et prépare les relances tout seul :",
+      card:cardRelances },
+    dashboard:{ label:"Un tableau de bord", user:"Je voudrais un tableau de bord de mon activité.",
+      reply:"Parfait. Voici un tableau de bord qui rassemble vos chiffres clés, mis à jour en continu :",
+      card:cardDashboard },
+    emails:{ label:"Trier mes emails clients", user:"Mes emails clients partent dans tous les sens, aidez-moi à trier.",
+      reply:"On s'en occupe. Votre boîte est triée par priorité, l'urgent remonte en haut :",
+      card:cardEmails },
+    production:{ label:"Suivre ma production", user:"Je veux suivre l'avancement de ma production.",
+      reply:"Très bien. Voici un suivi clair de vos ordres en cours dans l'atelier :",
+      card:cardProduction }
+  };
+
+  var FOLLOWUPS = {
+    relances:["dashboard","emails"],
+    dashboard:["relances","production"],
+    emails:["relances","production"],
+    production:["dashboard","emails"]
+  };
+
+  var used = {};
+  var busy = false;
+
+  function makeChipRow(keys, isFollow){
+    var wrap = el("div","chips" + (isFollow ? " followup" : ""));
+    keys.forEach(function(k){
+      if(used[k]) return;
+      var b = el("button","chip");
+      b.type = "button";
+      b.innerHTML = '<span class="plus" aria-hidden="true">+</span>'+CHIPS[k].label;
+      b.setAttribute("aria-label","Demander : "+CHIPS[k].label);
+      b.addEventListener("click", function(){ pick(k, wrap); });
+      wrap.appendChild(b);
+    });
+    if(!wrap.children.length) return null;
+    thread.appendChild(wrap);
+    scrollBottom();
+    return wrap;
+  }
+
+  function pick(key, chipRow){
+    if(busy || used[key]) return;
+    busy = true;
+    used[key] = true;
+
+    // disable remaining chips in this row & remove row
+    if(chipRow){
+      Array.prototype.forEach.call(chipRow.querySelectorAll(".chip"), function(c){ c.disabled = true; });
+      // fade out the row
+      chipRow.style.transition = "opacity .3s var(--ease), height .3s var(--ease)";
+      chipRow.style.opacity = "0";
+      setTimeout(function(){ if(chipRow.parentNode) chipRow.parentNode.removeChild(chipRow); }, reduce ? 0 : 300);
+    }
+
+    var cfg = CHIPS[key];
+
+    var t1 = reduce ? 60 : 280;
+    setTimeout(function(){
+      userBubble(cfg.user);
+
+      var typingDelay = reduce ? 60 : 620;
+      setTimeout(function(){
+        var typingRow = showTyping();
+        var thinkDur = reduce ? 120 : 1050;
+        setTimeout(function(){
+          if(typingRow.parentNode) typingRow.parentNode.removeChild(typingRow);
+          agentBubble(cfg.reply);
+
+          var cardDelay = reduce ? 60 : 380;
+          setTimeout(function(){
+            cfg.card();
+
+            var followDelay = reduce ? 80 : 520;
+            setTimeout(function(){
+              var keys = FOLLOWUPS[key].filter(function(k){ return !used[k]; });
+              if(keys.length){
+                agentBubble("Autre chose qui vous freine ?");
+                makeChipRow(keys, true);
+              } else {
+                agentBubble("On a fait le tour ! Dites-nous lequel vous voulez en vrai, on le construit pour de bon. ✨");
+              }
+              busy = false;
+            }, followDelay);
+          }, cardDelay);
+        }, thinkDur);
+      }, typingDelay);
+    }, t1);
+  }
+
+  // ----- boot the conversation -----
+  function boot(){
+    agentBubble("Bonjour 👋 Ici l'agent <b>OSE</b>. Décrivez ce qui vous freine au quotidien, et je vous assemble l'outil qui vous libère.");
+    setTimeout(function(){
+      agentBubble("Par quoi on commence ?");
+      makeChipRow(["relances","dashboard","emails","production"], false);
+    }, reduce ? 80 : 700);
+  }
+
+  setTimeout(boot, reduce ? 50 : 350);
+})();
+</script>
+</body>
+</html>
