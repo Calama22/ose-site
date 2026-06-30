@@ -303,11 +303,17 @@
   .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
   @media(max-width:880px){.f-top{grid-template-columns:1fr;gap:34px;padding:54px 0 40px}}
   @media(max-width:880px){
-    .hero{grid-template-columns:1fr;gap:24px;min-height:auto;padding:118px 0 56px}
-    .hero-r{display:none}            /* visuel canvas animé réservé au desktop */
+    .hero{grid-template-columns:1fr;gap:22px;min-height:auto;padding:118px 0 56px}
     .lead-row,.work .item{grid-template-columns:1fr;gap:16px}
     .work .item{padding:34px 0}
     #glow{display:none}
+    /* hero visuel sur mobile : schéma (sources → OSE) au-dessus, téléphone en dessous */
+    .hero-r{display:flex;flex-direction:column;align-items:center;gap:0;height:auto;min-height:0;margin-top:6px}
+    .canvas-stage{position:relative;inset:auto;width:100%;height:200px}
+    .showcase{position:relative;inset:auto;top:auto;right:auto;bottom:auto;width:100%;max-width:none;
+      margin-top:-4px;transform:translateY(16px);gap:14px}
+    .showcase.live{transform:none}
+    .phone{height:auto;width:min(72vw,288px)}
   }
   /* ---------- téléphone ---------- */
   @media(max-width:600px){
@@ -344,6 +350,10 @@
     .cta .actions{margin-top:36px;gap:12px}
     .f-top{padding:48px 0 34px}
     .f-base{justify-content:center;text-align:center;gap:8px}
+    /* hero visuel compact */
+    .canvas-stage{height:178px}
+    .phone{width:min(78vw,260px)}
+    .sc-name{min-width:74px;font-size:11px}
   }
   @media(max-width:430px){
     h1{font-size:clamp(30px,8.4vw,40px)}
@@ -831,10 +841,10 @@ function rand(a,b){return a+Math.random()*(b-a)}
 function build(){
   W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr;
   MOB=innerWidth<880;   // = même seuil que le passage du hero en colonne (CSS @media 880px)
-  hub={tx:(MOB?0.42:0.30)*W,ty:(MOB?0.24:0.5)*H};
-  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*(MOB?0.14:0.13), ty:H*((MOB?0.05:0.16)+i*(MOB?0.085:0.17)), cxp:rand(0,W*0.65), cyp:rand(0,H*(MOB?0.42:1)), seed:rand(0,6.28)}));
-  // « card » ne sert plus qu'à viser le téléphone réel (DOM) posé à droite : la ligne file vers ce point, caché sous le téléphone
-  card=MOB?{ x:W*0.21, w:W*0.58, y:H*0.36, h:H*0.60 }:{ x:W*0.76, w:0, y:H*0.27, h:H*0.46 };
+  hub={tx:(MOB?0.50:0.30)*W,ty:(MOB?0.34:0.5)*H};
+  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*(MOB?0.20:0.13), ty:H*((MOB?0.10:0.16)+i*(MOB?0.085:0.17)), cxp:rand(0,W*0.65), cyp:rand(0,H*(MOB?0.55:1)), seed:rand(0,6.28)}));
+  // « card » ne sert plus qu'à viser le téléphone réel (DOM) : desktop = à droite, mobile = en bas (la ligne descend vers le téléphone posé dessous)
+  card=MOB?{ x:W*0.50, w:0, y:H*0.88, h:H*0.16 }:{ x:W*0.76, w:0, y:H*0.27, h:H*0.46 };
   outputs=[rand(.55,1),rand(.4,.85),rand(.7,1)].map(b=>({bar:b}));
 }
 function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
