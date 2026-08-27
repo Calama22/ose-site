@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://ose-os.fr/sitemap.xml

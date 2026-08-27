@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="N9EQmLHJcO5I2t4tcgGTM0mkcfC55HhuDRO2-6JmOLE">
 <!-- Microsoft Clarity (heatmaps + enregistrements) — chargé UNIQUEMENT après consentement (RGPD) -->
 <script type="text/javascript">
     window.loadClarity = function(){
@@ -15,14 +16,26 @@
     };
     try { if (localStorage.getItem("ose-consent") === "granted") window.loadClarity(); } catch(e){}
 </script>
-<title>OSE — Studio IA sur-mesure pour PME</title>
-<meta name="description" content="OSE construit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service.">
+<title>OSE — Automatisation IA & outils sur-mesure pour PME</title>
+<meta name="description" content="OSE conçoit des outils d'automatisation IA sur-mesure pour PME : devis-factures, tableaux de bord, relances, reporting. Un outil pensé pour votre métier, utile en quelques jours.">
+<meta name="keywords" content="automatisation IA PME, outil IA sur-mesure, intelligence artificielle entreprise, automatiser devis facture, tableau de bord PME, gagner du temps IA">
+<meta name="author" content="OSE">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://ose-os.fr/">
-<meta property="og:title" content="OSE — Studio IA sur-mesure pour PME">
-<meta property="og:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
+<meta property="og:title" content="OSE — Automatisation IA & outils sur-mesure pour PME">
+<meta property="og:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Assemblé avec l'IA pour votre métier précis.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ose-os.fr/">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="OSE">
+<meta property="og:image" content="https://ose-os.fr/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OSE — Automatisation IA sur-mesure pour PME">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OSE — Automatisation IA & outils sur-mesure pour PME">
+<meta name="twitter:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
+<meta name="twitter:image" content="https://ose-os.fr/og-cover.png">
 <meta name="theme-color" content="#0a0f1f">
 <link rel="icon" type="image/svg+xml" href="ose-icon.svg">
 <link rel="apple-touch-icon" href="ose-icon.svg">
@@ -281,6 +294,25 @@
   .creed li::before{content:"—";color:var(--accent);font-weight:700}
   @media(max-width:880px){.origin .grid2{grid-template-columns:1fr;gap:16px}}
 
+  /* ---------- faq ---------- */
+  .faq-list{margin-top:56px;border-top:1px solid var(--ink)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-item summary{list-style:none;cursor:pointer;padding:28px 0;display:flex;align-items:baseline;gap:24px;
+    font-size:clamp(19px,2.1vw,25px);font-weight:600;letter-spacing:-.4px;transition:padding-left .4s var(--ease),color .3s}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
+    font-size:13px;font-weight:600;color:var(--accent);letter-spacing:1px;flex:0 0 auto;padding-top:8px}
+  .faq-item summary::after{content:"+";margin-left:auto;font-size:26px;font-weight:400;color:var(--dim);
+    transition:transform .35s var(--ease);flex:0 0 auto;line-height:1}
+  .faq-item[open] summary::after{transform:rotate(45deg);color:var(--accent)}
+  .faq-item summary:hover{padding-left:10px;color:var(--accent)}
+  .faq-item .faq-a{padding:0 0 30px 58px;color:var(--dim);font-size:17px;line-height:1.7;max-width:70ch}
+  .faq-list{counter-reset:faq}
+  @media(max-width:600px){
+    .faq-item summary{gap:16px;padding:22px 0}
+    .faq-item .faq-a{padding-left:0;font-size:16px}
+  }
+
   /* ---------- CTA ---------- */
   .cta{position:relative;overflow:hidden;background:var(--ink);color:var(--bg);padding:130px 0}
   .cta .aurora i{background:radial-gradient(circle,rgba(143,176,224,.3),transparent 70%)}
@@ -419,6 +451,88 @@
   @media(max-width:560px){.modal-card{padding:44px 26px 34px}}
   @media(prefers-reduced-motion:reduce){.modal,.modal-card,.modal-close{transition:none}}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ose-os.fr/#organization",
+      "name": "OSE",
+      "url": "https://ose-os.fr/",
+      "email": "contact@ose-os.fr",
+      "logo": "https://ose-os.fr/ose-logo.svg",
+      "image": "https://ose-os.fr/og-cover.png",
+      "slogan": "On construit l'outil que vous n'imaginiez pas pouvoir avoir.",
+      "description": "Studio IA sur-mesure pour PME : des outils d'automatisation conçus avec l'intelligence artificielle pour faire gagner du temps aux équipes, dans n'importe quel service.",
+      "areaServed": { "@type": "Country", "name": "France" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ose-os.fr/#website",
+      "url": "https://ose-os.fr/",
+      "name": "OSE",
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": "https://ose-os.fr/#organization" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ose-os.fr/#service",
+      "serviceType": "Automatisation IA sur-mesure pour PME",
+      "provider": { "@id": "https://ose-os.fr/#organization" },
+      "areaServed": { "@type": "Country", "name": "France" },
+      "description": "Conception d'outils sur-mesure assemblés avec l'IA pour automatiser les tâches répétitives des PME : devis et facturation, tableaux de bord, relances commerciales, reporting, réponses clients.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Ce qu'OSE sait construire",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatisation des devis et de la facturation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tableau de bord PME en temps réel" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Prospection et relances commerciales automatisées" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reporting automatique et alertes" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Traitement et réponses aux demandes clients" } }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ose-os.fr/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "OSE, concrètement, ça fait quoi ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "On construit avec l'IA un outil sur-mesure pour votre entreprise : automatiser les tâches répétitives (saisies, relances, reporting), réunir vos infos dans un tableau de bord, gérer devis et factures sans ressaisie. Un outil pensé pour votre métier, pas un logiciel générique de plus." }
+        },
+        {
+          "@type": "Question",
+          "name": "En combien de temps peut-on avoir un premier outil ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Comptez quelques jours pour un premier outil utile entre vos mains. On construit vite une version qui sert vraiment, puis on l'affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan pendant des mois." }
+        },
+        {
+          "@type": "Question",
+          "name": "Est-ce réservé aux grandes entreprises ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Non, c'est justement pensé pour les PME. OSE s'adresse aux entreprises qui n'ont ni le budget ni l'envie d'un gros projet logiciel, mais qui perdent du temps sur des tâches que l'IA sait déjà absorber." }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles tâches peut-on automatiser avec l'IA ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Prospection et relances, devis et facturation, reporting et tableaux de bord, suivi de production, saisie et ressaisie, réponses clients, planning, veille… Dans n'importe quel service : si une tâche fait perdre du temps, elle est candidate." }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il des compétences techniques de notre côté ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Aucune. Vous gardez la main sur votre outil, OSE s'occupe de la technique. Un seul interlocuteur construit avec vous — ce n'est pas une boîte noire ni un service support anonyme." }
+        },
+        {
+          "@type": "Question",
+          "name": "Où se situe OSE et travaillez-vous à distance ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "OSE accompagne les PME partout en France, à distance. Tout commence par 30 minutes pour repérer ensemble où l'IA peut vous faire gagner du temps, sans engagement." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -568,6 +682,39 @@
     </div>
   </div>
 </div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="lead-row r">
+    <div class="idx">05 — QUESTIONS FRÉQUENTES</div>
+    <h2>Ce qu'on nous demande <span class="serif it">le plus souvent.</span></h2>
+  </div>
+  <div class="faq-list r">
+    <details class="faq-item">
+      <summary>OSE, concrètement, ça fait quoi&nbsp;?</summary>
+      <div class="faq-a">On construit avec l'IA un outil sur-mesure pour votre entreprise : automatiser les tâches répétitives (saisies, relances, reporting), réunir vos infos dans un tableau de bord, gérer devis et factures sans ressaisie. Un outil pensé pour votre métier, pas un logiciel générique de plus.</div>
+    </details>
+    <details class="faq-item">
+      <summary>En combien de temps peut-on avoir un premier outil&nbsp;?</summary>
+      <div class="faq-a">Comptez quelques jours pour un premier outil utile entre vos mains. On construit vite une version qui sert vraiment, puis on l'affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan pendant des mois.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Est-ce réservé aux grandes entreprises&nbsp;?</summary>
+      <div class="faq-a">Non, c'est justement pensé pour les PME. OSE s'adresse aux entreprises qui n'ont ni le budget ni l'envie d'un gros projet logiciel, mais qui perdent du temps sur des tâches que l'IA sait déjà absorber.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Quelles tâches peut-on automatiser avec l'IA&nbsp;?</summary>
+      <div class="faq-a">Prospection et relances, devis et facturation, reporting et tableaux de bord, suivi de production, saisie et ressaisie, réponses clients, planning, veille… Dans n'importe quel service : si une tâche fait perdre du temps, elle est candidate.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Faut-il des compétences techniques de notre côté&nbsp;?</summary>
+      <div class="faq-a">Aucune. Vous gardez la main sur votre outil, OSE s'occupe de la technique. Un seul interlocuteur construit avec vous — ce n'est pas une boîte noire ni un service support anonyme.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Où se situe OSE et travaillez-vous à distance&nbsp;?</summary>
+      <div class="faq-a">OSE accompagne les PME partout en France, à distance. Tout commence par 30 minutes pour repérer ensemble où l'IA peut vous faire gagner du temps, sans engagement.</div>
+    </details>
+  </div>
+</div></section>
 </main>
 
 <div class="cta" id="contact">
@@ -590,7 +737,7 @@
     </div>
     <nav class="f-col">
       <span class="f-h">Le site</span>
-      <a href="#constat">Le constat</a><a href="#domaines">Domaines</a><a href="#savoir-faire">Savoir-faire</a><a href="#process">Comment ça marche</a><a href="#origine">D'où on vient</a>
+      <a href="#constat">Le constat</a><a href="#domaines">Domaines</a><a href="#savoir-faire">Savoir-faire</a><a href="#process">Comment ça marche</a><a href="#origine">D'où on vient</a><a href="#faq">FAQ</a>
     </nav>
     <nav class="f-col">
       <span class="f-h">Contact</span>
