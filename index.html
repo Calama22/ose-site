@@ -80,7 +80,7 @@
   /* ---------- header ---------- */
   header{position:fixed;top:0;width:100%;z-index:40;border-bottom:1px solid transparent;transition:.3s}
   header.solid{background:rgba(244,242,236,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
-  nav{display:flex;justify-content:space-between;align-items:center;height:76px}
+  header nav{display:flex;justify-content:space-between;align-items:center;height:76px}
   .logo{display:flex;align-items:center}
   .logo img{height:30px;width:auto;transition:transform .4s var(--ease)}
   .logo:hover img{transform:scale(1.05)}
@@ -262,8 +262,8 @@
   /* ---------- responsive ---------- */
   @media(max-width:880px){
     .wrap{padding:0 24px}
-    .hero{padding:110px 0 60px}
-    .hero-grid{grid-template-columns:1fr;gap:36px;justify-items:center;text-align:left}
+    .hero{min-height:auto;padding:100px 0 48px;align-items:flex-start}
+    .hero-grid{grid-template-columns:1fr;gap:28px;justify-items:center;text-align:left}
     .hero-inner{max-width:100%}
     .lead{grid-template-columns:1fr;gap:14px;margin-bottom:40px}
     .lead .idx{padding-top:0}
