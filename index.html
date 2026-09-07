@@ -2,50 +2,57 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="google-site-verification" content="N9EQmLHJcO5I2t4tcgGTM0mkcfC55HhuDRO2-6JmOLE">
-<!-- Microsoft Clarity (heatmaps + enregistrements) — chargé UNIQUEMENT après consentement (RGPD) -->
-<script type="text/javascript">
-    window.loadClarity = function(){
-        if (window.__clarityLoaded) return; window.__clarityLoaded = true;
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "xch9i8c6ru");
-    };
-    try { if (localStorage.getItem("ose-consent") === "granted") window.loadClarity(); } catch(e){}
-</script>
-<title>OSE — Automatisation IA & outils sur-mesure pour PME</title>
-<meta name="description" content="OSE conçoit des outils d'automatisation IA sur-mesure pour PME : devis-factures, tableaux de bord, relances, reporting. Un outil pensé pour votre métier, utile en quelques jours.">
-<meta name="keywords" content="automatisation IA PME, outil IA sur-mesure, intelligence artificielle entreprise, automatiser devis facture, tableau de bord PME, gagner du temps IA">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSE — Studio IA sur-mesure pour PME</title>
+<meta name="description" content="OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service. Un premier outil utile en environ 3 jours. France, à distance.">
 <meta name="author" content="OSE">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://ose-os.fr/">
-<meta property="og:title" content="OSE — Automatisation IA & outils sur-mesure pour PME">
-<meta property="og:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Assemblé avec l'IA pour votre métier précis.">
+<meta name="theme-color" content="#f4f2ec">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:title" content="OSE — Studio IA sur-mesure pour PME">
+<meta property="og:description" content="On construit l'outil que vous n'imaginiez pas pouvoir avoir. Un premier outil utile en environ 3 jours.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ose-os.fr/">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="OSE">
-<meta property="og:image" content="https://ose-os.fr/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OSE — Studio IA sur-mesure pour PME">
+<meta name="twitter:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
+
+<!-- OG image générée en SVG inline (data-URI) pour rester 100 % autonome -->
+<meta property="og:image" content="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%23f4f2ec'/%3E%3Ctext x='80' y='340' font-family='Georgia,serif' font-size='150' font-style='italic' font-weight='800' fill='%233a5894'%3EOSE%3C/text%3E%3Ctext x='90' y='420' font-family='Arial' font-size='30' fill='%2314130f'%3EOn construit l'outil que vous n'imaginiez pas pouvoir avoir.%3C/text%3E%3C/svg%3E">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OSE — Automatisation IA sur-mesure pour PME">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OSE — Automatisation IA & outils sur-mesure pour PME">
-<meta name="twitter:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
-<meta name="twitter:image" content="https://ose-os.fr/og-cover.png">
-<meta name="theme-color" content="#0a0f1f">
+
+<!-- Favicon officiel OSE -->
 <link rel="icon" type="image/svg+xml" href="ose-icon.svg">
 <link rel="apple-touch-icon" href="ose-icon.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Données structurées -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "OSE",
+  "url": "https://ose-os.fr/",
+  "email": "contact@ose-os.fr",
+  "slogan": "On construit l'outil que vous n'imaginiez pas pouvoir avoir.",
+  "description": "Studio IA sur-mesure pour PME : des outils d'automatisation conçus avec l'intelligence artificielle pour faire gagner du temps aux équipes, dans n'importe quel service.",
+  "areaServed": { "@type": "Country", "name": "France" }
+}
+</script>
+
 <style>
   :root{
     --bg:#f4f2ec; --ink:#14130f; --dim:#7a766c; --line:#d9d5c8;
     --accent:#3a5894; --accent-d:#8fb0e0; --paper:#fbfaf6;
+    --green:#1f9d6b; --green-l:#e6f5f0;
     --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -54,103 +61,79 @@
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   img{display:block}
-  .wrap{max-width:1200px;margin:0 auto;
-    padding-left:max(40px,env(safe-area-inset-left));padding-right:max(40px,env(safe-area-inset-right))}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
   .serif{font-family:"Times New Roman",Georgia,serif}
   ::selection{background:var(--accent);color:#fff}
 
-  /* ---------- preloader ---------- */
-  #pre{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;
-    transition:opacity .7s ease,visibility .7s}
-  #pre.done{opacity:0;visibility:hidden}
-  #pre .mk{font-style:italic;font-weight:800;font-size:clamp(60px,12vw,150px);letter-spacing:-4px;
-    background:linear-gradient(110deg,#1c2c52 0%,#3a5894 28%,#9db9e6 47%,#eaf3ff 50%,#9db9e6 53%,#33508c 72%,#16224a 100%);
-    background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:sheen 1.6s var(--ease) infinite}
-  #pre .bar{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);width:0;animation:load 1.3s var(--ease) forwards}
-  @keyframes load{to{width:100%}}
-  @keyframes sheen{0%{background-position:140% 0}100%{background-position:-40% 0}}
-
-  /* ---------- scroll progress ---------- */
-  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-d));z-index:60}
-
-  /* ---------- cursor glow ---------- */
-  #glow{position:fixed;top:0;left:0;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:1;
-    background:radial-gradient(circle,rgba(58,88,148,.10),transparent 60%);transform:translate(-50%,-50%);
-    transition:opacity .4s;will-change:left,top;mix-blend-mode:multiply}
-
-  /* ---------- chrome animated text ---------- */
+  /* ---- chrome animé (wordmark / accents) ---- */
   .chrome{background:linear-gradient(110deg,#1c2c52 0%,#3a5894 26%,#9db9e6 47%,#eaf3ff 50%,#9db9e6 53%,#33508c 70%,#16224a 100%);
-    background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:flow 7s linear infinite}
+    background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 7s linear infinite}
   @keyframes flow{0%{background-position:200% 0}100%{background-position:-60% 0}}
 
-  /* ---------- reveal ---------- */
-  .r{opacity:0;transform:translateY(30px);filter:blur(5px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  /* ---- reveal au scroll ---- */
+  .r{opacity:0;transform:translateY(28px);filter:blur(4px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
   .r.in{opacity:1;transform:none;filter:none}
-  .words span{display:inline-block;opacity:0;transform:translateY(40px) rotate(2deg);filter:blur(6px);
-    transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease)}
-  .words.in span{opacity:1;transform:none;filter:none}
+
+  /* ---- scroll progress ---- */
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-d));z-index:60}
 
   /* ---------- header ---------- */
   header{position:fixed;top:0;width:100%;z-index:40;border-bottom:1px solid transparent;transition:.3s}
-  header.solid{background:rgba(244,242,236,.82);backdrop-filter:blur(10px);border-color:var(--line)}
-  nav{display:flex;justify-content:space-between;align-items:center;height:78px}
-  .logo{display:flex;align-items:center}.logo img{height:30px;transition:transform .4s var(--ease)}
+  header.solid{background:rgba(244,242,236,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--line)}
+  nav{display:flex;justify-content:space-between;align-items:center;height:76px}
+  .logo{display:flex;align-items:center}
+  .logo img{height:30px;width:auto;transition:transform .4s var(--ease)}
   .logo:hover img{transform:scale(1.05)}
-  .nav-r{display:flex;gap:18px;align-items:center;font-size:13px;letter-spacing:.5px}
+  .nav-r{display:flex;gap:20px;align-items:center;font-size:13px;letter-spacing:.5px}
   .nav-r .idx{color:var(--dim)}
   .nav-cta{position:relative;border:1px solid var(--ink);padding:9px 18px;border-radius:40px;overflow:hidden;z-index:0}
   .nav-cta span{position:relative;z-index:1;transition:color .3s}
-  .nav-cta::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .35s var(--ease);z-index:0}
+  .nav-cta::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .35s var(--ease)}
   .nav-cta:hover::before{transform:translateY(0)}
   .nav-cta:hover span{color:var(--bg)}
 
-  /* ---------- hero ---------- */
-  .hero{position:relative;min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:50px;padding:120px 0 60px}
-  .aurora{position:absolute;inset:-10% -20%;z-index:-1;pointer-events:none;filter:blur(40px);opacity:.6}
-  .aurora i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(58,88,148,.22),transparent 70%);animation:drift 18s ease-in-out infinite}
-  .aurora i:nth-child(1){width:520px;height:520px;top:-8%;left:8%}
-  .aurora i:nth-child(2){width:440px;height:440px;bottom:-6%;right:6%;background:radial-gradient(circle,rgba(143,176,224,.26),transparent 70%);animation-delay:-6s}
-  .aurora i:nth-child(3){width:360px;height:360px;top:30%;left:46%;animation-delay:-11s}
-  @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.12)}66%{transform:translate(-30px,25px) scale(.94)}}
-
-  .hero-l .tag{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
-    border:1px solid var(--line);border-radius:40px;padding:7px 16px;color:var(--dim);margin-bottom:34px;
-    background:rgba(251,250,246,.6);animation:floaty 5s ease-in-out infinite}
-  .hero-l .tag b{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  /* ---------- HERO cinématique (canvas + parallax) ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px 0 80px}
+  /* poster : dégradé de fond visible avant/à la place de l'anim (reduced-motion) */
+  .hero-poster{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 55% at 72% 30%,rgba(143,176,224,.30),transparent 70%),
+      radial-gradient(55% 60% at 20% 75%,rgba(58,88,148,.22),transparent 70%),
+      linear-gradient(180deg,#f6f4ee,#efece3)}
+  #cine{position:absolute;inset:0;z-index:1;width:100%;height:100%;display:block;opacity:0;transition:opacity 1.2s var(--ease)}
+  #cine.on{opacity:1}
+  /* couche parallax profonde : gros halo */
+  .depth{position:absolute;z-index:1;border-radius:50%;pointer-events:none;filter:blur(50px);will-change:transform}
+  .depth.d1{width:520px;height:520px;top:-6%;left:4%;background:radial-gradient(circle,rgba(58,88,148,.22),transparent 70%)}
+  .depth.d2{width:440px;height:440px;bottom:-8%;right:4%;background:radial-gradient(circle,rgba(143,176,224,.28),transparent 70%)}
+  .depth.d3{width:300px;height:300px;top:38%;left:48%;background:radial-gradient(circle,rgba(28,44,82,.14),transparent 70%)}
+  .hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .hero-inner{max-width:640px}
+  .tag{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:40px;padding:7px 16px;color:var(--dim);margin-bottom:32px;
+    background:rgba(251,250,246,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .tag b{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(58,88,148,.5)}70%{box-shadow:0 0 0 7px rgba(58,88,148,0)}}
-  h1{font-size:clamp(44px,6vw,96px);line-height:.95;letter-spacing:-3px;font-weight:400}
+  h1{font-size:clamp(42px,6.4vw,92px);line-height:.96;letter-spacing:-3px;font-weight:400}
   h1 b{font-weight:800}h1 .it{font-style:italic;font-weight:400}
-  .hero-l p{font-size:19px;color:var(--dim);max-width:44ch;margin:36px 0 0;line-height:1.65}
-  .hero-actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  .hero p{font-size:19px;color:var(--dim);max-width:46ch;margin:34px 0 0;line-height:1.65;
+    background:linear-gradient(90deg,rgba(244,242,236,.7),rgba(244,242,236,0));border-radius:8px}
+  .actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
   .btn{position:relative;padding:16px 30px;border-radius:40px;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:9px;
     transition:transform .25s var(--ease),box-shadow .25s var(--ease),filter .25s;will-change:transform}
   .btn .arr{transition:transform .3s var(--ease)}
   .btn:hover .arr{transform:translateX(5px)}
   .btn-h{background:var(--accent);color:#fff;box-shadow:0 8px 24px -10px rgba(58,88,148,.7)}
-  .btn-h:hover{filter:brightness(1.1);box-shadow:0 14px 30px -10px rgba(58,88,148,.8)}
+  .btn-h:hover{filter:brightness(1.1);box-shadow:0 14px 30px -10px rgba(58,88,148,.8);transform:translateY(-1px)}
   .btn-o{border:1px solid var(--ink)}.btn-o:hover{background:var(--ink);color:var(--bg)}
-  .assur{display:flex;gap:24px;margin-top:30px;flex-wrap:wrap;font-size:13px;color:var(--dim);letter-spacing:.3px}
+  .assur{display:flex;gap:24px;margin-top:30px;flex-wrap:wrap;font-size:13px;color:var(--dim)}
   .assur span{display:flex;align-items:center;gap:9px}
   .assur span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 
-  .hero-r{position:relative;height:80vh;min-height:520px}
-
-  /* ---------- schéma canvas (permanent) : sources → OSE → téléphone ---------- */
-  .canvas-stage{position:absolute;inset:0;z-index:1}
-  #graph{width:100%;height:100%;display:block}
-  .cap{display:none}   /* l'ancien bandeau de phase n'est plus utilisé */
-
-  /* ---------- le vrai téléphone, posé à droite du schéma ---------- */
-  .showcase{position:absolute;top:0;bottom:0;right:max(6px,2%);z-index:2;
-    width:clamp(280px,48%,380px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
-    opacity:0;visibility:hidden;transform:translateX(26px);
-    transition:opacity .8s var(--ease),visibility .8s,transform .8s var(--ease)}
-  .showcase.live{opacity:1;visibility:visible;transform:none}
-  .phone{position:relative;flex:0 1 auto;
-    height:clamp(480px,66vh,640px);aspect-ratio:368/720;max-width:100%;
+  /* ---------- téléphone showcase (identique au vrai site) ---------- */
+  .hero-r{display:flex;flex-direction:column;align-items:center;gap:16px;will-change:transform}
+  .phone{position:relative;
+    width:clamp(272px,31vw,332px);aspect-ratio:368/720;max-width:100%;
     background:#0f0e0c;border-radius:42px;padding:10px;
     box-shadow:0 2px 2px rgba(255,255,255,.18) inset,0 -1px 2px rgba(255,255,255,.06) inset,
       0 40px 80px -34px rgba(20,19,15,.55),0 16px 40px -24px rgba(58,88,148,.4);
@@ -165,7 +148,7 @@
     transition:opacity .55s var(--ease),transform .55s var(--ease),visibility .55s}
   .demo.is-active{opacity:1;visibility:visible;transform:none;z-index:1}
   .sc-foot{display:flex;align-items:center;justify-content:center;gap:11px;max-width:100%}
-  .sc-arrow{flex:none;width:44px;height:44px;border-radius:50%;cursor:pointer;
+  .sc-arrow{flex:none;width:38px;height:38px;border-radius:50%;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     background:rgba(251,250,246,.7);border:1px solid var(--line);color:var(--ink);
     -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
@@ -177,99 +160,51 @@
   .sc-arrow:active{transform:translateY(0) scale(.94)}
   .sc-arrow:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .sc-name{font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:600;
-    min-width:84px;text-align:center;transition:opacity .3s}
+    min-width:96px;text-align:center;transition:opacity .3s}
   .sc-prog{width:46px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
   .sc-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-d));border-radius:2px}
-  @media(prefers-reduced-motion:reduce){.phone{animation:none}.demo{transition:opacity .2s}.showcase{transition:opacity .3s}.sc-prog{display:none}}
+  @media(prefers-reduced-motion:reduce){.phone{animation:none}.demo{transition:opacity .2s}.sc-prog{display:none}}
+  @media(max-width:880px){
+    .hero-r{margin-top:6px}
+    .phone{width:min(74vw,304px)}
+    .sc-name{min-width:84px}
+  }
 
   /* ---------- marquee ---------- */
-  .strip{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;padding:18px 0}
-  .strip .run{display:inline-block;animation:run 28s linear infinite}
-  .strip.rev .run{animation-direction:reverse;animation-duration:34s}
+  .strip{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;white-space:nowrap;padding:18px 0;background:var(--bg)}
+  .strip .run{display:inline-block;animation:run 30s linear infinite}
   .strip span{font-size:30px;font-weight:800;letter-spacing:-1px;margin:0 26px}
   .strip .o{color:var(--accent);font-style:italic;font-weight:400}
   @keyframes run{to{transform:translateX(-50%)}}
 
-  section{padding:100px 0}
-  .lead-row{display:grid;grid-template-columns:.8fr 2fr;gap:70px;align-items:start}
-  .lead-row .idx{font-size:13px;letter-spacing:2px;color:var(--accent);padding-top:14px}
-  .lead-row h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
-  .lead-row h2 b{font-weight:800}
+  section{padding:104px 0;position:relative}
+  .lead{display:grid;grid-template-columns:.8fr 2fr;gap:64px;align-items:start;margin-bottom:56px}
+  .lead .idx{font-size:13px;letter-spacing:2px;color:var(--accent);padding-top:14px}
+  .lead h2{font-size:clamp(32px,4vw,54px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
+  .lead h2 b{font-weight:800}
 
-  /* ---------- stats band ---------- */
-  .stats{background:var(--ink);color:var(--bg);padding:90px 0}
-  .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-  .stat{text-align:center;border-left:1px solid rgba(255,255,255,.12);padding:0 16px}
-  .stat:first-child{border-left:none}
-  .stat .num{font-size:clamp(40px,5vw,68px);font-weight:800;letter-spacing:-2px;line-height:1;
-    background:linear-gradient(110deg,#9db9e6,#eaf3ff 50%,#8fb0e0);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat .lab{margin-top:16px;font-size:14px;color:rgba(255,255,255,.6);line-height:1.5;max-width:22ch;margin-inline:auto}
-  @media(max-width:880px){.stats .grid{grid-template-columns:1fr 1fr;gap:40px 20px}.stat:nth-child(3){border-left:none}}
+  /* ---------- about ---------- */
+  .about p{color:var(--dim);font-size:18px;line-height:1.75;max-width:62ch;margin-top:22px}
+  .creed{list-style:none;margin-top:44px;border-top:1px solid var(--line);max-width:70ch}
+  .creed li{padding:22px 0;border-bottom:1px solid var(--line);font-size:18px;display:flex;gap:18px;align-items:baseline;
+    transition:padding-left .35s var(--ease)}
+  .creed li:hover{padding-left:12px}
+  .creed li::before{content:"—";color:var(--accent);font-weight:700}
 
-  /* ---------- work / capabilities ---------- */
-  .work{margin-top:64px;border-top:1px solid var(--ink)}
-  .work .item{position:relative;display:grid;grid-template-columns:.4fr 1fr 2fr;gap:50px;padding:50px 0;border-bottom:1px solid var(--line);
-    align-items:baseline;transition:padding .4s var(--ease),background .4s}
-  .work .item::before{content:"";position:absolute;left:0;top:-1px;height:calc(100% + 2px);width:0;
-    border-left:2px solid var(--accent);transition:width .4s var(--ease)}
-  .work .item:hover{background:var(--paper);padding-left:28px;padding-right:24px}
-  .work .item:hover::before{width:2px}
-  .work .item .n{justify-self:start;align-self:start;display:inline-block;padding:3px 11px;
-    border:1px solid var(--line);border-radius:20px;font-size:11px;letter-spacing:1.5px;
-    text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--paper)}
-  .work .item h3{font-size:32px;font-weight:600;letter-spacing:-.5px;transition:transform .4s var(--ease)}
-  .work .item:hover h3{transform:translateX(4px)}
-  .work .item p{color:var(--dim);font-size:17px;line-height:1.65}
-  .work .item .ex{display:block;margin-top:14px;font-size:14.5px;color:var(--accent)}
-  .work .item .ex::before{content:"Ex. — ";font-weight:600}
-
-  /* ---------- domaines ---------- */
-  .domains{background:var(--ink);color:var(--bg);padding:118px 0}
-  .domains .idx{font-size:13px;letter-spacing:2px;color:var(--accent-d);margin-bottom:24px}
-  .domains h2{font-size:clamp(28px,3.4vw,46px);line-height:1.12;letter-spacing:-1px;font-weight:400;max-width:22ch}
-  .domains h2 .serif{color:rgba(255,255,255,.55)}
-  .db-grid{margin-top:58px;display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-  .db-grid .dom{font:inherit;color:inherit;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.18);
-    border-radius:40px;padding:15px 20px;font-size:14.5px;text-align:center;cursor:pointer;
-    transition:transform .35s var(--ease),background .3s,border-color .3s,box-shadow .35s,color .3s}
-  .db-grid .dom:hover{border-color:var(--accent-d);background:rgba(143,176,224,.14);transform:translateY(-4px) scale(1.03)}
-  .db-grid .dom.active{border-color:var(--accent-d);background:rgba(143,176,224,.2);color:#fff;
-    transform:translateY(-8px) scale(1.05);box-shadow:0 16px 34px -16px rgba(143,176,224,.55)}
-  @media(max-width:880px){.db-grid{grid-template-columns:1fr 1fr}}
-
-  /* domain : la bulle grossit SUR PLACE, le reste se floute */
-  #domOverlay{position:fixed;inset:0;z-index:90;background:rgba(8,12,26,.45);
-    -webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px);
-    opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s}
-  #domOverlay.open{opacity:1;visibility:visible}
-  #domCard{position:fixed;z-index:95;left:0;top:0;width:120px;height:52px;overflow:hidden;
-    background:#1c2438;border:1px solid rgba(143,176,224,.4);border-radius:40px;color:var(--bg);
-    box-shadow:0 40px 90px -28px rgba(0,0,0,.82);opacity:0;visibility:hidden;
-    transition:left .5s var(--ease),top .5s var(--ease),width .5s var(--ease),height .5s var(--ease),
-      border-radius .5s var(--ease),opacity .3s var(--ease),visibility .5s,box-shadow .5s}
-  #domCard.show{opacity:1;visibility:visible}
-  #domCard.open{border-radius:22px;background:linear-gradient(180deg,#1c2438,#12161f)}
-  .dom-card-in{padding:34px 36px;opacity:0;transition:opacity .25s var(--ease)}
-  #domCard.open .dom-card-in{opacity:1;transition:opacity .45s var(--ease) .16s}
-  .dom-close{position:absolute;top:15px;right:16px;width:34px;height:34px;border-radius:50%;
-    border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--bg);font-size:20px;line-height:1;
-    cursor:pointer;transition:.25s;z-index:2}
-  .dom-close:hover{background:rgba(255,255,255,.1);border-color:var(--accent-d)}
-  .dom-panel-h{display:flex;align-items:center;gap:12px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-d);margin-bottom:22px;padding-right:30px;white-space:nowrap}
-  .dom-panel-h::before{content:"";width:26px;height:1px;background:var(--accent-d);flex:none}
-  .dom-list{list-style:none;display:flex;flex-direction:column;gap:15px}
-  .dom-list li{display:flex;gap:13px;align-items:baseline;font-size:17px;color:rgba(255,255,255,.9);line-height:1.5;
-    opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-  .dom-list.in li{opacity:1;transform:none}
-  .dom-list li::before{content:"→";color:var(--accent-d);flex:none;font-weight:600}
-  .dom-list.in li:nth-child(1){transition-delay:.20s}
-  .dom-list.in li:nth-child(2){transition-delay:.27s}
-  .dom-list.in li:nth-child(3){transition-delay:.34s}
-  .dom-list.in li:nth-child(4){transition-delay:.41s}
-  @media(prefers-reduced-motion:reduce){#domCard,.dom-card-in,.dom-list li{transition:opacity .25s!important}}
+  /* ---------- services ---------- */
+  .services{background:var(--ink);color:var(--bg)}
+  .services .lead .idx{color:var(--accent-d)}
+  .services .lead h2 .serif{color:rgba(255,255,255,.5)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:30px 28px 34px;background:rgba(255,255,255,.02);
+    transition:transform .35s var(--ease),background .3s,border-color .3s}
+  .svc:hover{transform:translateY(-6px);border-color:var(--accent-d);background:rgba(143,176,224,.09)}
+  .svc .n{font-size:13px;letter-spacing:1px;color:var(--accent-d);font-weight:700}
+  .svc h3{font-size:23px;font-weight:700;letter-spacing:-.5px;margin:16px 0 12px}
+  .svc p{color:rgba(255,255,255,.66);font-size:15px;line-height:1.65}
 
   /* ---------- process ---------- */
-  .steps{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
   .step{position:relative;overflow:hidden;padding:46px 32px 50px;border-right:1px solid var(--line);transition:background .4s}
   .step:last-child{border-right:none}
   .step:hover{background:var(--paper)}
@@ -277,134 +212,83 @@
     opacity:.5;pointer-events:none;user-select:none;transition:transform .5s var(--ease),color .4s}
   .step:hover .bg{transform:translateY(8px) scale(1.05);color:rgba(58,88,148,.16)}
   .step .no{position:relative;font-size:13px;letter-spacing:2px;color:var(--accent);font-weight:700}
-  .step h3{position:relative;font-size:26px;font-weight:700;letter-spacing:-.5px;margin:20px 0 14px}
+  .step h3{position:relative;font-size:25px;font-weight:700;letter-spacing:-.5px;margin:20px 0 14px}
   .step p{position:relative;color:var(--dim);font-size:16px;line-height:1.7}
-  @media(max-width:880px){.steps{grid-template-columns:1fr}.step{border-right:none;border-bottom:1px solid var(--line)}}
 
-  .quote{padding:120px 0;text-align:center}
-  .quote blockquote{font-size:clamp(30px,3.8vw,54px);line-height:1.15;letter-spacing:-1px;max-width:19ch;margin:0 auto;font-weight:400}
-  .quote .src{margin-top:44px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+  /* ---------- quote ---------- */
+  .quote{text-align:center;padding:120px 0}
+  .quote blockquote{font-size:clamp(28px,3.6vw,50px);line-height:1.16;letter-spacing:-1px;max-width:20ch;margin:0 auto;font-weight:400}
+  .quote .src{margin-top:40px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
 
-  .origin .grid2{display:grid;grid-template-columns:.8fr 2fr;gap:70px;align-items:start}
-  .origin .idx{font-size:13px;letter-spacing:2px;color:var(--accent);padding-top:14px}
-  .origin h2{font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-1.5px;font-weight:400}
-  .origin h2 b{font-weight:800}
-  .origin p{color:var(--dim);font-size:18px;line-height:1.75;max-width:60ch;margin-top:30px}
-  .creed{list-style:none;margin-top:46px;border-top:1px solid var(--line)}
-  .creed li{padding:24px 0;border-bottom:1px solid var(--line);font-size:18px;display:flex;gap:18px;align-items:baseline;
-    transition:padding-left .35s var(--ease)}
-  .creed li:hover{padding-left:12px}
-  .creed li::before{content:"—";color:var(--accent);font-weight:700}
-  @media(max-width:880px){.origin .grid2{grid-template-columns:1fr;gap:16px}}
+  /* ---------- infos : dispo + zone ---------- */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .info-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:34px 34px 38px}
+  .info-card .h{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:20px;
+    display:flex;align-items:center;gap:10px}
+  .info-card .h::before{content:"";width:26px;height:1px;background:var(--accent)}
+  .info-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
+  .info-row:last-child{border-bottom:none}
+  .info-row span:first-child{color:var(--dim)}
+  .info-row b{font-weight:600}
+  .info-card p{color:var(--dim);font-size:16px;line-height:1.7;margin-bottom:18px}
+  .maplink{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--accent)}
+  .maplink:hover{text-decoration:underline}
 
-  /* ---------- faq ---------- */
-  .faq-list{margin-top:56px;border-top:1px solid var(--ink)}
-  .faq-item{border-bottom:1px solid var(--line)}
-  .faq-item summary{list-style:none;cursor:pointer;padding:28px 0;display:flex;align-items:baseline;gap:24px;
-    font-size:clamp(19px,2.1vw,25px);font-weight:600;letter-spacing:-.4px;transition:padding-left .4s var(--ease),color .3s}
-  .faq-item summary::-webkit-details-marker{display:none}
-  .faq-item summary::before{content:counter(faq,decimal-leading-zero);counter-increment:faq;
-    font-size:13px;font-weight:600;color:var(--accent);letter-spacing:1px;flex:0 0 auto;padding-top:8px}
-  .faq-item summary::after{content:"+";margin-left:auto;font-size:26px;font-weight:400;color:var(--dim);
-    transition:transform .35s var(--ease);flex:0 0 auto;line-height:1}
-  .faq-item[open] summary::after{transform:rotate(45deg);color:var(--accent)}
-  .faq-item summary:hover{padding-left:10px;color:var(--accent)}
-  .faq-item .faq-a{padding:0 0 30px 58px;color:var(--dim);font-size:17px;line-height:1.7;max-width:70ch}
-  .faq-list{counter-reset:faq}
-  @media(max-width:600px){
-    .faq-item summary{gap:16px;padding:22px 0}
-    .faq-item .faq-a{padding-left:0;font-size:16px}
-  }
-
-  /* ---------- CTA ---------- */
+  /* ---------- CTA / footer ---------- */
   .cta{position:relative;overflow:hidden;background:var(--ink);color:var(--bg);padding:130px 0}
-  .cta .aurora i{background:radial-gradient(circle,rgba(143,176,224,.3),transparent 70%)}
-  .cta h2{font-size:clamp(40px,7vw,108px);line-height:.9;letter-spacing:-3px;font-weight:400}
+  .cta .depth{filter:blur(60px)}
+  .cta .depth.d1{background:radial-gradient(circle,rgba(143,176,224,.30),transparent 70%)}
+  .cta .depth.d2{background:radial-gradient(circle,rgba(58,88,148,.30),transparent 70%)}
+  .cta .wrap{position:relative;z-index:2}
+  .cta h2{font-size:clamp(40px,7vw,104px);line-height:.9;letter-spacing:-3px;font-weight:400}
   .cta h2 b{font-weight:800}.cta .it{font-style:italic}
   .cta p{color:rgba(255,255,255,.6);font-size:18px;max-width:46ch;margin-top:34px;line-height:1.6}
-  .cta .actions{display:flex;gap:18px;margin-top:52px;flex-wrap:wrap}
+  .cta .actions{margin-top:50px}
   .cta .btn-h{background:var(--accent-d);color:var(--ink);box-shadow:0 10px 30px -12px rgba(143,176,224,.6)}
-  .cta .btn-g{border:1px solid rgba(255,255,255,.4);color:#fff}.cta .btn-g:hover{border-color:#fff}
+  .cta .btn-g{border:1px solid rgba(255,255,255,.4);color:#fff}.cta .btn-g:hover{border-color:#fff;background:rgba(255,255,255,.06)}
 
   footer{background:var(--ink);color:var(--dim);border-top:1px solid #2a2823}
-  .f-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding:70px 0 56px;align-items:start}
-  .f-brand .logo{margin-bottom:18px}.f-brand .logo img{height:34px}
+  .f-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding:66px 0 52px}
+  .f-brand .logo{margin-bottom:16px}
+  .f-brand .logo img{height:34px}
   .f-brand p{font-size:14px;line-height:1.7;max-width:34ch}
-  /* IMPORTANT : .f-col est un <nav>, donc la règle globale nav{display:flex;height:78px;...}
-     s'y appliquait et cassait tout. On remet un flux block normal (hauteur = contenu). */
-  .f-col{display:block;height:auto;font-size:14px}
-  .f-col .f-h{display:block;color:var(--bg);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-  .f-col a{position:relative;display:block;width:fit-content;margin-bottom:13px}
-  .f-col a:last-child{margin-bottom:0}
+  .f-col{display:flex;flex-direction:column;gap:12px;font-size:14px}
+  .f-col .f-h{color:var(--bg);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .f-col a{position:relative;width:fit-content}
   .f-col a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--accent-d);transition:width .3s var(--ease)}
   .f-col a:hover::after{width:100%}
   .f-base{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:24px 0;border-top:1px solid #2a2823;font-size:12.5px;letter-spacing:.8px}
-  @media(max-width:880px){.f-top{grid-template-columns:1fr;gap:34px;padding:54px 0 40px}}
+
+  /* ---------- responsive ---------- */
   @media(max-width:880px){
-    .hero{grid-template-columns:1fr;gap:22px;min-height:auto;padding:118px 0 56px}
-    .lead-row,.work .item{grid-template-columns:1fr;gap:10px}
-    .work .item{padding:34px 0}
-    #glow{display:none}
-    /* hero visuel sur mobile : uniquement le téléphone + la démo (schéma canvas retiré) */
-    .hero-r{display:flex;flex-direction:column;align-items:center;gap:0;height:auto;min-height:0;margin-top:4px}
-    .canvas-stage{display:none}
-    .showcase{position:relative;inset:auto;top:auto;right:auto;bottom:auto;width:100%;max-width:none;
-      margin-top:0;transform:translateY(16px);gap:14px}
-    .showcase.live{transform:none}
-    .phone{height:auto;width:min(72vw,288px)}
-  }
-  /* ---------- téléphone ---------- */
-  @media(max-width:600px){
-    .wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
-    section{padding:60px 0}
-    nav{height:62px}
-    .nav-r{gap:0}
+    .wrap{padding:0 24px}
+    .hero{padding:110px 0 60px}
+    .hero-grid{grid-template-columns:1fr;gap:36px;justify-items:center;text-align:left}
+    .hero-inner{max-width:100%}
+    .lead{grid-template-columns:1fr;gap:14px;margin-bottom:40px}
+    .lead .idx{padding-top:0}
+    .grid3{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .step{border-right:none;border-bottom:1px solid var(--line)}
+    .info-grid{grid-template-columns:1fr}
+    .f-top{grid-template-columns:1fr;gap:32px}
+    section{padding:70px 0}
     .nav-r .idx{display:none}
-    .nav-cta{padding:8px 15px;font-size:12.5px}
-    .logo img{height:26px}
-    .hero{min-height:auto;padding:96px 0 36px;gap:28px}
-    h1{font-size:clamp(33px,8.6vw,46px);letter-spacing:-1.4px;line-height:1.02}
-    .hero-l .tag{margin-bottom:20px;font-size:10.5px;padding:6px 13px;letter-spacing:1.5px}
-    .hero-l p{font-size:16px;margin-top:22px;line-height:1.6}
-    .hero-actions{margin-top:26px;gap:12px}
-    .btn{padding:15px 24px;font-size:14.5px}
-    .assur{gap:8px 16px;margin-top:20px;font-size:12.5px}
-    .strip{padding:14px 0}
-    .strip span{font-size:21px;margin:0 15px}
-    .lead-row{gap:14px}
-    .lead-row .idx{padding-top:0}
-    .stats{padding:60px 0}
-    .stats .grid{gap:36px 16px}
-    .stat{padding:0 6px}
-    .stat .num{font-size:clamp(34px,11vw,52px);letter-spacing:-1px}
-    .stat .lab{font-size:13px;margin-top:12px}
-    .work .item{padding:26px 0;gap:10px}
-    .domains h2,.lead-row h2{letter-spacing:-.6px}
-    .db-grid{margin-top:36px;gap:10px}
-    .dom{font-size:14px}
-    .steps{margin-top:40px}
-    .quote{padding:70px 0}
-    .origin p,.cta p,.creed li{font-size:16px}
-    .cta .actions{margin-top:36px;gap:12px}
-    .f-top{padding:48px 0 34px}
-    .f-base{justify-content:center;text-align:center;gap:8px}
-    /* hero visuel compact : téléphone seul */
-    .phone{width:min(78vw,260px)}
-    .sc-name{min-width:74px;font-size:11px}
+    .depth{display:none}
   }
-  @media(max-width:430px){
-    h1{font-size:clamp(30px,8.4vw,40px)}
-    .hero-actions,.cta .actions{flex-direction:column;align-items:stretch}
-    .hero-actions .btn,.cta .actions .btn{width:100%;justify-content:center}
-    .stats .grid{grid-template-columns:1fr 1fr;gap:30px 14px}
+  @media(max-width:520px){
+    .actions{flex-direction:column;align-items:stretch}
+    .actions .btn{width:100%;justify-content:center}
+    .strip span{font-size:22px;margin:0 16px}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important}
-    .r,.words span{opacity:1!important;transform:none!important;filter:none!important;transition:none}
-    #pre{display:none}
+    .r{opacity:1!important;transform:none!important;filter:none!important;transition:none}
+    #cine{display:none}
+    html{scroll-behavior:auto}
   }
 
-  /* ---- modale contact ---- */
+  /* ---- modale contact (reprise du site OSE) ---- */
   .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;
     background:rgba(20,19,15,.5);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
   .modal.open{opacity:1;visibility:visible}
@@ -439,6 +323,7 @@
   .chips label:hover span{border-color:var(--ink);color:var(--ink)}
   .chips input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
   .chips input:focus-visible+span{box-shadow:0 0 0 3px rgba(58,88,148,.25)}
+  .chips-err{color:#a8443a;font-size:12.5px;margin-top:11px}
   .modal .btn-submit{width:100%;justify-content:center;background:var(--ink);color:var(--bg);border:none;border-radius:40px;
     cursor:pointer;font:inherit;font-weight:600;font-size:15px;margin-top:10px;transition:.25s}
   .modal .btn-submit:hover{background:var(--accent);transform:translateY(-1px)}
@@ -455,125 +340,59 @@
   .form-msg a{color:var(--accent);text-decoration:underline}
   @media(max-width:560px){.modal-card{padding:44px 26px 34px}}
   @media(prefers-reduced-motion:reduce){.modal,.modal-card,.modal-close{transition:none}}
+
+  /* ---- preloader grand OSE (repris du site) ---- */
+  #pre{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;
+    transition:opacity .7s ease,visibility .7s}
+  #pre.done{opacity:0;visibility:hidden}
+  #pre .mk{font-style:italic;font-weight:800;font-size:clamp(60px,12vw,150px);letter-spacing:-4px;
+    background:linear-gradient(110deg,#1c2c52 0%,#3a5894 28%,#9db9e6 47%,#eaf3ff 50%,#9db9e6 53%,#33508c 72%,#16224a 100%);
+    background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:sheen 1.6s var(--ease) infinite}
+  #pre .bar{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);width:0;animation:load 1.3s var(--ease) forwards}
+  @keyframes load{to{width:100%}}
+  @keyframes sheen{0%{background-position:140% 0}100%{background-position:-40% 0}}
+  @media(prefers-reduced-motion:reduce){#pre{display:none}}
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://ose-os.fr/#organization",
-      "name": "OSE",
-      "url": "https://ose-os.fr/",
-      "email": "contact@ose-os.fr",
-      "logo": "https://ose-os.fr/ose-logo.svg",
-      "image": "https://ose-os.fr/og-cover.png",
-      "slogan": "On construit l'outil que vous n'imaginiez pas pouvoir avoir.",
-      "description": "Studio IA sur-mesure pour PME : des outils d'automatisation conçus avec l'intelligence artificielle pour faire gagner du temps aux équipes, dans n'importe quel service.",
-      "areaServed": { "@type": "Country", "name": "France" }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://ose-os.fr/#website",
-      "url": "https://ose-os.fr/",
-      "name": "OSE",
-      "inLanguage": "fr-FR",
-      "publisher": { "@id": "https://ose-os.fr/#organization" }
-    },
-    {
-      "@type": "Service",
-      "@id": "https://ose-os.fr/#service",
-      "serviceType": "Automatisation IA sur-mesure pour PME",
-      "provider": { "@id": "https://ose-os.fr/#organization" },
-      "areaServed": { "@type": "Country", "name": "France" },
-      "description": "Conception d'outils sur-mesure assemblés avec l'IA pour automatiser les tâches répétitives des PME : devis et facturation, tableaux de bord, relances commerciales, reporting, réponses clients.",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Ce qu'OSE sait construire",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatisation des devis et de la facturation" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tableau de bord PME en temps réel" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Prospection et relances commerciales automatisées" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reporting automatique et alertes" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Traitement et réponses aux demandes clients" } }
-        ]
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://ose-os.fr/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "OSE, concrètement, ça fait quoi ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "On construit avec l'IA un outil sur-mesure pour votre entreprise : automatiser les tâches répétitives (saisies, relances, reporting), réunir vos infos dans un tableau de bord, gérer devis et factures sans ressaisie. Un outil pensé pour votre métier, pas un logiciel générique de plus." }
-        },
-        {
-          "@type": "Question",
-          "name": "En combien de temps peut-on avoir un premier outil ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Comptez quelques jours pour un premier outil utile entre vos mains. On construit vite une version qui sert vraiment, puis on l'affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan pendant des mois." }
-        },
-        {
-          "@type": "Question",
-          "name": "Est-ce réservé aux grandes entreprises ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Non, c'est justement pensé pour les PME. OSE s'adresse aux entreprises qui n'ont ni le budget ni l'envie d'un gros projet logiciel, mais qui perdent du temps sur des tâches que l'IA sait déjà absorber." }
-        },
-        {
-          "@type": "Question",
-          "name": "Quelles tâches peut-on automatiser avec l'IA ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Prospection et relances, devis et facturation, reporting et tableaux de bord, suivi de production, saisie et ressaisie, réponses clients, planning, veille… Dans n'importe quel service : si une tâche fait perdre du temps, elle est candidate." }
-        },
-        {
-          "@type": "Question",
-          "name": "Faut-il des compétences techniques de notre côté ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Aucune. Vous gardez la main sur votre outil, OSE s'occupe de la technique. Un seul interlocuteur construit avec vous — ce n'est pas une boîte noire ni un service support anonyme." }
-        },
-        {
-          "@type": "Question",
-          "name": "Où se situe OSE et travaillez-vous à distance ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "OSE accompagne les PME partout en France, à distance. Tout commence par 30 minutes pour repérer ensemble où l'IA peut vous faire gagner du temps, sans engagement." }
-        }
-      ]
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
 <div id="pre"><div class="mk">OSE</div><div class="bar"></div></div>
 <div id="prog"></div>
-<div id="glow"></div>
 
 <header id="hdr"><div class="wrap"><nav>
-  <a class="logo" href="#hdr" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
-  <div class="nav-r"><span class="idx">FR — 2026</span><a class="nav-cta mag js-contact" href="#contact"><span>Prendre contact</span></a></div>
+  <a class="logo" href="#top" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
+  <div class="nav-r">
+    <span class="idx">FR — 2026</span>
+    <a class="nav-cta js-contact" href="#contact"><span>Prendre contact</span></a>
+  </div>
 </nav></div></header>
 
-<main>
-<div class="wrap">
-  <div class="hero">
-    <div class="aurora"><i></i><i></i><i></i></div>
-    <div class="hero-l">
-      <span class="tag r"><b></b> Studio IA sur-mesure · PME</span>
-      <h1 class="words">On <b class="chrome">construit</b> l'outil que vous n'<span class="it serif">imaginiez</span> pas pouvoir avoir.</h1>
-      <p class="r">OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes — dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
-      <div class="hero-actions r">
-        <a class="btn btn-h mag js-contact" href="#contact">Réserver un rendez-vous <span class="arr">→</span></a>
-        <a class="btn btn-o" href="#process">Comment ça marche</a>
+<main id="top">
+
+  <!-- ============ HERO cinématique ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-poster" aria-hidden="true"></div>
+    <canvas id="cine" aria-hidden="true"></canvas>
+    <div class="depth d1" data-depth=".18" aria-hidden="true"></div>
+    <div class="depth d2" data-depth=".30" aria-hidden="true"></div>
+    <div class="depth d3" data-depth=".10" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-inner">
+        <span class="tag"><b></b> Studio IA sur-mesure · PME</span>
+        <h1>On <b class="chrome">construit</b> l'outil que vous n'<span class="it serif">imaginiez</span> pas pouvoir avoir.</h1>
+        <p>OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
+        <div class="actions">
+          <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
+          <a class="btn btn-o" href="#process">Comment ça marche</a>
+        </div>
+        <div class="assur">
+          <span>Sans engagement</span><span>Premier outil en environ 3 jours</span><span>Vous gardez la main</span>
+        </div>
       </div>
-      <div class="assur r">
-        <span>Sans engagement</span><span>Premier outil en environ 3 jours</span><span>Vous gardez la main</span>
-      </div>
-    </div>
-    <div class="hero-r r">
-      <!-- Étage 1 : le schéma d'arrivée (matière brute → OSE → votre outil) -->
-      <div class="canvas-stage" id="canvasStage">
-        <canvas id="graph"></canvas>
-        <div class="cap"><span>matière brute</span><span class="phase" id="phase">OSE assemble…</span><span>votre outil</span></div>
-      </div>
-      <!-- Étage 2 : le vrai téléphone interactif, posé à droite du schéma -->
-      <div class="showcase" id="showcase" aria-hidden="true">
+
+      <!-- Téléphone interactif : démos OSE qui défilent (identique au vrai site) -->
+      <div class="hero-r r" id="showcase">
         <div class="phone" aria-live="off">
           <div class="phone-notch" aria-hidden="true"></div>
           <div class="phone-screen">
@@ -595,140 +414,97 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="strip"><div class="run">
-  <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
-  <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
-</div></div>
+  <!-- ============ marquee ============ -->
+  <div class="strip"><div class="run" id="run">
+    <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
+    <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
+  </div></div>
 
-<section id="constat"><div class="wrap">
-  <div class="lead-row r">
-    <div class="idx">01 — LE CONSTAT</div>
-    <h2>Vos équipes perdent un temps fou sur des tâches que l'IA sait déjà <span class="serif it">absorber.</span></h2>
-  </div>
-  <div class="work">
-    <div class="item r"><div class="n">i</div><h3>Gagner du temps</h3><p>Saisies, relances, reporting, allers-retours entre fichiers — on automatise le répétitif pour que votre équipe se concentre sur ce qui compte vraiment.</p></div>
-    <div class="item r"><div class="n">ii</div><h3>Sur-mesure</h3><p>Aucun template. Un outil assemblé avec l'IA pour votre métier précis et votre façon de travailler — pas l'inverse.</p></div>
-    <div class="item r"><div class="n">iii</div><h3>Évolutif</h3><p>L'outil grandit avec vous : on l'ajuste dès que votre activité, vos process ou vos besoins changent.</p></div>
-  </div>
-</div></section>
-
-<section class="stats"><div class="wrap">
-  <div class="grid">
-    <div class="stat r"><div class="num" data-to="100" data-suffix=" %">0</div><div class="lab">sur-mesure — zéro template, zéro logiciel générique.</div></div>
-    <div class="stat r"><div class="num" data-to="3" data-suffix="">0</div><div class="lab">étapes, c'est tout : on regarde, on construit, vous gagnez du temps.</div></div>
-    <div class="stat r"><div class="num" data-to="3" data-prefix="~" data-suffix=" jours">0</div><div class="lab">pour un premier outil utile entre vos mains.</div></div>
-    <div class="stat r"><div class="num" data-to="1" data-suffix="">0</div><div class="lab">interlocuteur qui construit avec vous — pas un service support.</div></div>
-  </div>
-</div></section>
-
-<section id="domaines" class="domains"><div class="wrap">
-  <div class="r">
-    <div class="idx">— DANS N'IMPORTE QUEL SERVICE</div>
-    <h2>Commercial, compta, production, RH, logistique, SAV… <span class="serif it">si une tâche fait perdre du temps, elle est candidate.</span></h2>
-  </div>
-  <div class="db-grid">
-    <button type="button" class="dom r" data-k="prospection">Prospection &amp; relances</button>
-    <button type="button" class="dom r" data-k="devis">Devis &amp; facturation</button>
-    <button type="button" class="dom r" data-k="reporting">Reporting &amp; tableaux de bord</button>
-    <button type="button" class="dom r" data-k="production">Suivi de production</button>
-    <button type="button" class="dom r" data-k="saisie">Saisie &amp; ressaisie</button>
-    <button type="button" class="dom r" data-k="reponses">Réponses clients</button>
-    <button type="button" class="dom r" data-k="planning">Planning &amp; coordination</button>
-    <button type="button" class="dom r" data-k="veille">Veille &amp; synthèse</button>
-  </div>
-</div></section>
-
-<section id="savoir-faire"><div class="wrap">
-  <div class="lead-row r">
-    <div class="idx">02 — CE QU'ON SAIT CONSTRUIRE</div>
-    <h2>Pas des promesses : des briques <b>déjà construites,</b> testées en conditions réelles, <span class="serif it">qu'on recâble pour votre métier.</span></h2>
-  </div>
-  <div class="work">
-    <div class="item r"><div class="n">i</div><h3>Vendre sans courir après</h3><p>Repérer les bonnes cibles, les classer par potentiel et relancer au bon moment. Le commercial arrive le matin sur une short-list prête à traiter, pas sur une page blanche.</p></div>
-    <div class="item r"><div class="n">ii</div><h3>Toute l'entreprise en un coup d'œil</h3><p>Un tableau de bord unique qui réunit ventes, production, trésorerie et équipe. L'état réel de la boîte en temps réel, sans jongler entre dix fichiers Excel.</p></div>
-    <div class="item r"><div class="n">iii</div><h3>Du devis à la facture, sans ressaisie</h3><p>Générer, envoyer et relancer devis et factures tout seul, suivre qui a payé et qui traîne. L'administratif tourne en fond pendant que vous faites votre métier.</p></div>
-    <div class="item r"><div class="n">iv</div><h3>Répondre vite, bien, à chaque fois</h3><p>Trier les demandes clients, préparer des réponses justes à partir de vos propres infos, n'oublier aucun message. Le SAV garde la main, la machine fait le brouillon.</p></div>
-    <div class="item r"><div class="n">v</div><h3>Le bon chiffre, au bon moment</h3><p>Des rapports qui se construisent seuls et arrivent quand il faut — chaque lundi, chaque fin de mois — avec une alerte dès qu'un indicateur décroche.</p></div>
-    <div class="item r"><div class="n">vi</div><h3>Vos outils enfin reliés</h3><p>Brancher CRM, fichiers, emails et logiciels métier pour que l'info circule de bout en bout. Zéro double saisie, zéro copier-coller entre deux applis.</p></div>
-  </div>
-</div></section>
-
-<section id="process"><div class="wrap">
-  <div class="lead-row r">
-    <div class="idx">03 — COMMENT ÇA MARCHE</div>
-    <h2>Trois étapes. <b>C'est tout.</b><br><span class="serif" style="font-style:italic">Pas de jargon, pas de projet à rallonge.</span></h2>
-  </div>
-  <div class="steps">
-    <div class="step r"><div class="bg">01</div><div class="no">01</div><h3>On part de votre quotidien</h3><p>On regarde où le temps file et où ça coince, service par service. On cherche le point qui fera gagner le plus, tout de suite.</p></div>
-    <div class="step r"><div class="bg">02</div><div class="no">02</div><h3>On assemble l'outil avec l'IA</h3><p>On construit vite un premier outil utile, qu'on affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan.</p></div>
-    <div class="step r"><div class="bg">03</div><div class="no">03</div><h3>Vous reprenez du temps</h3><p>Vous l'utilisez, il évolue. Les heures que la machine peut faire à votre place, vous les récupérez.</p></div>
-  </div>
-</div></section>
-
-<div class="quote"><div class="wrap r">
-  <blockquote class="serif">On ne vous vend pas un logiciel de plus. On part de votre angle mort.</blockquote>
-  <div class="src">L'approche OSE</div>
-</div></div>
-
-<section id="origine" class="origin"><div class="wrap r">
-  <div class="grid2">
-    <div class="idx">04 — D'OÙ ON VIENT</div>
-    <div>
-      <h2>Né du <b>terrain.</b> On a vu, en conditions réelles, ce que l'IA change <span class="serif it">vraiment</span> — on l'ouvre aux PME.</h2>
-      <p>Pas une promesse de plateforme magique. Des outils construits là où le travail se fait, testés en vrai, jugés à une seule aune : est-ce qu'ils font gagner du temps ? OSE met cette expérience au service des PME qui n'ont ni le budget ni l'envie d'un gros projet logiciel.</p>
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="apropos"><div class="wrap">
+    <div class="lead r">
+      <div class="idx">01 — QUI ON EST</div>
+      <h2>Né du <b>terrain.</b> On a vu, en conditions réelles, ce que l'IA change <span class="serif it">vraiment</span>. On l'ouvre aux PME.</h2>
+    </div>
+    <div class="r">
+      <p>Pas une promesse de plateforme magique. Des outils construits là où le travail se fait, testés en vrai, jugés à une seule aune : est-ce qu'ils font gagner du temps&nbsp;? OSE met cette expérience au service des PME qui n'ont ni le budget ni l'envie d'un gros projet logiciel, mais qui perdent du temps sur des tâches que l'IA sait déjà absorber.</p>
       <ul class="creed">
         <li>On construit vite et on prouve sur l'usage, pas sur un plan.</li>
         <li>Un outil qui ne fait pas gagner de temps n'a aucune raison d'exister.</li>
-        <li>Vous gardez la main : c'est votre outil, pas une boîte noire.</li>
+        <li>Vous gardez la main&nbsp;: c'est votre outil, pas une boîte noire.</li>
       </ul>
     </div>
-  </div>
-</div></section>
+  </div></section>
 
-<section id="faq"><div class="wrap">
-  <div class="lead-row r">
-    <div class="idx">05 — QUESTIONS FRÉQUENTES</div>
-    <h2>Ce qu'on nous demande <span class="serif it">le plus souvent.</span></h2>
-  </div>
-  <div class="faq-list r">
-    <details class="faq-item">
-      <summary>OSE, concrètement, ça fait quoi&nbsp;?</summary>
-      <div class="faq-a">On construit avec l'IA un outil sur-mesure pour votre entreprise : automatiser les tâches répétitives (saisies, relances, reporting), réunir vos infos dans un tableau de bord, gérer devis et factures sans ressaisie. Un outil pensé pour votre métier, pas un logiciel générique de plus.</div>
-    </details>
-    <details class="faq-item">
-      <summary>En combien de temps peut-on avoir un premier outil&nbsp;?</summary>
-      <div class="faq-a">Comptez quelques jours pour un premier outil utile entre vos mains. On construit vite une version qui sert vraiment, puis on l'affine avec vous au fil de l'usage — plutôt que de tout spécifier sur plan pendant des mois.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Est-ce réservé aux grandes entreprises&nbsp;?</summary>
-      <div class="faq-a">Non, c'est justement pensé pour les PME. OSE s'adresse aux entreprises qui n'ont ni le budget ni l'envie d'un gros projet logiciel, mais qui perdent du temps sur des tâches que l'IA sait déjà absorber.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Quelles tâches peut-on automatiser avec l'IA&nbsp;?</summary>
-      <div class="faq-a">Prospection et relances, devis et facturation, reporting et tableaux de bord, suivi de production, saisie et ressaisie, réponses clients, planning, veille… Dans n'importe quel service : si une tâche fait perdre du temps, elle est candidate.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Faut-il des compétences techniques de notre côté&nbsp;?</summary>
-      <div class="faq-a">Aucune. Vous gardez la main sur votre outil, OSE s'occupe de la technique. Un seul interlocuteur construit avec vous — ce n'est pas une boîte noire ni un service support anonyme.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Où se situe OSE et travaillez-vous à distance&nbsp;?</summary>
-      <div class="faq-a">OSE accompagne les PME partout en France, à distance. Tout commence par 30 minutes pour repérer ensemble où l'IA peut vous faire gagner du temps, sans engagement.</div>
-    </details>
-  </div>
-</div></section>
+  <!-- ============ SERVICES ============ -->
+  <section class="services" id="services"><div class="wrap">
+    <div class="lead r">
+      <div class="idx">02 — CE QU'ON SAIT CONSTRUIRE</div>
+      <h2>Pas des promesses : des briques <b>déjà construites,</b> testées en réel, <span class="serif it">qu'on recâble pour votre métier.</span></h2>
+    </div>
+    <div class="grid3">
+      <div class="svc r"><div class="n">i</div><h3>Vendre sans courir après</h3><p>Repérer les bonnes cibles, les classer par potentiel et relancer au bon moment. Le commercial arrive sur une short-list prête à traiter, pas sur une page blanche.</p></div>
+      <div class="svc r"><div class="n">ii</div><h3>Toute l'entreprise en un coup d'œil</h3><p>Un tableau de bord unique : ventes, production, trésorerie, équipe. L'état réel de la boîte en temps réel, sans jongler entre dix fichiers Excel.</p></div>
+      <div class="svc r"><div class="n">iii</div><h3>Du devis à la facture, sans ressaisie</h3><p>Générer, envoyer et relancer devis et factures tout seul, suivre qui a payé et qui traîne. L'administratif tourne en fond.</p></div>
+      <div class="svc r"><div class="n">iv</div><h3>Répondre vite, bien, à chaque fois</h3><p>Trier les demandes, préparer des réponses justes à partir de vos propres infos, n'oublier aucun message. Le SAV garde la main, la machine fait le brouillon.</p></div>
+      <div class="svc r"><div class="n">v</div><h3>Le bon chiffre, au bon moment</h3><p>Des rapports qui se construisent seuls et arrivent quand il faut, chaque lundi ou chaque fin de mois, avec une alerte dès qu'un indicateur décroche.</p></div>
+      <div class="svc r"><div class="n">vi</div><h3>Vos outils enfin reliés</h3><p>Brancher CRM, fichiers, emails et logiciels métier pour que l'info circule de bout en bout. Zéro double saisie, zéro copier-coller.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ PROCESS ============ -->
+  <section id="process"><div class="wrap">
+    <div class="lead r">
+      <div class="idx">03 — COMMENT ÇA MARCHE</div>
+      <h2>Trois étapes. <b>C'est tout.</b> <span class="serif it">Pas de jargon, pas de projet à rallonge.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step r"><div class="bg">01</div><div class="no">01</div><h3>On part de votre quotidien</h3><p>On regarde où le temps file et où ça coince, service par service. On cherche le point qui fera gagner le plus, tout de suite.</p></div>
+      <div class="step r"><div class="bg">02</div><div class="no">02</div><h3>On assemble l'outil avec l'IA</h3><p>On construit vite un premier outil utile, qu'on affine avec vous au fil de l'usage, plutôt que de tout spécifier sur plan.</p></div>
+      <div class="step r"><div class="bg">03</div><div class="no">03</div><h3>Vous reprenez du temps</h3><p>Vous l'utilisez, il évolue. Les heures que la machine peut faire à votre place, vous les récupérez.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ QUOTE (approche — pas d'avis inventés) ============ -->
+  <div class="quote"><div class="wrap r">
+    <blockquote class="serif">On ne vous vend pas un logiciel de plus. On part de votre angle mort.</blockquote>
+    <div class="src">L'approche OSE</div>
+  </div></div>
+
+  <!-- ============ INFOS : dispo + zone ============ -->
+  <section id="infos"><div class="wrap">
+    <div class="lead r">
+      <div class="idx">04 — EN PRATIQUE</div>
+      <h2>Comment on <b>démarre</b> ensemble, <span class="serif it">et depuis où.</span></h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-card r">
+        <div class="h">Disponibilités</div>
+        <div class="info-row"><span>Premier échange</span><b>30 min, sans engagement</b></div>
+        <div class="info-row"><span>Format</span><b>Visio ou téléphone</b></div>
+        <div class="info-row"><span>Premier outil utile</span><b>≈ 3 jours</b></div>
+        <div class="info-row"><span>Interlocuteur</span><b>Un seul, de bout en bout</b></div>
+      </div>
+      <div class="info-card r">
+        <div class="h">Zone d'intervention</div>
+        <p>OSE accompagne les PME <b style="color:var(--ink)">partout en France, à distance.</b> Tout commence par 30 minutes pour repérer ensemble où l'IA peut vous faire gagner du temps.</p>
+      </div>
+    </div>
+  </div></section>
+
 </main>
 
+<!-- ============ CTA ============ -->
 <div class="cta" id="contact">
-  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="depth d1" data-depth=".2" aria-hidden="true"></div>
+  <div class="depth d2" data-depth=".32" aria-hidden="true"></div>
   <div class="wrap r">
     <h2>Montrez-moi<br>votre <span class="it serif chrome">angle mort.</span></h2>
     <p>30 minutes pour repérer, ensemble, où l'IA peut vous faire gagner du temps. Sans engagement.</p>
     <div class="actions">
-      <a class="btn btn-h mag js-contact" href="#contact">Réserver un rendez-vous <span class="arr">→</span></a>
+      <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
       <a class="btn btn-g" href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
     </div>
   </div>
@@ -742,35 +518,28 @@
     </div>
     <nav class="f-col">
       <span class="f-h">Le site</span>
-      <a href="#constat">Le constat</a><a href="#domaines">Domaines</a><a href="#savoir-faire">Savoir-faire</a><a href="#process">Comment ça marche</a><a href="#origine">D'où on vient</a><a href="#faq">FAQ</a>
+      <a href="#apropos">Qui on est</a><a href="#services">Ce qu'on construit</a><a href="#process">Comment ça marche</a><a href="#infos">En pratique</a>
     </nav>
     <nav class="f-col">
       <span class="f-h">Contact</span>
-      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a><a class="js-contact" href="#contact">Réserver un rendez-vous</a>
+      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=France" target="_blank" rel="noopener">France · à distance</a>
     </nav>
   </div>
   <div class="wrap f-base">
-    <span>OSE © 2026 — Studio IA sur-mesure</span>
-    <span class="f-legal"><a href="confidentialite.html">Confidentialité &amp; cookies</a> · <a href="#" class="js-cookie-settings">Gérer les cookies</a> · <a href="#hdr">Haut de page ↑</a></span>
+    <span>© 2026 OSE — Studio IA sur-mesure pour PME</span>
+    <span>ose-os.fr</span>
   </div>
 </footer>
 
-<div id="domOverlay"></div>
-<div id="domCard" role="dialog" aria-modal="true" aria-labelledby="domCardH">
-  <div class="dom-card-in">
-    <button class="dom-close" type="button" aria-label="Fermer">&times;</button>
-    <span class="dom-panel-h" id="domCardH"></span>
-    <ul class="dom-list" id="domCardList"></ul>
-  </div>
-</div>
-
+<!-- ============ Modale contact (reprise du site OSE) ============ -->
 <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
   <div class="modal-card">
     <button type="button" class="modal-close" id="contact-close" aria-label="Fermer">&times;</button>
     <form id="contact-form" novalidate>
-      <div class="idx">— Prendre contact</div>
+      <div class="idx">Prendre contact</div>
       <h2 id="contact-title">Montrez-nous votre <span class="it serif">angle&nbsp;mort.</span></h2>
-      <p class="sub">Quelques infos pour préparer l'échange. On revient vers vous très vite — sans engagement.</p>
+      <p class="sub">Quelques infos pour préparer l'échange. On revient vers vous très vite, sans engagement.</p>
       <!-- Web3Forms -->
       <input type="hidden" name="access_key" value="c73f7f9f-2dd1-4f68-83cf-6a650d88b499">
       <input type="hidden" name="subject" value="Nouveau contact depuis ose-os.fr">
@@ -782,10 +551,10 @@
       </div>
       <div class="field">
         <label for="cf-secteur">Votre secteur d'activité</label>
-        <input type="text" id="cf-secteur" name="secteur" placeholder="ex. BTP, cabinet comptable, distribution…">
+        <input type="text" id="cf-secteur" name="secteur" required placeholder="ex. BTP, cabinet comptable, distribution…">
       </div>
       <div class="field">
-        <label>Les services les plus touchés <span class="opt">— où ça coince le plus</span></label>
+        <label>Les services les plus touchés <span class="opt">(où ça coince le plus)</span></label>
         <div class="chips">
           <label><input type="checkbox" name="services" value="Commercial & prospection"><span>Commercial &amp; prospection</span></label>
           <label><input type="checkbox" name="services" value="Compta & facturation"><span>Compta &amp; facturation</span></label>
@@ -796,21 +565,26 @@
           <label><input type="checkbox" name="services" value="Direction & pilotage"><span>Direction &amp; pilotage</span></label>
           <label><input type="checkbox" name="services" value="Autre"><span>Autre</span></label>
         </div>
+        <p class="chips-err" id="cf-services-err" role="alert" hidden>Sélectionnez au moins un domaine.</p>
+        <div id="cf-autre-wrap" style="margin-top:20px" hidden>
+          <label for="cf-autre">Précisez « Autre »</label>
+          <input type="text" id="cf-autre" name="autre_precision" placeholder="De quel domaine s'agit-il ?">
+        </div>
       </div>
       <div class="field">
-        <label for="cf-message">Votre message <span class="opt">(optionnel)</span></label>
-        <textarea id="cf-message" name="message" placeholder="En quelques mots, où le temps file chez vous ?"></textarea>
+        <label for="cf-message">Votre message</label>
+        <textarea id="cf-message" name="message" required placeholder="En quelques mots, où le temps file chez vous ?"></textarea>
       </div>
       <div class="field">
-        <label for="cf-name">Votre nom <span class="opt">(optionnel)</span></label>
-        <input type="text" id="cf-name" name="name" placeholder="Prénom Nom" autocomplete="name">
+        <label for="cf-name">Votre nom</label>
+        <input type="text" id="cf-name" name="name" required placeholder="Prénom Nom" autocomplete="name">
       </div>
       <button type="submit" class="btn btn-submit" id="cf-submit">Envoyer →</button>
       <p class="legal">En envoyant ce message, vous acceptez d'être recontacté par OSE. Vos infos ne servent qu'à ça.</p>
     </form>
     <div class="form-msg" id="cf-ok" role="status">
       <div class="big"><b>Merci.</b></div>
-      <p>On a bien reçu votre message — on revient vers vous très vite à l'adresse indiquée.</p>
+      <p>On a bien reçu votre message, on revient vers vous très vite à l'adresse indiquée.</p>
     </div>
     <div class="form-msg err" id="cf-err" role="alert">
       <div class="big"><b>Oups…</b></div>
@@ -820,272 +594,128 @@
 </div>
 
 <script>
-const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// ---- preloader (timer-based, never blocks) ----
-function hidePre(){ var p=document.getElementById('pre'); if(p) p.classList.add('done'); }
-setTimeout(hidePre, RM?0:1200);
-addEventListener('load', ()=>setTimeout(hidePre, RM?0:200));
-
-// ---- scroll progress + header ----
-const prog=document.getElementById('prog'), hdr=document.getElementById('hdr');
-function onScroll(){
-  const h=document.documentElement;
-  const max=h.scrollHeight-h.clientHeight;
-  prog.style.width=(max>0?(scrollY/max*100):0)+'%';
-  hdr.classList.toggle('solid', scrollY>40);
-}
-addEventListener('scroll', onScroll, {passive:true}); onScroll();
-
-// ---- reveals (set up FIRST, robust) ----
-function revealAll(){ document.querySelectorAll('.r,.words').forEach(e=>e.classList.add('in')); }
-if('IntersectionObserver' in window){
-  const io=new IntersectionObserver((es)=>es.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-  }),{threshold:.14, rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.r,.words').forEach((el,i)=>{ if(!RM) el.style.transitionDelay=(Math.min(i%6,5)*0.05)+'s'; io.observe(el); });
-  // reveal whatever is already on screen right away (don't wait for a scroll)
-  requestAnimationFrame(()=>document.querySelectorAll('.r,.words').forEach(el=>{
-    if(el.getBoundingClientRect().top < innerHeight*0.95) el.classList.add('in');
-  }));
-  // hard safety net: if anything went wrong, show everything after 3s
-  setTimeout(()=>{ const hidden=[...document.querySelectorAll('.r:not(.in)')].filter(el=>el.getBoundingClientRect().top<innerHeight); if(hidden.length) hidden.forEach(el=>el.classList.add('in')); }, 3000);
-}else{ revealAll(); }
-
-// ---- split headline into words (after reveal is wired; failure-safe) ----
-try{
-  document.querySelectorAll('.words').forEach(el=>{
-    const tmp=document.createElement('div'); tmp.innerHTML=el.innerHTML;
-    const out=[];
-    tmp.childNodes.forEach(node=>{
-      if(node.nodeType===3){
-        node.textContent.split(/(\s+)/).forEach(w=>{ out.push(w.trim()?'<span>'+w+'</span>':w); });
-      }else{ out.push('<span>'+node.outerHTML+'</span>'); }
-    });
-    el.innerHTML=out.join('');
-    [...el.querySelectorAll('span')].forEach((s,i)=>{ if(!RM) s.style.transitionDelay=(0.12+i*0.06)+'s'; });
-  });
-}catch(e){ document.querySelectorAll('.words').forEach(el=>el.classList.add('in')); }
-
-// stagger db-grid
-document.querySelectorAll('.db-grid .r').forEach((el,i)=>{ if(!RM) el.style.transitionDelay=(i*0.06)+'s'; });
-
-// ---- count-up ----
-const cio=new IntersectionObserver((es)=>es.forEach(e=>{
-  if(!e.isIntersecting) return; cio.unobserve(e.target);
-  const el=e.target, to=+el.dataset.to, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'';
-  if(RM){el.textContent=pre+to+suf;return;}
-  const dur=1200, t0=performance.now();
-  (function tick(t){
-    const p=Math.min((t-t0)/dur,1), eased=1-Math.pow(1-p,3);
-    el.textContent=pre+Math.round(to*eased)+suf;
-    if(p<1) requestAnimationFrame(tick);
-  })(t0);
-}),{threshold:.5});
-document.querySelectorAll('.num[data-to]').forEach(el=>cio.observe(el));
-
-// ---- cursor glow ----
-const glow=document.getElementById('glow');
-if(!RM && matchMedia('(pointer:fine)').matches){
-  let gx=innerWidth/2, gy=innerHeight/2, cx=gx, cy=gy;
-  addEventListener('mousemove',e=>{gx=e.clientX;gy=e.clientY;});
-  (function loop(){ cx+=(gx-cx)*.12; cy+=(gy-cy)*.12; glow.style.left=cx+'px'; glow.style.top=cy+'px'; requestAnimationFrame(loop); })();
-}else{ glow.style.display='none'; }
-
-// ---- magnetic buttons ----
-if(!RM && matchMedia('(pointer:fine)').matches){
-  document.querySelectorAll('.mag').forEach(b=>{
-    b.addEventListener('mousemove',e=>{
-      const r=b.getBoundingClientRect();
-      const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
-      b.style.transform=`translate(${x*.25}px,${y*.35}px)`;
-    });
-    b.addEventListener('mouseleave',()=>b.style.transform='');
-  });
-}
-
-// ---- parallax (hero canvas + aurora subtle) ----
-if(!RM){
-  const auroras=[...document.querySelectorAll('.aurora')];
-  addEventListener('scroll',()=>{
-    const y=scrollY;
-    auroras.forEach(a=>{ a.style.transform=`translateY(${y*0.06}px)`; });
-  },{passive:true});
-}
-
-// ---- domain bubbles : reveal examples on click ----
-const DOM_EX={
-  'prospection':['Trouver et qualifier de nouveaux prospects automatiquement','Relancer les devis sans réponse, au bon moment','Préparer une fiche complète avant chaque appel','Repérer les clients à réactiver'],
-  'devis':['Générer un devis à partir d\'un simple échange','Relancer automatiquement les factures impayées','Repérer les écarts entre devis et facture','Suivre les paiements sans ressaisie'],
-  'reporting':['Un tableau de bord qui se met à jour tout seul','Le résumé de la semaine, envoyé chaque lundi','Croiser plusieurs fichiers et outils en une seule vue','Être alerté dès qu\'un indicateur décroche'],
-  'production':['Suivre l\'avancement des commandes en temps réel','Anticiper les retards et les ruptures','Centraliser les infos d\'atelier éparpillées','Être alerté sur les anomalies'],
-  'saisie':['Extraire les infos d\'un PDF ou d\'un email automatiquement','Remplir un outil à partir d\'un autre, sans copier-coller','Détecter et corriger les doublons','Récupérer les heures perdues sur la saisie'],
-  'reponses':['Un brouillon de réponse prêt en un clic','Trier et router les demandes entrantes','Répondre aux questions fréquentes 24/7','Garder votre ton et vos modèles'],
-  'planning':['Construire un planning à partir de vos contraintes','Prévenir automatiquement les bonnes personnes','Réajuster quand un imprévu tombe','Voir qui fait quoi d\'un coup d\'œil'],
-  'veille':['Surveiller un sujet ou un concurrent en continu','Résumer de longs documents en points clés','Une synthèse quotidienne dans votre boîte mail','Repérer ce qui mérite vraiment votre attention']
-};
+/* ══ Preloader grand OSE (repris du site) ══ */
 (function(){
-  const grid=document.querySelector('.db-grid'); if(!grid) return;
-  const overlay=document.getElementById('domOverlay'), card=document.getElementById('domCard');
-  const pH=document.getElementById('domCardH'), pList=document.getElementById('domCardList');
-  let curBtn=null, shown=false, closeTimer=null;
-  const M=16;                                   // marge écran
-
-  function fill(b){
-    grid.querySelectorAll('.dom').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active'); curBtn=b;
-    pH.textContent='Exemples — '+b.textContent.trim();
-    pList.classList.remove('in');
-    pList.innerHTML=(DOM_EX[b.dataset.k]||[]).map(i=>'<li>'+i+'</li>').join('');
-    requestAnimationFrame(()=>requestAnimationFrame(()=>pList.classList.add('in')));
-  }
-  function setGeom(l,t,w,h){ card.style.left=l+'px';card.style.top=t+'px';card.style.width=w+'px';card.style.height=h+'px'; }
-
-  function open(b){
-    clearTimeout(closeTimer);
-    const wasShown=shown;
-    fill(b);
-    card.classList.add('show');
-    const r=b.getBoundingClientRect();
-    const W=Math.min(440, innerWidth-2*M);
-    // mesurer la hauteur cible à la largeur W (sans transition)
-    card.style.transition='none';
-    card.style.width=W+'px'; card.style.height='auto';
-    const endH=card.offsetHeight;
-    // position cible : ancrée sur la bulle, ramenée dans l'écran
-    const endL=Math.min(Math.max(M, r.left), innerWidth-M-W);
-    const endT=Math.min(Math.max(M, r.top), innerHeight-M-endH);
-    if(!wasShown){ setGeom(r.left,r.top,r.width,r.height); }  // départ = la bulle
-    void card.offsetWidth;                                    // fige l'état de départ
-    requestAnimationFrame(()=>{
-      card.style.transition='';
-      overlay.classList.add('open'); card.classList.add('open');
-      setGeom(endL,endT,W,endH);
-    });
-    shown=true; document.body.style.overflow='hidden';
-  }
-  function close(){
-    if(!curBtn) return;
-    const r=curBtn.getBoundingClientRect();
-    pList.classList.remove('in');
-    card.classList.remove('open'); overlay.classList.remove('open');
-    setGeom(r.left,r.top,r.width,r.height);                   // rétrécit vers la bulle
-    curBtn.classList.remove('active'); curBtn=null;
-    document.body.style.overflow='';
-    clearTimeout(closeTimer);
-    closeTimer=setTimeout(()=>{ card.classList.remove('show'); shown=false; }, 520);
-  }
-  grid.querySelectorAll('.dom').forEach(b=>b.addEventListener('click',()=>{ curBtn===b?close():open(b); }));
-  overlay.addEventListener('click',close);
-  card.querySelector('.dom-close').addEventListener('click',close);
-  addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
-  addEventListener('resize',()=>{ if(curBtn) close(); });
+  var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function hidePre(){ var p=document.getElementById('pre'); if(p) p.classList.add('done'); }
+  setTimeout(hidePre, RM?0:1200);
+  addEventListener('load', function(){ setTimeout(hidePre, RM?0:200); });
 })();
 
-// ============ HERO étage 1 : schéma d'arrivée (matière brute → OSE → votre outil) ============
-let heroIntroDone=false;
-const cv=document.getElementById('graph'),ctx=cv.getContext('2d');
-const dpr=Math.min(2,window.devicePixelRatio||1);
-const phaseEl=document.getElementById('phase');
-let W,H,sources=[],outputs=[],hub,card,startT=null,MOB=false;
-const SRC_LABELS=['DONNÉES','VISION','TEMPS','DÉCISIONS','CONTRÔLE'];
-function rand(a,b){return a+Math.random()*(b-a)}
-function build(){
-  W=cv.width=cv.offsetWidth*dpr;H=cv.height=cv.offsetHeight*dpr;
-  MOB=innerWidth<880;   // = même seuil que le passage du hero en colonne (CSS @media 880px)
-  hub={tx:(MOB?0.50:0.30)*W,ty:(MOB?0.34:0.5)*H};
-  sources=SRC_LABELS.map((lab,i)=>({lab, tx:W*(MOB?0.20:0.13), ty:H*((MOB?0.10:0.16)+i*(MOB?0.085:0.17)), cxp:rand(0,W*0.65), cyp:rand(0,H*(MOB?0.55:1)), seed:rand(0,6.28)}));
-  // « card » ne sert plus qu'à viser le téléphone réel (DOM) : desktop = à droite, mobile = en bas (la ligne descend vers le téléphone posé dessous)
-  card=MOB?{ x:W*0.50, w:0, y:H*0.88, h:H*0.16 }:{ x:W*0.76, w:0, y:H*0.27, h:H*0.46 };
-  outputs=[rand(.55,1),rand(.4,.85),rand(.7,1)].map(b=>({bar:b}));
+/* ══ Header solide + barre de progression ══ */
+var hdr=document.getElementById('hdr'),prog=document.getElementById('prog');
+function onScrollUI(){
+  var y=window.pageYOffset||document.documentElement.scrollTop;
+  hdr.classList.toggle('solid',y>40);
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(h>0?(y/h*100):0)+'%';
 }
-function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
-build();addEventListener('resize',restart);
-const clamp=(t)=>t<0?0:t>1?1:t;
-const easeIO=(t)=>{t=clamp(t);return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2};
-const seg=(u,a,b)=>easeIO((u-a)/(b-a));
-const bez=(p0,p1,p2,p3,t)=>{const m=1-t;return m*m*m*p0+3*m*m*t*p1+3*m*t*t*p2+t*t*t*p3;};
-const DUR=4.6;                 // la construction joue une fois, puis se fige
-function frame(ts){
-  if(startT===null)startT=ts;
-  if(!W){ if(!RM) requestAnimationFrame(frame); return; }   // canvas masqué (mobile) : rien à dessiner
-  const elapsed=(ts-startT)/1000;
-  const p = RM ? 1 : clamp(elapsed/DUR,0,1);
-  const frozen = p>=1;
-  ctx.clearRect(0,0,W,H);
-  const gather=seg(p,0.06,0.40), linkIn=seg(p,0.34,0.66), hubP=seg(p,0.36,0.62), linkOut=seg(p,0.62,0.84), outP=seg(p,0.66,0.95), live=1;
-  let label=p<0.34?'matière brute':p<0.66?'OSE assemble':'votre outil sur-mesure';
-  if(phaseEl.textContent!==label){phaseEl.style.opacity=0;setTimeout(()=>{phaseEl.textContent=label;phaseEl.style.opacity=1;},180);}
-  const t=ts/1000;
-  for(const s of sources){const m=gather;const dx=frozen?0:Math.sin(t*.7+s.seed)*16*dpr,dy=frozen?0:Math.cos(t*.6+s.seed)*16*dpr;s.x=(s.cxp+dx)*(1-m)+s.tx*m;s.y=(s.cyp+dy)*(1-m)+s.ty*m;}
-  hub.x=hub.tx;hub.y=hub.ty;const cardCx=card.x,cardCy=card.y+card.h/2;
-  ctx.lineCap='round';
-  // toutes les lignes convergent au centre d'OSE (même progression → jonction nette)
-  sources.forEach((s,i)=>{
-    const prog=linkIn; if(prog<=0)return;
-    const ex=s.x+(hub.x-s.x)*prog, ey=s.y+(hub.y-s.y)*prog, mx=s.x+(hub.x-s.x)*0.5;
-    const g=ctx.createLinearGradient(s.x,s.y,hub.x,hub.y);
-    g.addColorStop(0,'rgba(58,88,148,0.12)'); g.addColorStop(1,'rgba(58,88,148,0.5)');
-    ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.bezierCurveTo(mx,s.y,mx,ey,ex,ey);
-    ctx.strokeStyle=g;ctx.lineWidth=1.5*dpr;ctx.stroke();
-    // billes qui suivent le fil en continu vers OSE
-    if(!RM && prog>0.1){
-      const NB=3;
-      for(let j=0;j<NB;j++){
-        const tp=((t*0.4 + i*0.17 + j/NB)%1), u=tp*prog;
-        const bx=bez(s.x,mx,mx,ex,u), by=bez(s.y,s.y,ey,ey,u);
-        const a=Math.min(1,tp/0.12)*0.9;
-        ctx.beginPath();ctx.arc(bx,by,2*dpr,0,7);ctx.fillStyle=`rgba(120,150,205,${a})`;ctx.fill();
-      }
-    }
+
+/* ══ Reveal au scroll (IntersectionObserver) ══ */
+(function(){
+  var els=document.querySelectorAll('.r');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+/* ══ Parallax transform-based (3 profondeurs), coupé si reduced-motion ══ */
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var depthEls=[].slice.call(document.querySelectorAll('.depth'));
+var ticking=false;
+function parallax(){
+  var y=window.pageYOffset||0;
+  depthEls.forEach(function(el){
+    var d=parseFloat(el.getAttribute('data-depth'))||.15;
+    // translate relatif à la position de la section parente
+    var base=el.closest('section,.cta').offsetTop;
+    var rel=y-base;
+    el.style.transform='translate3d(0,'+(rel*d).toFixed(1)+'px,0)';
   });
-  if(linkOut>0){const ex=hub.x+(cardCx-hub.x)*linkOut,ey=hub.y+(cardCy-hub.y)*linkOut,mx=(hub.x+ex)/2;
-    ctx.beginPath();ctx.moveTo(hub.x,hub.y);ctx.bezierCurveTo(mx,hub.y,mx,ey,ex,ey);ctx.lineWidth=1.5*dpr;ctx.strokeStyle='rgba(58,88,148,0.45)';ctx.stroke();
-    // billes sortantes : OSE → le téléphone (elles disparaissent sous l'appareil)
-    if(!RM && linkOut>0.1){const NB=4;for(let j=0;j<NB;j++){const tp=((t*0.4+j/NB)%1),u=tp*linkOut;
-      const bx=bez(hub.x,mx,mx,ex,u),by=bez(hub.y,hub.y,ey,ey,u),a=Math.min(1,tp/0.12)*0.85;
-      ctx.beginPath();ctx.arc(bx,by,2.2*dpr,0,7);ctx.fillStyle=`rgba(120,150,205,${a})`;ctx.fill();}}}
-  ctx.textBaseline='middle';
-  // labels affichés seulement si le canvas est assez large pour les poser proprement à
-  // gauche du téléphone. Sur écrans étroits (iPad portrait, split-screen…), on garde le
-  // schéma épuré (lignes seules) plutôt que des labels tassés/tronqués sous l'appareil.
-  const showLabels = !MOB && (W/dpr) >= 480;
-  for(const s of sources){
-    const la=clamp(gather*1.4-.3);
-    if(la>0 && s.lab && showLabels){
-      ctx.font=`600 ${10.5*dpr}px Inter, sans-serif`; ctx.textAlign='right';
-      if('letterSpacing' in ctx) ctx.letterSpacing=`${1.3*dpr}px`;
-      ctx.fillStyle=`rgba(20,19,15,${0.62*la})`;
-      // le label est aligné à droite : on borne son ancre pour qu'il ne sorte JAMAIS
-      // du bord gauche du canvas (cas iPad / écrans étroits où W*0.13 devient minuscule)
-      const tw=ctx.measureText(s.lab).width; let ax=s.x-12*dpr;
-      if(ax-tw < 6*dpr) ax = tw + 6*dpr;
-      ctx.fillText(s.lab, ax, s.y);
-      if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+  ticking=false;
+}
+function onScroll(){
+  onScrollUI();
+  if(!reduce && !ticking){ticking=true;requestAnimationFrame(parallax);}
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',function(){if(!reduce)parallax();});
+onScrollUI(); if(!reduce)parallax();
+
+/* ══ HERO « cinématique » : réseau de nœuds qui s'assemblent (autoplay, loop, muet) ══ */
+(function(){
+  if(reduce) return;                       // poster statique = suffisant
+  var cv=document.getElementById('cine'),cx=cv.getContext('2d');
+  var hero=document.getElementById('hero'),DPR=Math.min(window.devicePixelRatio||1,2);
+  var W,H,nodes=[],running=true;
+  var N=window.innerWidth<720?26:52;
+  function size(){
+    W=hero.clientWidth;H=hero.clientHeight;
+    cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';
+    cx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function seed(){
+    nodes=[];
+    for(var i=0;i<N;i++){
+      nodes.push({
+        x:Math.random()*W,y:Math.random()*H,
+        vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+        r:1+Math.random()*1.8
+      });
     }
   }
-  const hr=(10+hubP*6)*dpr;
-  if(hubP>0.001){const pulse=frozen?1:1+Math.sin(t*3)*0.06*hubP;ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse+8*dpr*hubP,0,7);ctx.strokeStyle=`rgba(58,88,148,${.35*hubP})`;ctx.lineWidth=1.5*dpr;ctx.stroke();ctx.beginPath();ctx.arc(hub.x,hub.y,hr*pulse,0,7);ctx.fillStyle='rgba(58,88,148,1)';ctx.fill();ctx.fillStyle=`rgba(255,255,255,${hubP})`;ctx.textAlign='center';ctx.font=`800 ${10*dpr}px Inter, sans-serif`;ctx.fillText('OSE',hub.x,hub.y);}
-  // (le faux téléphone dessiné a été retiré : le vrai téléphone DOM est posé à droite, par-dessus la fin de la ligne)
-  if(RM) return;                          // mouvement réduit : image finale statique
-  requestAnimationFrame(frame);           // le schéma reste affiché en permanence (billes en continu : sources → OSE → téléphone)
-}
-function restart(){ build(); startT=null; if(RM) requestAnimationFrame(frame); }
-requestAnimationFrame(frame);
+  function step(){
+    if(!running)return;
+    cx.clearRect(0,0,W,H);
+    // liens
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      a.x+=a.vx;a.y+=a.vy;
+      if(a.x<0||a.x>W)a.vx*=-1;
+      if(a.y<0||a.y>H)a.vy*=-1;
+      for(var j=i+1;j<nodes.length;j++){
+        var b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<130){
+          var o=(1-dist/130)*.5;
+          cx.strokeStyle='rgba(58,88,148,'+o.toFixed(3)+')';
+          cx.lineWidth=1;
+          cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();
+        }
+      }
+    }
+    // nœuds
+    for(var k=0;k<nodes.length;k++){
+      var n=nodes[k];
+      cx.beginPath();cx.arc(n.x,n.y,n.r,0,6.283);
+      cx.fillStyle='rgba(28,44,82,.55)';cx.fill();
+    }
+    requestAnimationFrame(step);
+  }
+  size();seed();
+  requestAnimationFrame(function(){cv.classList.add('on');step();}); // "poster" -> fondu vers l'anim
+  // pause quand le hero sort de l'écran (perf, comme une vidéo qui se met en pause)
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      running=en[0].isIntersecting;
+      if(running)requestAnimationFrame(step);
+    },{threshold:.02}).observe(hero);
+  }
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();seed();},200);});
+})();
 
-
-// ============ HERO étage 2 : le téléphone défile tout seul ============
+/* ══ Téléphone : les démos OSE défilent toutes seules (repris du vrai site) ══ */
 (function(){
-  var sc=document.getElementById('showcase'), stage=document.getElementById('canvasStage');
-  if(!sc||!stage) return;
+  var sc=document.getElementById('showcase');
+  if(!sc) return;
   var frames=[].slice.call(sc.querySelectorAll('.demo'));
   var bar=document.getElementById('scBar');
   var nameEl=document.getElementById('scName');
   var prevBtn=document.getElementById('scPrev'), nextBtn=document.getElementById('scNext');
   var order=['a','b','c','d'], idx=0, paused=false, raf=null, barStart=null;
   var NAMES={a:'Pilotage', b:'Commercial', c:'Conversation', d:'Avant / Après'};
-  var INTRO = RM ? 200 : 2600;   // le schéma converge vers OSE, puis le téléphone « arrive » à droite
-  var DELAY = 6500;              // durée d'affichage de chaque démo
+  var DELAY=6500;                       // durée d'affichage de chaque démo
 
   function ensureLoaded(fr){ if(!fr.src && fr.dataset.src) fr.src=fr.dataset.src; }
   function show(k){
@@ -1097,7 +727,7 @@ requestAnimationFrame(frame);
   function next(){ go(1); }
 
   function restartBar(){
-    if(RM||!bar) return;
+    if(reduce||!bar) return;
     cancelAnimationFrame(raf); barStart=null;
     (function step(ts){
       if(paused){ raf=requestAnimationFrame(step); return; }
@@ -1109,7 +739,7 @@ requestAnimationFrame(frame);
     })();
   }
 
-  // pause au survol / focus : le visiteur peut cliquer dans la démo sans qu'elle change
+  // pause au survol / focus : on peut cliquer dans la démo sans qu'elle change
   sc.addEventListener('mouseenter',function(){ paused=true; });
   sc.addEventListener('mouseleave',function(){ paused=false; });
   sc.addEventListener('focusin',function(){ paused=true; });
@@ -1119,25 +749,20 @@ requestAnimationFrame(frame);
   if(prevBtn) prevBtn.addEventListener('click',function(){ go(-1); });
   if(nextBtn) nextBtn.addEventListener('click',function(){ go(1); });
   addEventListener('keydown',function(e){
-    if(!sc.classList.contains('live') || !sc.contains(document.activeElement)) return;
+    if(!sc.contains(document.activeElement)) return;
     if(e.key==='ArrowRight'){ e.preventDefault(); go(1); }
     else if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1); }
   });
 
-  function startShowcase(){
-    // le schéma canvas RESTE affiché ; on fait juste « arriver » le vrai téléphone à droite
-    sc.classList.add('live');
-    sc.setAttribute('aria-hidden','false');
-    show('a');
-    setTimeout(function(){ frames.forEach(ensureLoaded); }, 400);  // précharge les autres démos
-    restartBar();                     // en mouvement réduit, restartBar ne fait rien : on reste sur la 1re
-  }
-  setTimeout(startShowcase, INTRO);
+  show('a');
+  setTimeout(function(){ frames.forEach(ensureLoaded); }, 400);  // précharge les autres démos
+  restartBar();                     // en mouvement réduit : reste sur la 1re
 })();
 
-// ============ modale contact ============
+/* ══ Modale contact (reprise du site OSE) ══ */
 (function(){
   const modal=document.getElementById('contact-modal');
+  if(!modal) return;
   const form=document.getElementById('contact-form');
   const okMsg=document.getElementById('cf-ok');
   const errMsg=document.getElementById('cf-err');
@@ -1173,8 +798,30 @@ requestAnimationFrame(frame);
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
     }
   });
+  // "Autre" coché → champ de précision obligatoire
+  const autreCb=form.querySelector('input[name="services"][value="Autre"]');
+  const autreWrap=document.getElementById('cf-autre-wrap');
+  const autreInput=document.getElementById('cf-autre');
+  const servicesErr=document.getElementById('cf-services-err');
+  const serviceCbs=Array.prototype.slice.call(form.querySelectorAll('input[name="services"]'));
+  function syncAutre(){
+    var on=autreCb.checked;
+    autreWrap.hidden=!on; autreInput.required=on;
+    if(!on){ autreInput.value=''; } else { setTimeout(function(){autreInput.focus();},50); }
+  }
+  autreCb.addEventListener('change',syncAutre);
+  serviceCbs.forEach(function(cb){ cb.addEventListener('change',function(){
+    if(servicesErr) servicesErr.hidden=serviceCbs.some(function(c){return c.checked;});
+  }); });
+  syncAutre();
+
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+    // au moins un domaine coché
+    var anyService=serviceCbs.some(function(c){return c.checked;});
+    if(servicesErr) servicesErr.hidden=anyService;
+    if(!anyService){ if(servicesErr) servicesErr.scrollIntoView({block:'center'}); return; }
+    // tous les champs requis (email, secteur, message, nom + précision "Autre" si affichée)
     if(!form.reportValidity())return;
     submitBtn.disabled=true;submitBtn.textContent='Envoi…';
     errMsg.classList.remove('show');
@@ -1188,59 +835,6 @@ requestAnimationFrame(frame);
     finally{ submitBtn.disabled=false;submitBtn.textContent='Envoyer →'; }
   });
 })();
-</script>
-
-<!-- ============ Bandeau de consentement cookies (RGPD) ============ -->
-<style>
-  .cookie-banner{position:fixed;left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:9999;
-    background:var(--paper,#fbfaf6);border:1px solid var(--line,#d9d5c8);border-radius:14px;
-    box-shadow:0 10px 34px rgba(20,19,15,.18);padding:18px 20px;
-    animation:cookieUp .4s ease both}
-  @keyframes cookieUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .cookie-inner{max-width:1100px;margin:0 auto;display:flex;gap:18px;align-items:center;
-    flex-wrap:wrap;justify-content:space-between}
-  .cookie-txt{margin:0;font-size:14px;line-height:1.55;color:var(--ink,#14130f);flex:1 1 440px}
-  .cookie-txt a{color:var(--accent,#3a5894);text-decoration:underline}
-  .cookie-actions{display:flex;gap:10px;flex:0 0 auto}
-  .cookie-btn{font:inherit;font-size:14px;font-weight:600;padding:10px 24px;border-radius:30px;
-    cursor:pointer;border:1px solid var(--line,#d9d5c8);transition:transform .12s ease,opacity .12s ease}
-  .cookie-btn:hover{transform:translateY(-1px)}
-  .cookie-refuse{background:transparent;color:var(--ink,#14130f)}
-  .cookie-accept{background:var(--accent,#3a5894);color:#fff;border-color:var(--accent,#3a5894)}
-  .f-legal a{color:inherit}
-  @media(max-width:560px){.cookie-actions{width:100%}.cookie-btn{flex:1}}
-</style>
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentement aux cookies" hidden>
-  <div class="cookie-inner">
-    <p class="cookie-txt">
-      On utilise <strong>Microsoft Clarity</strong> pour comprendre comment le site est utilisé (pages, clics, parcours) et l'améliorer. Ces cookies de mesure ne sont déposés qu'avec votre accord. <a href="confidentialite.html">En savoir plus</a>.
-    </p>
-    <div class="cookie-actions">
-      <button type="button" class="cookie-btn cookie-refuse" id="cookie-refuse">Refuser</button>
-      <button type="button" class="cookie-btn cookie-accept" id="cookie-accept">Accepter</button>
-    </div>
-  </div>
-</div>
-<script>
-  (function(){
-    var KEY="ose-consent", banner=document.getElementById("cookie-banner");
-    if(!banner) return;
-    var choice; try{ choice=localStorage.getItem(KEY); }catch(e){}
-    if(!choice){ banner.hidden=false; }
-    function decide(v){
-      try{ localStorage.setItem(KEY,v); }catch(e){}
-      banner.hidden=true;
-      if(v==="granted" && typeof window.loadClarity==="function") window.loadClarity();
-    }
-    document.getElementById("cookie-accept").addEventListener("click",function(){decide("granted");});
-    document.getElementById("cookie-refuse").addEventListener("click",function(){decide("denied");});
-    // Lien "Gérer les cookies" du footer : ré-affiche le bandeau
-    var reopen=document.querySelectorAll(".js-cookie-settings");
-    for(var i=0;i<reopen.length;i++){
-      reopen[i].addEventListener("click",function(e){e.preventDefault();banner.hidden=false;
-        banner.scrollIntoView({behavior:"smooth",block:"end"});});
-    }
-  })();
 </script>
 </body>
 </html>
