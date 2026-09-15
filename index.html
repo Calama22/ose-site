@@ -9,6 +9,8 @@
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://ose-os.fr/">
 <meta name="theme-color" content="#f4f2ec">
+<!-- Mesure d'audience : garde les appels faits avant le chargement de mesure.js -->
+<script>window.oseStat=window.oseStat||function(t,d){(window.oseStat.q=window.oseStat.q||[]).push([t,d,Date.now()]);};</script>
 
 <!-- Open Graph / Twitter -->
 <meta property="og:title" content="OSE — Studio IA sur-mesure pour PME">
@@ -368,7 +370,7 @@
   <a class="logo" href="#top" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
   <div class="nav-r">
     <span class="idx">FR — 2026</span>
-    <a class="nav-cta js-contact" href="#contact"><span>Prendre contact</span></a>
+    <a class="nav-cta js-contact" href="#contact" data-stat="contact_nav"><span>Prendre contact</span></a>
   </div>
 </nav></div></header>
 
@@ -387,8 +389,8 @@
         <h1>On <b class="chrome">construit</b> l'outil que vous n'<span class="it serif">imaginiez</span> pas pouvoir avoir.</h1>
         <p>OSE conçoit, avec l'IA, l'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service. Vous décrivez ce qui vous freine, on construit ce qui vous libère.</p>
         <div class="actions">
-          <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
-          <a class="btn btn-o" href="#process">Comment ça marche</a>
+          <a class="btn btn-h js-contact" href="#contact" data-stat="reserver_hero">Réserver 30 minutes <span class="arr">→</span></a>
+          <a class="btn btn-o" href="#process" data-stat="process_hero">Comment ça marche</a>
         </div>
         <div class="assur">
           <span>Sans engagement</span><span>Premier outil en environ 3 jours</span><span>Vous gardez la main</span>
@@ -508,8 +510,8 @@
     <h2>Montrez-moi<br>votre <span class="it serif chrome">angle mort.</span></h2>
     <p>30 minutes pour repérer, ensemble, où l'IA peut vous faire gagner du temps. Sans engagement.</p>
     <div class="actions">
-      <a class="btn btn-h js-contact" href="#contact">Réserver 30 minutes <span class="arr">→</span></a>
-      <a class="btn btn-g" href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
+      <a class="btn btn-h js-contact" href="#contact" data-stat="reserver_bas">Réserver 30 minutes <span class="arr">→</span></a>
+      <a class="btn btn-g" href="mailto:contact@ose-os.fr" data-stat="mail">contact@ose-os.fr</a>
     </div>
   </div>
 </div>
@@ -526,13 +528,13 @@
     </nav>
     <nav class="f-col">
       <span class="f-h">Contact</span>
-      <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>
-      <a href="https://www.google.com/maps/search/?api=1&query=France" target="_blank" rel="noopener">France · à distance</a>
+      <a href="mailto:contact@ose-os.fr" data-stat="mail">contact@ose-os.fr</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=France" target="_blank" rel="noopener" data-stat="carte">France · à distance</a>
     </nav>
   </div>
   <div class="wrap f-base">
     <span>© 2026 OSE — Studio IA sur-mesure pour PME</span>
-    <span>ose-os.fr</span>
+    <span><a href="confidentialite.html" style="color:inherit">Confidentialité</a> · ose-os.fr</span>
   </div>
 </footer>
 
@@ -722,13 +724,14 @@ onScrollUI(); if(!reduce)parallax();
   var DELAY=6500;                       // durée d'affichage de chaque démo
 
   function ensureLoaded(fr){ if(!fr.src && fr.dataset.src) fr.src=fr.dataset.src; }
-  function show(k){
+  function show(k, manuel){
     idx=order.indexOf(k); if(idx<0) idx=0;
     frames.forEach(function(fr){ var on=fr.dataset.k===k; if(on) ensureLoaded(fr); fr.classList.toggle('is-active',on); });
     if(nameEl) nameEl.textContent=NAMES[order[idx]]||'';
+    if(window.oseStat) oseStat('demo_actif',{k:order[idx], nom:NAMES[order[idx]], manuel:!!manuel});
   }
-  function go(d){ show(order[(idx+d+order.length)%order.length]); restartBar(); }
-  function next(){ go(1); }
+  function go(d, manuel){ show(order[(idx+d+order.length)%order.length], manuel); restartBar(); }
+  function next(){ go(1, false); }
 
   function restartBar(){
     if(reduce||!bar) return;
@@ -750,12 +753,12 @@ onScrollUI(); if(!reduce)parallax();
   sc.addEventListener('focusout',function(){ paused=false; });
 
   // flèches : passer d'un module à l'autre à la main (relance le minuteur)
-  if(prevBtn) prevBtn.addEventListener('click',function(){ go(-1); });
-  if(nextBtn) nextBtn.addEventListener('click',function(){ go(1); });
+  if(prevBtn) prevBtn.addEventListener('click',function(){ go(-1, true); });
+  if(nextBtn) nextBtn.addEventListener('click',function(){ go(1, true); });
   addEventListener('keydown',function(e){
     if(!sc.contains(document.activeElement)) return;
-    if(e.key==='ArrowRight'){ e.preventDefault(); go(1); }
-    else if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1); }
+    if(e.key==='ArrowRight'){ e.preventDefault(); go(1, true); }
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); go(-1, true); }
   });
 
   show('a');
@@ -772,6 +775,7 @@ onScrollUI(); if(!reduce)parallax();
   const errMsg=document.getElementById('cf-err');
   const submitBtn=document.getElementById('cf-submit');
   let lastFocus=null;
+  let commence=false;
   const focusable=()=>modal.querySelectorAll('button, [href], input, textarea, select');
   function open(e){
     if(e)e.preventDefault();
@@ -781,8 +785,11 @@ onScrollUI(); if(!reduce)parallax();
     document.body.style.overflow='hidden';
     const first=modal.querySelector('#cf-email');
     if(first)setTimeout(()=>first.focus(),60);
+    commence=false;
+    if(window.oseStat) oseStat('form',{etape:'ouvert'});
   }
   function close(){
+    if(window.oseStat && modal.classList.contains('open') && !okMsg.classList.contains('show')) oseStat('form',{etape:'ferme'});
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
@@ -818,6 +825,12 @@ onScrollUI(); if(!reduce)parallax();
     if(servicesErr) servicesErr.hidden=serviceCbs.some(function(c){return c.checked;});
   }); });
   syncAutre();
+  // 1re saisie dans le formulaire → « commencé » (jamais le contenu)
+  form.addEventListener('input',function(){
+    if(commence) return;
+    commence=true;
+    if(window.oseStat) oseStat('form',{etape:'commence'});
+  });
 
   form.addEventListener('submit',async e=>{
     e.preventDefault();
@@ -833,52 +846,16 @@ onScrollUI(); if(!reduce)parallax();
       const data=new FormData(form);
       const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:data});
       const json=await res.json();
-      if(json.success){form.style.display='none';okMsg.classList.add('show');}
+      if(json.success){form.style.display='none';okMsg.classList.add('show');if(window.oseStat) oseStat('form',{etape:'envoye'});}
       else{throw new Error(json.message||'fail');}
-    }catch(err){ errMsg.classList.add('show'); }
+    }catch(err){ errMsg.classList.add('show'); if(window.oseStat) oseStat('form',{etape:'erreur'}); }
     finally{ submitBtn.disabled=false;submitBtn.textContent='Envoyer →'; }
   });
 })();
 </script>
 
-<!-- ── Analytics maison ose-os.fr — léger, sans cookie traçant (RGPD-friendly) ── -->
-<script>
-(function () {
-  try {
-    // Tag « c'est moi » : visiter une fois ose-os.fr/?moi=1 sur chaque appareil perso.
-    var params = new URLSearchParams(location.search);
-    if (params.get('moi') === '1') localStorage.setItem('ose_moi', '1');
-    var moi = localStorage.getItem('ose_moi') === '1';
-
-    // Jeton de visite anonyme, gardé le temps de la session (pas de cookie) →
-    // permet de distinguer « 1 personne, 3 pages » de « 3 personnes ».
-    var vid = sessionStorage.getItem('ose_vid');
-    if (!vid) {
-      vid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-      sessionStorage.setItem('ose_vid', vid);
-    }
-
-    var body = JSON.stringify({
-      page: location.pathname,
-      ref: document.referrer || '',
-      ecran: window.innerWidth || 0,
-      lang: navigator.language || '',
-      visiteur: vid,
-      moi: moi ? 1 : 0
-    });
-
-    // Collecteur sur OVH, exposé en https par le relais Cloudflare (stats-relais/).
-    var COLLECT = 'https://ose-stats.stats-relais.workers.dev/collect.php';
-    // Envoi discret, non bloquant. En text/plain → « requête simple » cross-origin
-    // (pas de preflight CORS). Le PHP lit le corps quel que soit le Content-Type.
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(COLLECT, new Blob([body], { type: 'text/plain;charset=UTF-8' }));
-    } else {
-      fetch(COLLECT, { method: 'POST', body: body, keepalive: true, mode: 'cors' });
-    }
-  } catch (e) { /* l'analytics ne doit jamais casser le site */ }
-})();
-</script>
+<!-- Mesure d'audience maison (v2) — sans cookie, voir confidentialite.html -->
+<script src="mesure.js"></script>
 
 </body>
 </html>

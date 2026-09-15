@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Confidentialité & cookies — OSE</title>
-<meta name="description" content="Politique de confidentialité et gestion des cookies du site ose-os.fr.">
+<title>Confidentialité & mesure d'audience — OSE</title>
+<meta name="description" content="Politique de confidentialité et mesure d'audience du site ose-os.fr.">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://ose-os.fr/confidentialite.html">
 <link rel="icon" href="ose-icon.svg" type="image/svg+xml">
@@ -14,6 +14,7 @@
     --accent:#3a5894; --paper:#fbfaf6;
   }
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
   .serif{font-family:"Times New Roman",Georgia,serif}
@@ -35,9 +36,10 @@
   .btn{display:inline-block;margin-top:6px;background:var(--accent);color:#fff;border:none;
     font:inherit;font-weight:600;font-size:14px;padding:11px 24px;border-radius:30px;cursor:pointer}
   .btn:hover{opacity:.92}
+  .note{margin:12px 0 0;font-size:13.5px;color:var(--dim)}
   table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
   th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--dim);font-weight:600}
+  th{color:var(--dim);font-weight:600;width:28%}
   footer{border-top:1px solid var(--line);color:var(--dim);font-size:13px;padding:24px 0}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   footer a{color:inherit}
@@ -53,38 +55,39 @@
 
 <main>
   <div class="wrap">
-    <h1 class="serif">Confidentialité &amp; cookies</h1>
-    <p class="lead">Dernière mise à jour : 25 juin 2026</p>
+    <h1 class="serif">Confidentialité &amp; mesure d'audience</h1>
+    <p class="lead">Dernière mise à jour : 15 septembre 2026</p>
 
     <h2>Qui est responsable du site</h2>
     <p>Le site <strong>ose-os.fr</strong> est édité par <strong>OSE</strong>, studio de création d'outils IA sur-mesure pour PME. Pour toute question relative à vos données, écrivez à <a href="mailto:contact@ose-os.fr">contact@ose-os.fr</a>.</p>
 
     <h2>Hébergement</h2>
-    <p>Le site est hébergé par <strong>GitHub Pages</strong> (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis). Le nom de domaine est géré chez OVH.</p>
+    <p>Le site est hébergé par <strong>GitHub Pages</strong> (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis). Le nom de domaine est géré chez OVH. La mesure d'audience est traitée par <strong>Cloudflare</strong> (Cloudflare, Inc.), avec un stockage des données <strong>dans l'Union européenne</strong>.</p>
 
     <h2>Données que nous collectons</h2>
-    <p>Le site est un site vitrine. Nous ne collectons aucune donnée personnelle à votre insu :</p>
     <ul>
-      <li><strong>Formulaire de contact</strong> : si vous nous écrivez via le formulaire, nous recevons les informations que vous y indiquez (nom, e-mail, message) à la seule fin de vous répondre.</li>
-      <li><strong>Mesure d'audience</strong> : avec votre accord uniquement, nous utilisons Microsoft Clarity (voir ci-dessous).</li>
+      <li><strong>Formulaire de contact</strong> : si vous nous écrivez, nous recevons les informations que vous indiquez (e-mail, secteur, services concernés, message, nom), transmises par le service Web3Forms, à la seule fin de vous répondre.</li>
+      <li><strong>Mesure d'audience</strong> : des statistiques anonymes sur l'utilisation du site, détaillées ci-dessous.</li>
     </ul>
 
-    <h2>Cookies et mesure d'audience — Microsoft Clarity</h2>
-    <p>Pour comprendre comment le site est utilisé et l'améliorer, nous utilisons <strong>Microsoft Clarity</strong>, un service fourni par Microsoft Ireland Operations Limited. Clarity enregistre de façon anonyme les pages consultées, les clics, le défilement et le parcours de navigation (« cartes de chaleur » et relectures de session anonymisées).</p>
-    <p><strong>Clarity n'est activé qu'après votre consentement explicite</strong>, via le bandeau affiché à votre première visite. Tant que vous n'avez pas accepté, aucun cookie de mesure n'est déposé et aucune donnée n'est envoyée à Microsoft.</p>
+    <h2>Mesure d'audience</h2>
+    <p>Pour comprendre comment le site est utilisé et l'améliorer, nous mesurons sa fréquentation avec un outil développé par OSE. Cette mesure respecte les conditions fixées par la CNIL pour être <strong>dispensée de consentement</strong> : elle sert uniquement à produire des statistiques anonymes, pour notre seul usage.</p>
     <table>
-      <tr><th>Finalité</th><td>Statistiques d'usage, ergonomie, amélioration du site</td></tr>
-      <tr><th>Base légale</th><td>Votre consentement (art. 6.1.a du RGPD)</td></tr>
-      <tr><th>Données</th><td>Données de navigation anonymisées ; Clarity masque par défaut le contenu sensible saisi</td></tr>
-      <tr><th>Conservation</th><td>Données conservées par Microsoft jusqu'à 13 mois</td></tr>
-      <tr><th>Transfert</th><td>Des données peuvent être traitées par Microsoft, y compris hors Union européenne, dans le cadre de ses garanties contractuelles</td></tr>
+      <tr><th>Finalité</th><td>Statistiques de fréquentation et amélioration du site, pour OSE uniquement</td></tr>
+      <tr><th>Ce qui est mesuré</th><td>Pages vues, site d'origine et campagne (liens UTM), sections et démos consultées et leur durée, profondeur de défilement, clics sur les boutons de contact et de réservation, le lien « Comment ça marche », les liens mail et carte, ouverture et envoi du formulaire (jamais son contenu), temps passé, taille d'écran, langue, navigateur, système, type d'appareil, temps de chargement</td></tr>
+      <tr><th>Localisation</th><td>Pays, région et ville, déduits de la connexion — jamais plus précis</td></tr>
+      <tr><th>Adresse IP</th><td>Jamais enregistrée</td></tr>
+      <tr><th>Cookies</th><td>Aucun. Un identifiant aléatoire est gardé dans votre navigateur (stockage local) pour distinguer un nouveau visiteur d'un visiteur qui revient ; il est renouvelé au plus tard après 13 mois</td></tr>
+      <tr><th>Conservation</th><td>25 mois maximum, puis suppression automatique</td></tr>
+      <tr><th>Partage</th><td>Aucun croisement avec d'autres données, aucune revente ni transmission à des tiers</td></tr>
+      <tr><th>Base légale</th><td>Intérêt légitime d'OSE à mesurer l'audience de son site (art. 6.1.f du RGPD)</td></tr>
     </table>
-    <p>Plus d'informations dans la <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">déclaration de confidentialité de Microsoft</a>.</p>
 
-    <h2>Gérer ou retirer votre consentement</h2>
+    <h2>Refuser la mesure</h2>
     <div class="card">
-      <p style="margin:0 0 10px">Vous pouvez modifier votre choix à tout moment. Cela ré-affiche le bandeau de consentement.</p>
-      <button class="btn" id="reset-consent">Modifier mon choix sur les cookies</button>
+      <p id="mesure-etat" style="margin:0 0 10px">La mesure d'audience est active dans ce navigateur.</p>
+      <button class="btn" id="mesure-bouton" type="button">Ne pas me mesurer</button>
+      <p class="note">Ce choix est enregistré dans ce navigateur uniquement. Si votre navigateur envoie le signal « Global Privacy Control », la mesure est automatiquement désactivée.</p>
     </div>
 
     <h2>Vos droits</h2>
@@ -100,10 +103,41 @@
 </footer>
 
 <script>
-  document.getElementById("reset-consent").addEventListener("click",function(){
-    try{ localStorage.removeItem("ose-consent"); }catch(e){}
-    window.location.href = "index.html";
+(function () {
+  var etat = document.getElementById('mesure-etat');
+  var bouton = document.getElementById('mesure-bouton');
+  function refuse() {
+    try { return localStorage.getItem('ose_nostats') === '1'; } catch (e) { return false; }
+  }
+  function afficher() {
+    if (navigator.globalPrivacyControl === true) {
+      etat.textContent = 'Votre navigateur envoie le signal « Global Privacy Control » : la mesure est désactivée.';
+      bouton.hidden = true;
+      return;
+    }
+    etat.textContent = refuse()
+      ? "La mesure d'audience est désactivée dans ce navigateur."
+      : "La mesure d'audience est active dans ce navigateur.";
+    bouton.textContent = refuse() ? 'Réactiver la mesure' : 'Ne pas me mesurer';
+  }
+  bouton.addEventListener('click', function () {
+    try {
+      if (refuse()) {
+        localStorage.removeItem('ose_nostats');
+      } else {
+        localStorage.setItem('ose_nostats', '1');
+        localStorage.removeItem('ose_vis');
+        localStorage.removeItem('ose_visite');
+      }
+    } catch (e) {
+      etat.textContent = "Votre navigateur bloque le stockage local : votre choix ne peut pas y être enregistré, mais la mesure d'audience ne peut pas fonctionner non plus dans ce cas.";
+      return;
+    }
+    afficher();
   });
+  afficher();
+})();
 </script>
+<script src="mesure.js"></script>
 </body>
 </html>
