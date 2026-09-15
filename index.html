@@ -21,10 +21,14 @@
 <meta name="twitter:title" content="OSE — Studio IA sur-mesure pour PME">
 <meta name="twitter:description" content="L'outil sur-mesure qui fait gagner du temps à vos équipes, dans n'importe quel service.">
 
-<!-- OG image générée en SVG inline (data-URI) pour rester 100 % autonome -->
-<meta property="og:image" content="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%23f4f2ec'/%3E%3Ctext x='80' y='340' font-family='Georgia,serif' font-size='150' font-style='italic' font-weight='800' fill='%233a5894'%3EOSE%3C/text%3E%3Ctext x='90' y='420' font-family='Arial' font-size='30' fill='%2314130f'%3EOn construit l'outil que vous n'imaginiez pas pouvoir avoir.%3C/text%3E%3C/svg%3E">
+<!-- OG image : PNG en URL absolue — LinkedIn/Facebook/X ne savent lire ni les
+     data-URI ni le SVG, donc l'aperçu de partage doit pointer un vrai fichier. -->
+<meta property="og:image" content="https://ose-os.fr/og-cover.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OSE — Automatisation IA &amp; outils sur-mesure pour PME.">
+<meta name="twitter:image" content="https://ose-os.fr/og-cover.png">
 
 <!-- Favicon officiel OSE -->
 <link rel="icon" type="image/svg+xml" href="ose-icon.svg">
@@ -417,7 +421,7 @@
   </section>
 
   <!-- ============ marquee ============ -->
-  <div class="strip"><div class="run" id="run">
+  <div class="strip" aria-hidden="true" data-nosnippet><div class="run" id="run">
     <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
     <span>GAGNER DU TEMPS <span class="o serif">·</span> SUR-MESURE <span class="o serif">·</span> VOIR <span class="o serif">·</span> CONTRÔLER <span class="o serif">·</span> OSER <span class="o serif">·</span> </span>
   </div></div>
@@ -836,5 +840,45 @@ onScrollUI(); if(!reduce)parallax();
   });
 })();
 </script>
+
+<!-- ── Analytics maison ose-os.fr — léger, sans cookie traçant (RGPD-friendly) ── -->
+<script>
+(function () {
+  try {
+    // Tag « c'est moi » : visiter une fois ose-os.fr/?moi=1 sur chaque appareil perso.
+    var params = new URLSearchParams(location.search);
+    if (params.get('moi') === '1') localStorage.setItem('ose_moi', '1');
+    var moi = localStorage.getItem('ose_moi') === '1';
+
+    // Jeton de visite anonyme, gardé le temps de la session (pas de cookie) →
+    // permet de distinguer « 1 personne, 3 pages » de « 3 personnes ».
+    var vid = sessionStorage.getItem('ose_vid');
+    if (!vid) {
+      vid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      sessionStorage.setItem('ose_vid', vid);
+    }
+
+    var body = JSON.stringify({
+      page: location.pathname,
+      ref: document.referrer || '',
+      ecran: window.innerWidth || 0,
+      lang: navigator.language || '',
+      visiteur: vid,
+      moi: moi ? 1 : 0
+    });
+
+    // Collecteur sur OVH, exposé en https par le relais Cloudflare (stats-relais/).
+    var COLLECT = 'https://ose-stats.stats-relais.workers.dev/collect.php';
+    // Envoi discret, non bloquant. En text/plain → « requête simple » cross-origin
+    // (pas de preflight CORS). Le PHP lit le corps quel que soit le Content-Type.
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(COLLECT, new Blob([body], { type: 'text/plain;charset=UTF-8' }));
+    } else {
+      fetch(COLLECT, { method: 'POST', body: body, keepalive: true, mode: 'cors' });
+    }
+  } catch (e) { /* l'analytics ne doit jamais casser le site */ }
+})();
+</script>
+
 </body>
 </html>
