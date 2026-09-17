@@ -170,6 +170,14 @@
   .sc-prog{width:46px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
   .sc-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-d));border-radius:2px}
   @media(prefers-reduced-motion:reduce){.phone{animation:none}.demo{transition:opacity .2s}.sc-prog{display:none}}
+  /* Écrans tactiles : le téléphone est une vitrine, pas une appli à manipuler.
+     Les démos embarquent de vraies zones défilantes ; sans ceci, le geste pour
+     faire défiler la page est absorbé par la démo (qui se fige au milieu de son
+     contenu, haut rogné) et la page, elle, ne bouge pas. Les flèches du
+     carrousel sont hors du téléphone : elles restent cliquables. */
+  @media(hover:none) and (pointer:coarse){
+    .demo{pointer-events:none}
+  }
   @media(max-width:880px){
     .hero-r{margin-top:6px}
     .phone{width:min(74vw,304px)}
