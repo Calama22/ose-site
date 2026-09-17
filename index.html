@@ -148,8 +148,16 @@
   .phone-notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:3;
     width:34%;height:24px;background:#0f0e0c;border-radius:0 0 16px 16px}
   .phone-screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;
-    background:var(--paper);isolation:isolate}
-  .demo{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+    background:var(--paper);isolation:isolate;
+    /* Safari/iOS ne rogne pas une iframe aux coins arrondis du parent : l'écran
+       déborde alors du cadre, surtout en bas où la barre d'onglets est pleine.
+       Le masque, lui, est bien appliqué. */
+    -webkit-mask-image:-webkit-radial-gradient(#fff,#000);mask-image:radial-gradient(#fff,#000)}
+  /* height:1px + min-height:100% : sur iOS, une iframe s'étire sinon à la hauteur
+     de son contenu en ignorant height:100%, et dépasse le bas du téléphone.
+     Le border-radius est répété ici au cas où le rognage du parent échoue. */
+  .demo{position:absolute;inset:0;width:100%;height:1px;min-height:100%;border:0;display:block;
+    border-radius:33px;
     opacity:0;visibility:hidden;transform:scale(1.015);
     transition:opacity .55s var(--ease),transform .55s var(--ease),visibility .55s}
   .demo.is-active{opacity:1;visibility:visible;transform:none;z-index:1}
