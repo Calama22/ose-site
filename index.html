@@ -718,7 +718,7 @@
   var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Lien direct vers une section (ex. #essayez dans un mail) : pendant le préchargement le navigateur
   // ne descend pas toujours à l'ancre ; on y va nous-mêmes une fois le voile levé, sans animation.
-  function allerAncre(){ var id=(location.hash||'').slice(1); var cible=id && document.getElementById(id); if(!cible || window.pageYOffset>=50) return; var h=document.documentElement, s=h.style.scrollBehavior; h.style.scrollBehavior='auto'; cible.scrollIntoView(); h.style.scrollBehavior=s; }
+  function allerAncre(){ var id=(location.hash||'').slice(1); var cible=id && document.getElementById(id); if(!cible || Math.abs(cible.getBoundingClientRect().top)<40) return; var h=document.documentElement, s=h.style.scrollBehavior; h.style.scrollBehavior='auto'; cible.scrollIntoView(); h.style.scrollBehavior=s; }
   function hidePre(){ var p=document.getElementById('pre'); if(p) p.classList.add('done'); allerAncre(); }
   setTimeout(hidePre, RM?0:1200);
   addEventListener('load', function(){ setTimeout(hidePre, RM?0:200); });
