@@ -183,7 +183,7 @@
           if (visible) ouvrirSection(id); else fermerSection(id);
         });
       }, { threshold: [0, 0.1, 0.2, 0.3, 0.5, 0.75, 1] });
-      ['hero', 'apropos', 'services', 'process', 'infos'].forEach(function (id) {
+      ['hero', 'apropos', 'services', 'process', 'infos', 'essayez'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) { el.setAttribute('data-stat-section', id); obsSections.observe(el); }
       });
@@ -226,7 +226,7 @@
     function traiter(type, donnees, ts) {
       if (type === 'demo_actif') { demoFermer(); demoOuvrir(donnees); return; }
       ev(type, donnees, ts);
-      if (type === 'form') envoyer();
+      if (type === 'form' || type === 'essai') envoyer();
     }
     var enAttente = (window.oseStat && window.oseStat.q) || [];
     window.oseStat = function (type, donnees) {

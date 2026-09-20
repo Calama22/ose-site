@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSE — App vivante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* Charte et composants repris de site/demos/format-A-screen.html et mockups/demo-rdv/app-generee.html.
+     Cette page remplit l'iframe (pas de host/téléphone/barre d'outils) : elle ne fait que rendre l'app
+     reçue par message, avec textContent et createElement uniquement. */
+  :root{
+    --bg:#f4f2ec; --ink:#14130f; --dim:#7a766c; --line:#d9d5c8;
+    --accent:#3a5894; --accent-d:#8fb0e0; --paper:#fbfaf6;
+    --ok:#2e7d5b; --warn:#b67e1d; --crit:#b3433a; --crit-l:#d98178;
+    --marine:#1b2c4a; --blanc:#fff; --accent-fonce:#2f4a7d;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; margin:0; overflow:hidden;}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--paper); color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit; color:inherit; background:none; border:0; cursor:pointer;}
+
+  /* ---------- Screen (remplit l'iframe) ---------- */
+  .screen{position:relative; width:100%; height:100%; background:var(--paper); overflow:hidden; display:flex; flex-direction:column;}
+
+  .statusbar{height:44px; flex:0 0 auto; display:flex; align-items:flex-end; justify-content:space-between; padding:0 24px 6px; font-size:13px; font-weight:600; z-index:20;}
+  .statusbar .right{display:flex; align-items:center; gap:6px;}
+
+  .appbar{flex:0 0 auto; padding:6px 22px 12px; border-bottom:1px solid var(--line); background:var(--paper);}
+  .appbar .brand{display:flex; align-items:center; gap:9px;}
+  .appbar h1{font-size:16px; font-weight:700; letter-spacing:-.2px; display:flex; align-items:center; gap:6px;}
+  .appbar h1 img{height:16px; width:auto;}
+  .appbar .sub{font-size:12px; color:var(--dim); margin-top:2px;}
+  .appbar .greet{margin-left:auto;}
+  .appbar .ava{width:30px;height:30px;border-radius:50%; background:var(--accent-d); color:var(--marine); display:flex;align-items:center;justify-content:center; font-weight:700; font-size:12px;}
+
+  .content{flex:1 1 auto; overflow:hidden; position:relative;}
+  .panel{position:absolute; inset:0; overflow-y:auto; padding:14px 16px 18px; scrollbar-width:none; display:none;}
+  .panel::-webkit-scrollbar{display:none;}
+  .panel.active{display:block; animation:rise .3s var(--ease) both;}
+  @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+  .eyebrow{font-family:"Times New Roman",Georgia,serif; font-style:italic; color:var(--accent); font-size:13px; margin-bottom:12px; letter-spacing:.2px; max-width:100%; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .sec-title{font-size:12px; font-weight:700; color:var(--dim); text-transform:uppercase; letter-spacing:.8px; margin:18px 2px 9px;}
+  .sec-title:first-child{margin-top:4px;}
+
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:6px; box-shadow:0 2px 8px -4px rgba(20,19,15,.10);}
+  .row{display:flex; align-items:center; gap:11px; padding:11px 10px; border-radius:13px; cursor:pointer; position:relative; transition:background .2s var(--ease);}
+  .row + .row{margin-top:2px;}
+  .row:hover{background:rgba(58,88,148,.05);}
+  .row .body{flex:1 1 auto; min-width:0;}
+  .row .t{font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .row .s{font-size:11px; color:var(--dim); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .row .amt{font-size:13px; font-weight:700; white-space:nowrap; text-align:right; max-width:96px; overflow:hidden; text-overflow:ellipsis;}
+  .row .amt.crit{color:var(--crit);}
+  .row.done .t{text-decoration:line-through; color:var(--dim);}
+  .row .chk{width:22px;height:22px;border-radius:7px;border:2px solid var(--line); flex:0 0 auto; display:flex; align-items:center; justify-content:center; color:var(--blanc); transition:all .15s var(--ease);}
+  .row.done .chk{background:var(--ok); border-color:var(--ok);}
+
+  .track{height:6px; border-radius:6px; background:var(--line); overflow:hidden; margin-top:6px;}
+  .fill{height:100%; border-radius:6px; background:linear-gradient(90deg,var(--accent),var(--accent-d)); transition:width .8s var(--ease); width:0;}
+  .fill.late{background:linear-gradient(90deg,var(--crit),var(--crit-l));}
+
+  .btn{display:flex; align-items:center; justify-content:space-between; width:100%; padding:14px 16px; border-radius:14px;
+    background:var(--accent); color:var(--blanc); font-size:14px; font-weight:700; box-shadow:0 8px 24px -10px rgba(58,88,148,.7);
+    transition:transform .15s var(--ease), background .2s;}
+  .btn:hover{background:var(--accent-fonce);} .btn:active{transform:scale(.985);}
+  .btn .n{font-weight:800;}
+
+  .link{font-size:12px; font-weight:700; color:var(--accent); padding:6px 8px; border-radius:8px; white-space:nowrap;}
+  .link:hover{background:rgba(58,88,148,.08);}
+  .link.done{color:var(--dim); font-weight:600;}
+
+  .pill{display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:700; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .pill::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor;}
+  .pill.ok{color:var(--ok);} .pill.warn{color:var(--warn);} .pill.crit{color:var(--crit);} .pill.acc{color:var(--accent);} .pill.dim{color:var(--dim);}
+
+  .toast{position:absolute; left:50%; bottom:92px; transform:translate(-50%,16px); background:var(--ink); color:var(--blanc); font-size:12.5px; font-weight:600;
+    padding:10px 16px; border-radius:999px; opacity:0; transition:all .25s var(--ease); z-index:40; white-space:nowrap; pointer-events:none;}
+  .toast.on{opacity:1; transform:translate(-50%,0);}
+
+  .tabbar{flex:0 0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2px; padding:8px 8px calc(8px + env(safe-area-inset-bottom)); background:var(--paper); border-top:1px solid var(--line); position:relative;}
+  .tab{display:flex; flex-direction:column; align-items:center; gap:4px; padding:7px 2px 4px; color:var(--dim); border-radius:12px; position:relative;}
+  .tab svg{width:21px;height:21px;}
+  .tab .cap{font-size:10px; font-weight:600;}
+  .tab.on{color:var(--accent);} .tab.on .cap{font-weight:700;}
+  .tab.attend{opacity:.45;} .tab.attend .cap::after{content:" …";}
+  .tabbar.n2{grid-template-columns:repeat(2,1fr);} .tabbar.n3{grid-template-columns:repeat(3,1fr);}
+
+  .home-ind{position:absolute; bottom:7px; left:50%; transform:translateX(-50%); width:120px; height:5px; border-radius:5px; background:rgba(20,19,15,.28); z-index:25;}
+
+  .attente{padding:22px 16px;}
+  .etape{display:flex; align-items:center; gap:11px; padding:9px 0; font-size:13px; color:var(--dim);}
+  .etape .tick{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;}
+  .etape.done{color:var(--ink);} .etape.done .tick{background:var(--ok);border-color:var(--ok);}
+  .erreur{margin:22px 16px; padding:14px 16px; border:1px solid var(--line); border-left:4px solid var(--warn); border-radius:14px; font-size:13px; line-height:1.5;}
+  .vide{margin:40px 22px; text-align:center; font-size:13.5px; line-height:1.55; color:var(--dim);}
+</style>
+</head>
+<body>
+  <div class="screen">
+
+    <div class="statusbar" aria-hidden="true">
+      <span>9:41</span>
+      <span class="right">
+        <svg width="17" height="11" viewBox="0 0 17 11"><g fill="var(--ink)">
+          <rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/>
+          <rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/>
+        </g></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 10.2 1 3.4a9.7 9.7 0 0 1 14 0L8 10.2Z" opacity=".25" fill="var(--ink)"/><path d="M8 10.2 4 6.3a5.4 5.4 0 0 1 8 0L8 10.2Z" fill="var(--ink)"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" fill="none" stroke="var(--ink)" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="var(--ink)"/><rect x="23" y="3.5" width="2" height="5" rx="1" fill="var(--ink)" opacity=".4"/></svg>
+      </span>
+    </div>
+
+    <div class="appbar">
+      <div class="brand">
+        <div>
+          <h1><img src="../ose-logo-light.svg" alt="OSE" /><span id="app-titre"></span></h1>
+          <div class="sub" id="app-sous-titre"></div>
+        </div>
+        <div class="greet"><div class="ava" id="app-ava"></div></div>
+      </div>
+    </div>
+
+    <div class="content" id="content"></div>
+
+    <nav class="tabbar" id="tabbar"></nav>
+
+    <div class="home-ind" aria-hidden="true"></div>
+
+    <div class="toast" id="toast"></div>
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  var ORIGINES = ['https://ose-os.fr', 'https://www.ose-os.fr', 'http://localhost:8080', 'http://127.0.0.1:8080'];
+  var JETON = (location.hash.match(/j=([a-z0-9]{16,64})/) || [])[1] || '';
+  var TON = { aucun:'dim', ok:'ok', warn:'warn', crit:'crit', acc:'acc' };
+  var ICONES = [
+    /* calendrier (rect + traits, convertis en chemins de contour) */
+    ['M6 4H18A3 3 0 0 1 21 7V19A3 3 0 0 1 18 22H6A3 3 0 0 1 3 19V7A3 3 0 0 1 6 4Z', 'M16 2v4M8 2v4M3 10h18'],
+    /* courbe (tendance) */
+    ['M3 3v16a2 2 0 0 0 2 2h16', 'm19 9-5 5-4-4-3 3'],
+    /* carte (tableau) */
+    ['M5 5H19A3 3 0 0 1 22 8V16A3 3 0 0 1 19 19H5A3 3 0 0 1 2 16V8A3 3 0 0 1 5 5Z', 'M2 10h20M6 15h4'],
+    /* personnes */
+    ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2', 'M13 7A4 4 0 1 1 5 7A4 4 0 1 1 13 7Z', 'M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75']
+  ];
+  var APP = null, cur = 0, fait = {};
+  var attenteTimers = [];
+
+  function el(tag, cls, texte){ var e = document.createElement(tag); if (cls) e.className = cls; if (texte != null) e.textContent = String(texte); return e; }
+  function svg(chemins){ var s = document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox','0 0 24 24'); s.setAttribute('fill','none'); s.setAttribute('stroke','currentColor'); s.setAttribute('stroke-width','2'); s.setAttribute('stroke-linecap','round'); s.setAttribute('stroke-linejoin','round'); chemins.forEach(function(d){ var p = document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d', d); s.appendChild(p); }); return s; }
+  function vider(n){ while (n.firstChild) n.removeChild(n.firstChild); }
+
+  function ligne(l, cle){
+    var estCocher = /^cocher$/i.test(l.action || '');
+    var row = el('div', 'row' + (fait[cle] && estCocher ? ' done' : ''));
+    if (estCocher){ var chk = el('span','chk'); if (fait[cle]) chk.appendChild(svg(['M20 6 9 17l-5-5'])); row.appendChild(chk); row.addEventListener('click', function(){ fait[cle] = !fait[cle]; rendre(); if (fait[cle]) toast('Fait'); }); }
+    var body = el('div','body'); body.appendChild(el('div','t', l.t));
+    var s = el('div','s');
+    if (l.etat && l.etat.mot){ var ton = Object.hasOwn(TON, l.etat.ton) ? TON[l.etat.ton] : 'dim'; s.appendChild(el('span','pill ' + ton, l.etat.mot)); if (l.s) s.appendChild(document.createTextNode(' · ')); }
+    if (l.s) s.appendChild(document.createTextNode(l.s));
+    if (s.childNodes.length) body.appendChild(s);
+    if (l.progression && l.progression.pct >= 0){ var tr = el('div','track'); var f = el('div','fill' + (l.progression.retard ? ' late' : '')); f.style.width = Math.max(0, Math.min(100, l.progression.pct)) + '%'; tr.appendChild(f); body.appendChild(tr); }
+    row.appendChild(body);
+    if (l.montant) row.appendChild(el('div','amt' + (l.etat && l.etat.ton === 'crit' ? ' crit' : ''), l.montant));
+    if (l.action && !estCocher){
+      if (fait[cle]) row.appendChild(el('span','link done', fait[cle]));
+      else { var b = el('button','link', l.action); b.type = 'button'; b.addEventListener('click', function(){ fait[cle] = l.action.replace(/er$/, 'é') + " aujourd'hui"; rendre(); toast(l.action + ' · ' + l.t); }); row.appendChild(b); }
+    }
+    return row;
+  }
+
+  function panneau(o, i){
+    var p = el('section','panel active');
+    p.appendChild(el('div','eyebrow', o.resume));
+    if (o.action && o.action.verbe){ var btn = el('button','btn'); btn.type = 'button'; btn.appendChild(el('span', null, o.action.verbe)); btn.appendChild(el('span','n', o.action.valeur)); btn.addEventListener('click', function(){ toast(o.action.verbe + ' · ' + o.action.valeur); }); p.appendChild(btn); }
+    (o.sections || []).forEach(function(s, j){
+      if (s.titre) p.appendChild(el('div','sec-title', s.titre));
+      var card = el('div','card');
+      (s.lignes || []).forEach(function(l, k){ card.appendChild(ligne(l, i + '-' + j + '-' + k)); });
+      p.appendChild(card);
+    });
+    return p;
+  }
+
+  function rendre(){
+    attenteTimers.forEach(clearTimeout); attenteTimers = [];
+    var content = document.getElementById('content'); vider(content);
+    var tabbar = document.getElementById('tabbar'); vider(tabbar);
+    if (!APP){ content.appendChild(el('div','vide', 'Décrivez ce qui vous manque : votre app apparaît ici, en quelques secondes.')); return; }
+    var onglets = APP.onglets || [];
+    tabbar.className = 'tabbar n' + Math.max(2, Math.min(4, APP.attendus || onglets.length));
+    content.appendChild(panneau(onglets[cur] || { resume: '', sections: [] }, cur));
+    var total = Math.max(onglets.length, APP.attendus || 0);
+    for (var i = 0; i < total; i++){
+      var o = onglets[i]; var t = el('button','tab' + (i === cur ? ' on' : '') + (o ? '' : ' attend')); t.type = 'button';
+      t.appendChild(svg(ICONES[i % 4])); t.appendChild(el('span','cap', o ? o.titre : ''));
+      if (o){ (function(idx){ t.addEventListener('click', function(){ cur = idx; rendre(); }); })(i); } else { t.disabled = true; }
+      tabbar.appendChild(t);
+    }
+    document.getElementById('app-titre').textContent = onglets[cur] ? onglets[cur].titre : '';
+  }
+
+  var toastT;
+  function toast(txt){ var x = document.getElementById('toast'); x.textContent = txt; x.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function(){ x.classList.remove('on'); }, 1800); }
+
+  var ETAPES = ['On relit votre phrase', 'On la traduit dans votre métier', 'On choisit les onglets utiles', "On dessine l'app"];
+  function attente(){
+    attenteTimers.forEach(clearTimeout); attenteTimers = [];
+    APP = null; cur = 0; fait = {};
+    var content = document.getElementById('content'); vider(content); vider(document.getElementById('tabbar'));
+    var zone = el('div','attente'); content.appendChild(zone);
+    ETAPES.forEach(function(label, i){
+      var idExt = setTimeout(function(){
+        var e = el('div','etape'); e.appendChild(el('span','tick')); e.appendChild(el('span', null, label)); zone.appendChild(e);
+        var idInt = setTimeout(function(){ e.classList.add('done'); }, 700);
+        attenteTimers.push(idInt);
+      }, i * 900);
+      attenteTimers.push(idExt);
+    });
+  }
+  function erreur(message){ attenteTimers.forEach(clearTimeout); attenteTimers = []; var content = document.getElementById('content'); vider(content); content.appendChild(el('div','erreur', message)); }
+
+  window.addEventListener('message', function(event){
+    if (ORIGINES.indexOf(event.origin) === -1) return;
+    var m = event.data; if (!m || typeof m !== 'object' || !JETON || m.j !== JETON) return;
+    if (m.type === 'attente') attente();
+    else if (m.type === 'premier'){ APP = { onglets: [m.onglet], attendus: 4 }; cur = 0; fait = {}; document.getElementById('app-sous-titre').textContent = m.sousTitre || ''; document.getElementById('app-ava').textContent = (m.sousTitre || 'OS').slice(0, 2).toUpperCase(); rendre(); }
+    else if (m.type === 'app'){ APP = { onglets: (m.app && m.app.onglets) || [], attendus: 0 }; cur = 0; rendre(); toast("C'est à vous"); }
+    else if (m.type === 'erreur') erreur(m.message || "Ça n'a pas marché.");
+    else if (m.type === 'reinit'){ APP = null; rendre(); }
+  });
+  rendre();
+  if (window.parent !== window && JETON) window.parent.postMessage({ j: JETON, type: 'pret' }, '*');
+})();
+</script>
+</body>
+</html>

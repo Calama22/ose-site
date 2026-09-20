@@ -58,7 +58,7 @@
   :root{
     --bg:#f4f2ec; --ink:#14130f; --dim:#7a766c; --line:#d9d5c8;
     --accent:#3a5894; --accent-d:#8fb0e0; --paper:#fbfaf6;
-    --green:#1f9d6b; --green-l:#e6f5f0;
+    --green:#1f9d6b; --green-l:#e6f5f0; --crit:#b3433a;
     --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
@@ -92,6 +92,8 @@
   .logo:hover img{transform:scale(1.05)}
   .nav-r{display:flex;gap:20px;align-items:center;font-size:13px;letter-spacing:.5px}
   .nav-r .idx{color:var(--dim)}
+  .nav-lien{color:var(--dim);transition:color .25s var(--ease)}
+  .nav-lien:hover{color:var(--accent)}
   .nav-cta{position:relative;border:1px solid var(--ink);padding:9px 18px;border-radius:40px;overflow:hidden;z-index:0}
   .nav-cta span{position:relative;z-index:1;transition:color .3s}
   .nav-cta::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .35s var(--ease)}
@@ -183,6 +185,7 @@
   @media(hover:none) and (pointer:coarse){
     .demo{pointer-events:none}
   }
+  #essayez .demo{pointer-events:auto}
   @media(max-width:880px){
     .hero-r{margin-top:6px}
     .phone{width:min(74vw,304px)}
@@ -233,6 +236,30 @@
   .step .no{position:relative;font-size:13px;letter-spacing:2px;color:var(--accent);font-weight:700}
   .step h3{position:relative;font-size:25px;font-weight:700;letter-spacing:-.5px;margin:20px 0 14px}
   .step p{position:relative;color:var(--dim);font-size:16px;line-height:1.7}
+
+  /* ---------- Essayez ---------- */
+  #essayez .es-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start}
+  #essayez .es-form{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 28px 22px}
+  #essayez .es-form .field{margin-top:18px}
+  #essayez .es-form select{width:100%;font:inherit;font-size:15px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 0;outline:none}
+  #essayez .es-form select:focus{border-bottom-color:var(--accent)}
+  #essayez .es-sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  #essayez .es-sugg button{font:inherit;font-size:12.5px;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+  #essayez .es-sugg button:hover{color:var(--accent);border-color:var(--accent)}
+  #essayez .es-compteur{font-size:12px;color:var(--dim);margin-top:6px;text-align:right}
+  #essayez .es-actions{margin-top:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  #essayez .es-msg{font-size:14px;line-height:1.5;color:var(--dim);margin-top:14px;min-height:1.5em}
+  #essayez .es-msg.err{color:var(--crit)}
+  #essayez .es-debloquer{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+  #essayez .es-debloquer[hidden]{display:none}
+  #essayez .es-legal{font-size:12px;color:var(--dim);line-height:1.5;margin-top:12px}
+  #essayez .es-debloquer input[type=email]{flex:1;min-width:220px;font:inherit;font-size:15px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:10px 0;outline:none}
+  #essayez .es-debloquer input[type=email]:focus{border-bottom-color:var(--accent)}
+  #essayez .es-phone{display:flex;flex-direction:column;align-items:center;gap:14px;position:sticky;top:90px}
+  #essayez .phone{animation:none}
+  #essayez .es-note{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:600}
+  @media(max-width:880px){#essayez .es-grid{grid-template-columns:1fr;gap:28px}#essayez .es-phone{position:static}}
+  #essayez[hidden]{display:none}
 
   /* ---------- quote ---------- */
   .quote{text-align:center;padding:120px 0}
@@ -373,6 +400,7 @@
   @keyframes sheen{0%{background-position:140% 0}100%{background-position:-40% 0}}
   @media(prefers-reduced-motion:reduce){#pre{display:none}}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
 
@@ -383,6 +411,7 @@
   <a class="logo" href="#top" aria-label="OSE — accueil"><img src="ose-logo-light.svg" alt="OSE" width="80" height="30"></a>
   <div class="nav-r">
     <span class="idx">FR — 2026</span>
+    <a class="nav-lien" href="#essayez" data-stat="essayer_nav">Essayez</a>
     <a class="nav-cta js-contact" href="#contact" data-stat="contact_nav"><span>Prendre contact</span></a>
   </div>
 </nav></div></header>
@@ -486,6 +515,77 @@
     </div>
   </div></section>
 
+  <!-- ============ ESSAYEZ : l'app du visiteur, générée pour de vrai ============ -->
+  <section id="essayez"><div class="wrap">
+    <div class="lead r">
+      <div class="idx">04 — ESSAYEZ</div>
+      <h2>Décrivez ce qui vous manque. <b>On construit,</b> <span class="serif it">là, maintenant.</span></h2>
+    </div>
+    <div class="es-grid">
+      <form class="es-form r" id="essai-form" novalidate>
+        <div class="field">
+          <label for="es-metier">Votre métier</label>
+          <select id="es-metier" name="metier" required>
+            <option value="">Choisir…</option>
+            <!-- ~49 métiers de l'ICP, un par option, valeur = libellé, ex. : -->
+            <option>Restaurant</option><option>Coiffeur</option><option>Boulangerie</option><option>Fleuriste</option>
+            <option>Opticien</option><option>Boucherie</option><option>Pharmacie</option><option>Pâtisserie</option>
+            <option>Brasserie</option><option>Prêt-à-porter</option><option>Épicerie</option><option>Bijouterie</option>
+            <option>Pizzeria</option><option>Caviste</option><option>Poissonnerie</option><option>Traiteur</option>
+            <option>Librairie</option><option>Animalerie</option><option>Cordonnier</option><option>Pressing</option>
+            <option>Salle de sport</option><option>Auto-école</option><option>Agence immobilière</option>
+            <option>Menuiserie</option><option>Plomberie</option><option>Électricité</option><option>Maçonnerie</option>
+            <option>Garage automobile</option><option>Imprimerie</option><option>Métallerie</option><option>Peinture bâtiment</option>
+            <option>Usinage</option><option>Chaudronnerie</option><option>Agroalimentaire</option><option>Paysagiste</option>
+            <option>Nettoyage</option><option>Transport</option><option>Logistique</option><option>Agencement</option>
+            <option>Serrurerie</option><option>Charpente</option><option>Plasturgie</option><option>Textile</option>
+            <option>Couverture toiture</option><option>Mécanique de précision</option><option>Ébénisterie</option>
+            <option>Signalétique</option><option>Chauffage climatisation</option>
+            <option value="autre">Autre…</option>
+          </select>
+          <input type="text" id="es-metier-autre" name="metier_autre" maxlength="40" placeholder="Votre métier en un ou deux mots" aria-label="Votre métier" hidden>
+        </div>
+        <div class="field">
+          <label for="es-taille">Vous êtes combien ?</label>
+          <select id="es-taille" name="taille" required>
+            <option value="">Choisir…</option>
+            <option value="seul">Seul</option><option value="2-9">2 à 9</option><option value="10-49">10 à 49</option><option value="50+">50 et plus</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="es-ville">Votre ville</label>
+          <input type="text" id="es-ville" name="ville" required maxlength="60" placeholder="ex. Lille" autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="es-besoin">Ce qui vous manque, en une phrase</label>
+          <textarea id="es-besoin" name="besoin" required maxlength="240" rows="2" placeholder="ex. je perds un temps fou avec les commandes fournisseurs" aria-describedby="es-compteur"></textarea>
+          <div class="es-compteur" id="es-compteur">240 caractères restants</div>
+          <div class="es-sugg" id="es-sugg" role="group" aria-label="Suggestions"></div>
+        </div>
+        <div id="es-turnstile" style="margin-top:18px"></div>
+        <div class="es-actions">
+          <button type="submit" class="btn btn-h" id="es-go">Construire mon app <span class="arr">→</span></button>
+        </div>
+        <p class="es-msg" id="es-msg" role="status"></p>
+        <div class="es-debloquer" id="es-debloquer" hidden>
+          <label for="es-courriel">Votre courriel pour voir les autres onglets</label>
+          <div class="es-actions" style="margin-top:8px">
+            <input type="email" id="es-courriel" name="courriel" placeholder="vous@entreprise.fr" autocomplete="email">
+            <button type="button" class="btn btn-o" id="es-ok">Débloquer</button>
+          </div>
+          <p class="es-legal">Votre courriel ne sert qu'à vous recontacter. Conservé 25 mois, hébergé en UE. Les chiffres de l'app sont des exemples.</p>
+        </div>
+      </form>
+      <div class="es-phone r">
+        <div class="phone" aria-live="polite">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <div class="phone-screen"><iframe id="es-app" class="demo is-active" sandbox="allow-scripts" title="Votre app OSE" scrolling="no"></iframe></div>
+        </div>
+        <div class="es-note">Votre app, en quelques secondes</div>
+      </div>
+    </div>
+  </div></section>
+
   <!-- ============ QUOTE (approche — pas d'avis inventés) ============ -->
   <div class="quote"><div class="wrap r">
     <blockquote class="serif">On ne vous vend pas un logiciel de plus. On part de votre angle mort.</blockquote>
@@ -495,7 +595,7 @@
   <!-- ============ INFOS : dispo + zone ============ -->
   <section id="infos"><div class="wrap">
     <div class="lead r">
-      <div class="idx">04 — EN PRATIQUE</div>
+      <div class="idx">05 — EN PRATIQUE</div>
       <h2>Comment on <b>démarre</b> ensemble, <span class="serif it">et depuis où.</span></h2>
     </div>
     <div class="info-grid">
@@ -537,7 +637,7 @@
     </div>
     <nav class="f-col">
       <span class="f-h">Le site</span>
-      <a href="#apropos">Qui on est</a><a href="#services">Ce qu'on construit</a><a href="#process">Comment ça marche</a><a href="#infos">En pratique</a>
+      <a href="#apropos">Qui on est</a><a href="#services">Ce qu'on construit</a><a href="#process">Comment ça marche</a><a href="#essayez" data-stat="essayer_nav">Essayez</a><a href="#infos">En pratique</a>
     </nav>
     <nav class="f-col">
       <span class="f-h">Contact</span>
@@ -779,6 +879,18 @@ onScrollUI(); if(!reduce)parallax();
   restartBar();                     // en mouvement réduit : reste sur la 1re
 })();
 
+/* ══ Message venu d'une démo (ex. démo C) : aller à « Essayez » ══ */
+window.addEventListener('message', function(ev){
+  if (ev.origin !== location.origin) return;
+  var m = ev.data;
+  if (!m || m.type !== 'aller' || m.cible !== 'essayez') return;
+  var src = Array.prototype.some.call(document.querySelectorAll('iframe.demo'), function(f){ return f.contentWindow === ev.source; });
+  if (!src) return;
+  var sec = document.getElementById('essayez'); if (!sec || sec.hidden) return;
+  if (window.oseStat) oseStat('clic', { cible: m.stat || 'essayer_demo' });
+  sec.scrollIntoView({ behavior: 'smooth' });
+});
+
 /* ══ Modale contact (reprise du site OSE) ══ */
 (function(){
   const modal=document.getElementById('contact-modal');
@@ -864,6 +976,138 @@ onScrollUI(); if(!reduce)parallax();
     }catch(err){ errMsg.classList.add('show'); if(window.oseStat) oseStat('form',{etape:'erreur'}); }
     finally{ submitBtn.disabled=false;submitBtn.textContent='Envoyer →'; }
   });
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  // ── À renseigner à la mise en ligne (tâche 9) ──
+  var URL_APP = 'https://ose-app.stats-relais.workers.dev';   // adresse du Worker, sans slash final
+  var TURNSTILE_CLE = '0x4AAAAAAE93jP1q9SoWVuK_';                           // clé de site Turnstile (publique)
+
+  // Tant que la mise en ligne (tâche 9) n'a pas renseigné les constantes, la section reste invisible : pas d'impasse pour le visiteur.
+  if (TURNSTILE_CLE === 'A_RENSEIGNER' || URL_APP.indexOf('A_RENSEIGNER') !== -1){
+    var sec = document.getElementById('essayez'); if (sec) sec.hidden = true;
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#essayez"]'), function(a){ a.hidden = true; });
+    return;
+  }
+
+  var form = document.getElementById('essai-form'), go = document.getElementById('es-go'), msg = document.getElementById('es-msg');
+  var iframe = document.getElementById('es-app'), debloquer = document.getElementById('es-debloquer');
+  var metier = document.getElementById('es-metier'), metierAutre = document.getElementById('es-metier-autre');
+  var besoin = document.getElementById('es-besoin'), compteur = document.getElementById('es-compteur');
+  if (!form || !iframe) return;
+
+  var etat = { id: null, jetonTurnstile: null, enCours: false, t0: 0, attenteJeton: false, turnstileMort: false };
+  var JETON = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(16)), function(b){ return (b + 256).toString(16).slice(1); }).join('');
+  iframe.src = 'demos/app-vivante.html#j=' + JETON;
+  function versApp(m){ m.j = JETON; iframe.contentWindow.postMessage(m, '*'); }
+  window.addEventListener('message', function(ev){ if (ev.source !== iframe.contentWindow) return; /* 'pret' : rien à faire pour l'instant */ });
+
+  function mesurer(etape, extra){ if (window.oseStat){ var d = { etape: etape }; if (extra) for (var k in extra) d[k] = extra[k]; oseStat('essai', d); } }
+  function afficher(texte, erreur){ msg.textContent = texte || ''; msg.classList.toggle('err', !!erreur); }
+
+  // Turnstile : un jeton par envoi ; on le pose au rendu, on le remet à zéro après chaque réponse.
+  var widget = null;
+  function rendreTurnstile(){
+    if (!window.turnstile || widget !== null) return;
+    widget = turnstile.render('#es-turnstile', { sitekey: TURNSTILE_CLE, action: 'essai', callback: function(t){ etat.jetonTurnstile = t; if (etat.attenteJeton){ etat.attenteJeton = false; lancer(); } }, 'expired-callback': function(){ etat.jetonTurnstile = null; }, 'error-callback': function(){ etat.jetonTurnstile = null; } });
+  }
+  var tentativesTs = 0;
+  var attenteTs = setInterval(function(){
+    if (window.turnstile){ clearInterval(attenteTs); rendreTurnstile(); return; }
+    tentativesTs++;
+    if (tentativesTs >= 100){ clearInterval(attenteTs); etat.turnstileMort = true; afficher("La vérification anti-robot n'a pas pu se charger. Rechargez la page.", true); }
+  }, 200);
+  function reinitTurnstile(){ etat.jetonTurnstile = null; if (window.turnstile && widget !== null){ try { turnstile.reset(widget); } catch (e) {} } }
+
+  metier.addEventListener('change', function(){ var autre = metier.value === 'autre'; metierAutre.hidden = !autre; if (autre) metierAutre.focus(); });
+  besoin.addEventListener('input', function(){ compteur.textContent = (240 - besoin.value.length) + ' caractères restants'; });
+
+  var FAMILLES = { proximite: ['restaurant','coiffeur','pharmacie','brasserie','pizzeria','traiteur','salle de sport','auto-école','agence immobilière','pressing','cordonnier','opticien','garage automobile'],
+    commerce: ['boulangerie','fleuriste','boucherie','pâtisserie','prêt-à-porter','épicerie','bijouterie','caviste','poissonnerie','librairie','animalerie'],
+    batiment: ['menuiserie','plomberie','électricité','maçonnerie','peinture bâtiment','paysagiste','serrurerie','charpente','couverture toiture','chauffage climatisation','agencement','ébénisterie','métallerie'],
+    industrie: ['imprimerie','usinage','chaudronnerie','agroalimentaire','plasturgie','textile','mécanique de précision','signalétique'],
+    b2b: ['nettoyage','transport','logistique'] };
+  var SUGGESTIONS = {
+    proximite: ['savoir ce qui me rapporte vraiment', 'que mes clients reviennent plus souvent', 'gérer les réservations sans y passer mes soirées'],
+    commerce: ['je perds un temps fou avec les commandes fournisseurs', 'savoir ce qui se vend vraiment', 'ne plus jeter d\'invendus'],
+    batiment: ['savoir où en sont mes chantiers', 'les devis qui restent sans réponse', 'être payé plus vite'],
+    industrie: ['suivre la production sans courir après les infos', 'les délais qui glissent', 'savoir ce que me coûte vraiment chaque commande'],
+    b2b: ['relancer mes clients sans y penser', 'savoir qui me doit de l\'argent', 'planifier la semaine des équipes'] };
+  function familleDe(m){ var s = (m || '').toLowerCase().normalize('NFD').replace(/\p{M}/gu, ''); for (var f in FAMILLES) for (var i = 0; i < FAMILLES[f].length; i++){ var c = FAMILLES[f][i].normalize('NFD').replace(/\p{M}/gu, ''); if (s.indexOf(c) !== -1) return f; } return 'batiment'; }
+  var sugg = document.getElementById('es-sugg');
+  function rendreSuggestions(){
+    while (sugg.firstChild) sugg.removeChild(sugg.firstChild);
+    var m = metier.value === 'autre' ? metierAutre.value : metier.value;
+    if (!m) return;
+    (SUGGESTIONS[familleDe(m)] || []).forEach(function(p){ var b = document.createElement('button'); b.type = 'button'; b.textContent = p; b.addEventListener('click', function(){ besoin.value = p; besoin.dispatchEvent(new Event('input')); besoin.focus(); }); sugg.appendChild(b); });
+  }
+  metier.addEventListener('change', rendreSuggestions); metierAutre.addEventListener('input', rendreSuggestions); rendreSuggestions();
+
+  var MESSAGES = { robot: 'La vérification anti-robot a échoué. Réessayez.', 413: 'Votre texte est trop long.', delai: 'Ça prend plus longtemps que prévu. Réessayez dans un instant.', reseau: 'Impossible de joindre le service. Vérifiez votre connexion et réessayez.' };
+  function messageErreur(status, corps){
+    if (corps && corps.message) return corps.message;
+    if (corps && corps.erreur === 'robot') return MESSAGES.robot;
+    if (status === 413) return MESSAGES[413];
+    return 'Ça n\'a pas marché, réessayez.';
+  }
+
+  function appeler(chemin, corps, delaiMs){
+    var ctrl = new AbortController(); var minuteur = setTimeout(function(){ ctrl.abort(); }, delaiMs);
+    return fetch(URL_APP + chemin, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(corps), signal: ctrl.signal })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return { status: r.status, corps: j }; }); })
+      .catch(function(e){ var abort = e && e.name === 'AbortError'; return { status: 0, corps: { erreur: abort ? 'delai' : 'reseau', message: abort ? MESSAGES.delai : MESSAGES.reseau } }; })
+      .finally(function(){ clearTimeout(minuteur); });
+  }
+
+  function lancer(){
+    if (etat.turnstileMort){ afficher("La vérification anti-robot n'a pas pu se charger. Rechargez la page.", true); return; }
+    if (etat.enCours) return;
+    var m = metier.value === 'autre' ? metierAutre.value.trim() : metier.value;
+    var corps = { metier: m.slice(0, 40), taille: document.getElementById('es-taille').value, ville: document.getElementById('es-ville').value.trim().slice(0, 60), besoin: besoin.value.trim().slice(0, 240), turnstile: etat.jetonTurnstile };
+    if (!corps.metier || !corps.taille || !corps.ville || corps.besoin.length < 3){ afficher('Renseignez votre métier, votre taille, votre ville et ce qui vous manque.', true); return; }
+    if (!corps.turnstile){ etat.attenteJeton = true; afficher('Un instant, la vérification anti-robot se termine…', false); return; }
+    etat.enCours = true; etat.t0 = Date.now(); go.disabled = true; afficher('On construit votre premier onglet…');
+    debloquer.hidden = true; versApp({ type: 'attente' }); mesurer('lance');
+    appeler('/essai', corps, 35000).then(function(rep){
+      etat.enCours = false; go.disabled = false; reinitTurnstile();
+      if (rep.status === 200 && rep.corps.onglet){
+        etat.id = rep.corps.id; try { sessionStorage.setItem('ose-essai', etat.id); } catch (e) {}
+        versApp({ type: 'premier', onglet: rep.corps.onglet, sousTitre: corps.metier + ' · ' + corps.ville });
+        afficher('Voilà votre premier onglet. Les autres sont prêts à être débloqués.'); debloquer.hidden = false;
+        mesurer('premier', { duree_ms: Date.now() - etat.t0 });
+        document.getElementById('es-courriel').focus();
+      } else {
+        var texte = messageErreur(rep.status, rep.corps); afficher(texte, true); versApp({ type: 'erreur', message: texte });
+        mesurer('erreur', { code: (rep.corps && rep.corps.erreur) || String(rep.status || 'reseau') });
+      }
+    });
+  }
+  var ok = document.getElementById('es-ok'), courriel = document.getElementById('es-courriel');
+  function debloquerApp(){
+    if (etat.enCours || !etat.id) return;
+    var c = courriel.value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c)){ afficher('Indiquez un courriel valide.', true); courriel.focus(); return; }
+    etat.enCours = true; ok.disabled = true; afficher('On termine les autres onglets…'); mesurer('courriel');
+    var t0 = Date.now();
+    appeler('/essai/' + encodeURIComponent(etat.id) + '/suite', { courriel: c }, 45000).then(function(rep){
+      etat.enCours = false; ok.disabled = false;
+      if (rep.status === 200 && rep.corps.app){
+        versApp({ type: 'app', app: rep.corps.app }); afficher('C\'est à vous. Envie d\'en parler ? Le bouton « Prendre contact » est en haut.'); debloquer.hidden = true;
+        mesurer('complet', { duree_ms: Date.now() - t0 });
+      } else {
+        var texte = messageErreur(rep.status, rep.corps); afficher(texte, true);
+        mesurer('erreur', { code: (rep.corps && rep.corps.erreur) || String(rep.status || 'reseau') });
+      }
+    });
+  }
+  ok.addEventListener('click', debloquerApp);
+  courriel.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); debloquerApp(); } });
+  // Identifiant d'un essai déjà construit dans cet onglet du navigateur : gardé en mémoire, jamais dans l'URL.
+  try { var ancien = sessionStorage.getItem('ose-essai'); if (ancien && /^[0-9a-f]{16}$/.test(ancien)){ etat.id = ancien; debloquer.hidden = false; afficher('Un essai est déjà prêt dans cet onglet du navigateur : indiquez votre courriel pour voir la suite.'); } } catch (e) {}
+  form.addEventListener('submit', function(e){ e.preventDefault(); lancer(); });
 })();
 </script>
 

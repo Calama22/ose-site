@@ -408,6 +408,36 @@
     color:var(--accent);font-weight:700;font-size:11px;
   }
 
+  /* CTA « en vrai » sous la conversation */
+  .cta-bar{
+    flex:0 0 auto;
+    display:flex;
+    justify-content:center;
+    padding:8px 14px 18px;
+    border-top:1px solid var(--line);
+    background:var(--paper);
+  }
+  .cta-essai{
+    font-family:inherit;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--dim);
+    background:transparent;
+    border:1px solid var(--line);
+    padding:7px 14px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .cta-essai:hover{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .cta-essai:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+
   /* Home indicator */
   .home-indicator{
     position:absolute;
@@ -469,6 +499,11 @@
     <!-- Thread -->
     <div class="thread" id="thread" aria-live="polite" aria-atomic="false">
       <div class="daystamp">Aujourd'hui</div>
+    </div>
+
+    <!-- CTA vers la vraie section « Essayez » du site -->
+    <div class="cta-bar">
+      <button type="button" class="cta-essai" onclick="window.parent.postMessage({ type: 'aller', cible: 'essayez', stat: 'essayer_demo' }, '*')">Essayez pour de vrai →</button>
     </div>
 
     <div class="home-indicator" aria-hidden="true"></div>
